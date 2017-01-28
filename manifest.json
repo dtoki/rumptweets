@@ -1,0 +1,7 @@
+{
+  "name": "RumpTweets",
+  "short_name": "RumpTweets",
+  "description": "Tweet like the most powerful man in the world.",
+  "start_url": "/",
+  "display": "standalone"
+}
