@@ -31,11 +31,12 @@
       
       #twitterCard {
         width: 100%;
+        background: white;
       }
       
       .tweet {
         width: 100%;
-        padding: 0px;
+        padding: 20px;
       }
       
       .tweet_bottom_icons {
@@ -44,6 +45,8 @@
       
       #shareImage-button {
         height: 40px;
+        background: #2AA4EF;
+        color: white;
       }
       
       paper-textarea {
@@ -57,19 +60,37 @@
         --iron-image-width: 100%;
       }
       #donaldHandUp_Image{
-        
+        width: 100%;
+        margin-top:100px;
+        /*padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;*/
+      }
+      /*#mainContent{
+        background: red;
+      }*/
+      .greeting{
+        font-size: 26pt;
+        font-weight: 300;
       }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650">
-      <div class=" s0 m2 americanFlagRed"></div>
-      <div class=" s12 m8 whiteColor">
+      <!--<div class=" s0 m2 americanFlagRed"></div>-->
+      <div  class="offset-m2 s12 m8 whiteColor" style="padding-left:0px; padding-right:0px;">
         <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../../images/png/banner.png" preload ></iron-image>
         <!------Start of twitter stuff------>
-        <div id="twitterCard" class=" ">
+        
+        <div id="twitterCard" >
           <div class="permalink-inner permalink-tweet-container">
             <iron-grid>
-              <div class="s12 offset-m2 m8 card">       
-                <div class="tweet permalink-tweet js-actionable-user js-actionable-tweet js-original-tweet with-social-proof logged-in js-initial-focus  focus"
+              <div class="s12 offset-m2 m8 ">
+                <div class="greeting">
+                  <p style="margin-top:20px;">Congratulations, Mr. President. </p>
+                  <p style="margin-top: 30px;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, 
+                    and your actions can change our world for the better</span> or for the worse. 
+                    So please use it with the care we expect from your office. </p>
+                </div>       
+                <div class=" card tweet permalink-tweet js-actionable-user js-actionable-tweet js-original-tweet with-social-proof logged-in js-initial-focus  focus"
                   data-associated-tweet-id="822504142178500608" data-tweet-id="822504142178500608" data-item-id="822504142178500608"
                   data-permalink-path="/realDonaldTrump/status/822504142178500608" data-conversation-id="822504142178500608"
                   data-tweet-nonce="822504142178500608-152725ae-1a35-4132-9d78-db3756b852e7" data-screen-name="realDonaldTrump"
@@ -79,33 +100,21 @@
                     <div class="permalink-header">
                       <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
                         <img class="avatar js-action-profile-avatar" src="../../images/png/djt_headshot.jpg" alt="">
-                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<span class="Icon Icon--verified Icon--small">
-                      <span class="u-hiddenVisually">Verified account</span></span></strong>
+                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<iron-image class="Icon" style="position: absolute; margin-left:4px;" src="../../images/png/ic_verify.png" ></strong>
                         <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
                       </a>
-                      <small class="time">
+                      <!--<small class="time">
                           <a  class="tweet-timestamp js-permalink js-nav js-tooltip" title="10:00 AM - 20 Jan 2017" data-conversation-id="822504142178500608"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1484935243" data-time-ms="1484935243000" data-long-form="true" aria-hidden="true">8h</span><span class="u-hiddenVisually" data-aria-label-part="last">8 hours ago</span></a>
-                        </small>
+                        </small>-->
                       <div class="follow-bar">
                         <div class="user-actions btn-group not-following not-muting  " data-user-id="25073877" data-screen-name="realDonaldTrump"
                           data-name="Donald J. Trump" data-protected="false">
                           <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
-                          <span class="button-text follow-text">
-                            <span class="Icon Icon--follow"></span> Follow 
+                          <span class="button-text follow-text" style="margin-top:4px;">
+                           <iron-image class="Icon" style="margin-bottom:3px" src="../../images/png/follow_icon.png" ></iron-image>Follow 
                             
                           </span>
-                          <span class="button-text following-text">
-                            Following 
-                            
-                          </span>
-                          <span class="button-text unfollow-text">
-                            Unfollow 
-                            
-                          </span>
-                          <span class="button-text blocked-text">Blocked</span>
-                          <span class="button-text unblock-text">Unblock</span>
-                          <span class="button-text pending-text">Pending</span>
-                          <span class="button-text cancel-text">Cancel</span>
+                          
                         </button>
                       </div>
                     </div>
@@ -232,17 +241,15 @@
         </div>
         </iron-grid>
         <iron-grid>
-          <paper-button id="shareImage-button" raised class="offset-s3 s6">Share your fake tweet.</paper-button>
+          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s3 s6">Share your fake tweet.</paper-button>
         </iron-grid>
-        
+          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../../images/png/donaldHandUp.png" ></iron-image>
       </div>
       
       </div>
-      <!------End of twitter stuffe------>
-      <div id="previewImage"></div>
-      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../../images/png/donaldHandUp.png" ></iron-image>
+      
       </div>
-      <div class="s0 m2 americanFlagRed"></div>
+      <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
   </template>
   <script>
@@ -255,24 +262,76 @@
           type: String,
           value: 'RumpTweets-app',
         },
+        user :{
+          type:Object,
+          value:{}
+        }
       },
 
       ready: function () {
+        var rootThis = this;
         var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
         var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
         var imageContainer = donaldTrunpHandUp.getElementsByTagName("img");
         //console.log(imageContainer.getBoundingClientRect());
+        setTimeout(function() {
+            firebase.auth().signInAnonymously().catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+          });
+
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              // User is signed in.
+              var isAnonymous = user.isAnonymous;
+              var uid = user.uid;
+              rootThis.user = user;
+              console.log(rootThis.user);
+              // ...
+            } else {
+              // User is signed out.
+              // ...
+            }
+            // ...
+          });
+        }, 500);
+        
 
       },
 
       takePicture: function () {
+        var rootThis = this;
         var categorySection = Polymer.dom(this.root).querySelector('#twitterCard');
         var doucumentRootRef = this.root;
-        console.log(categorySection);
+        //console.log(categorySection);
         html2canvas(categorySection, {
           onrendered: function (canvas) {
-            console.log(Polymer.dom(this.root).querySelector('#previewImage'));
-            Polymer.dom(doucumentRootRef).querySelector('#previewImage').appendChild(canvas);
+          
+          canvas.toBlob(function(blob){
+               // Create a root reference
+            var storageRef = firebase.storage().ref();
+
+            //get ref to new key
+            var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
+            // Create a reference to were you want to store data
+            var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.jpeg');
+
+             var postData = {
+              imgeUrl: mountainImagesRef.fullPath,
+            };
+            var updates = {};
+            updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
+
+            var file = blob // use the Blob or File API
+            mountainImagesRef.put(file).then(function(snapshot) {
+              console.log('Uploaded a blob or file!');
+              firebase.database().ref().update(updates);
+            });
+
+          }, 'image/jpeg', 1);
+            
           }
         });
       }

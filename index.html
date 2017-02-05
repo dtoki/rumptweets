@@ -11,7 +11,8 @@
     <link rel="manifest" href="/manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-
+    
+    <!--<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>-->
     <link rel="import" href="/src/RumpTweets-app/RumpTweets-app.html">
   </head>
   <body>
@@ -29,7 +30,24 @@
       margin: 0px;
       padding:0px;
       font-family: 'Roboto', sans-serif;
+      background: #b22234;
     }
 
   </style>
+  <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",
+      authDomain: "rumptweets-2c7cc.firebaseapp.com",
+      databaseURL: "https://rumptweets-2c7cc.firebaseio.com",
+      storageBucket: "rumptweets-2c7cc.appspot.com",
+      messagingSenderId: "570027697414"
+    };
+    firebase.initializeApp(config);
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    var storage = firebase.storage();
+    console.log("done");
+  </script>
+
 </html>
