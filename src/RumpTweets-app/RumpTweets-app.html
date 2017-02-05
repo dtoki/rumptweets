@@ -3,59 +3,93 @@
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-fit-behavior/iron-fit-behavior.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <link rel="import" href="shared-styles.html">
 <dom-module id="RumpTweets-app">
   <template>
     <style include="shared-styles">
-      :host {
+       :host {
         display: block;
         height: 100%;
       }
-      .whiteColor{
+      
+      .whiteColor {
         background: white;
       }
-      .americanFlagRed{
+      
+      .americanFlagRed {
         background: #b22234;
         height: 100%;
       }
-      iron-grid{
+      
+      iron-grid {
         height: 100%;
       }
-     
+      
+      #twitterCard {
+        width: 100%;
+      }
+      
+      .tweet {
+        width: 100%;
+        padding: 0px;
+      }
+      
+      .tweet_bottom_icons {
+        --iron-image-width: 17px;
+      }
+      
+      #shareImage-button {
+        height: 40px;
+      }
+      
+      paper-textarea {
+        --paper-input-container-color: white;
+        --paper-input-container-focus-color: white;
+        --paper-input-container-label: {
+          color: grey;
+        }
+      }
+      .baner_Image{
+        --iron-image-width: 100%;
+      }
+      #donaldHandUp_Image{
+        
+      }
     </style>
-<iron-grid xs-max-width="300" s-max-width="650">
-  <div class=" s0 m2 americanFlagRed"></div>
-  
-  <div class=" s12 m8 whiteColor">
-    <!------Start of twitter stuff------>
-    <div id="twitterCard" class=" ">
-      <div class="permalink-inner permalink-tweet-container">
-        <iron-grid >
-          <div class="s12 offset-m2 m8 card">
-            <div class="tweet permalink-tweet js-actionable-user js-actionable-tweet js-original-tweet          with-social-proof logged-in js-initial-focus  focus"
-              data-associated-tweet-id="822504142178500608" data-tweet-id="822504142178500608" data-item-id="822504142178500608"
-              data-permalink-path="/realDonaldTrump/status/822504142178500608" data-conversation-id="822504142178500608" data-tweet-nonce="822504142178500608-152725ae-1a35-4132-9d78-db3756b852e7"
-              data-screen-name="realDonaldTrump" data-name="Donald J. Trump" data-user-id="25073877" data-you-follow="false" data-follows-you="false"
-              data-you-block="false" data-disclosure-type="" tabindex="0">
-
-              <div class="content clearfix">
-                <div class="permalink-header">
-                  <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/realDonaldTrump" data-user-id="25073877">
-                    <img class="avatar js-action-profile-avatar" src="https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_bigger.jpg"
-                      alt="">
-                      <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<span class="Icon Icon--verified Icon--small">
+    <iron-grid xs-max-width="300" s-max-width="650">
+      <div class=" s0 m2 americanFlagRed"></div>
+      <div class=" s12 m8 whiteColor">
+        <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../../images/png/banner.png" preload ></iron-image>
+        <!------Start of twitter stuff------>
+        <div id="twitterCard" class=" ">
+          <div class="permalink-inner permalink-tweet-container">
+            <iron-grid>
+              <div class="s12 offset-m2 m8 card">       
+                <div class="tweet permalink-tweet js-actionable-user js-actionable-tweet js-original-tweet with-social-proof logged-in js-initial-focus  focus"
+                  data-associated-tweet-id="822504142178500608" data-tweet-id="822504142178500608" data-item-id="822504142178500608"
+                  data-permalink-path="/realDonaldTrump/status/822504142178500608" data-conversation-id="822504142178500608"
+                  data-tweet-nonce="822504142178500608-152725ae-1a35-4132-9d78-db3756b852e7" data-screen-name="realDonaldTrump"
+                  data-name="Donald J. Trump" data-user-id="25073877" data-you-follow="false" data-follows-you="false" data-you-block="false"
+                  data-disclosure-type="" tabindex="0">
+                  <div class="content clearfix">
+                    <div class="permalink-header">
+                      <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
+                        <img class="avatar js-action-profile-avatar" src="../../images/png/djt_headshot.jpg" alt="">
+                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<span class="Icon Icon--verified Icon--small">
                       <span class="u-hiddenVisually">Verified account</span></span></strong>
-                          <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
-                        </a>
-                        <small class="time">
-                          <a href="/realDonaldTrump/status/822504142178500608" class="tweet-timestamp js-permalink js-nav js-tooltip" title="10:00 AM - 20 Jan 2017" data-conversation-id="822504142178500608"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1484935243" data-time-ms="1484935243000" data-long-form="true" aria-hidden="true">8h</span><span class="u-hiddenVisually" data-aria-label-part="last">8 hours ago</span></a>
+                        <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
+                      </a>
+                      <small class="time">
+                          <a  class="tweet-timestamp js-permalink js-nav js-tooltip" title="10:00 AM - 20 Jan 2017" data-conversation-id="822504142178500608"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1484935243" data-time-ms="1484935243000" data-long-form="true" aria-hidden="true">8h</span><span class="u-hiddenVisually" data-aria-label-part="last">8 hours ago</span></a>
                         </small>
-                        <div class="follow-bar">
-                          <div class="user-actions btn-group not-following not-muting  " data-user-id="25073877" data-screen-name="realDonaldTrump"
-                            data-name="Donald J. Trump" data-protected="false">
-                            <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
+                      <div class="follow-bar">
+                        <div class="user-actions btn-group not-following not-muting  " data-user-id="25073877" data-screen-name="realDonaldTrump"
+                          data-name="Donald J. Trump" data-protected="false">
+                          <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
                           <span class="button-text follow-text">
                             <span class="Icon Icon--follow"></span> Follow 
                             
@@ -75,290 +109,174 @@
                         </button>
                       </div>
                     </div>
-                    <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
-                      <div class="dropdown">
-                        <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button">
-                      <div class="IconContainer js-tooltip" title="More">
-                        <span class="Icon Icon--caretDownLight Icon--smallest"></span>
-                        <span class="u-hiddenVisually">More</span>
-                      </div>
-                      </button>
-                                      <div class="dropdown-menu">
-                                        <div class="dropdown-caret">
-                                          <div class="caret-outer"></div>
-                                          <div class="caret-inner"></div>
-                                        </div>
-                                        <ul>
-                                          <li class="share-via-dm js-actionShareViaDM" data-nav="share_tweet_dm">
-                                            <button type="button" class="dropdown-link">Share via Direct Message</button>
-                                          </li>
-
-                                          <li class="copy-link-to-tweet js-actionCopyLinkToTweet">
-                                            <button type="button" class="dropdown-link">Copy link to Tweet</button>
-                                          </li>
-                                          <li class="embed-link js-actionEmbedTweet" data-nav="embed_tweet">
-                                            <button type="button" class="dropdown-link">Embed Tweet</button>
-                                          </li>
-                                          <li class="mute-user-item pretty-link"><button type="button" class="dropdown-link">Mute @realDonaldTrump</button></li>
-                                          <li class="unmute-user-item pretty-link"><button type="button" class="dropdown-link">Unmute @realDonaldTrump</button></li>
-
-                                          <li class="mute-conversation-item"><button type="button" class="dropdown-link">Mute this conversation</button></li>
-                                          <li class="unmute-conversation-item"><button type="button" class="dropdown-link">Unmute this conversation</button></li>
-
-                                          <li class="block-link js-actionBlock" data-nav="block">
-                                            <button type="button" class="dropdown-link">Block @realDonaldTrump</button>
-                                          </li>
-                                          <li class="unblock-link js-actionUnblock" data-nav="unblock">
-                                            <button type="button" class="dropdown-link">Unblock @realDonaldTrump</button>
-                                          </li>
-                                          <li class="report-link js-actionReport" data-nav="report">
-                                            <button type="button" class="dropdown-link">
-                              
-                                
-                                Report Tweet
-                            </button>
-                                          </li>
-                                          <li class="dropdown-divider"></li>
-                                          <li class="js-actionMomentMakerAddTweetToOtherMoment MomentMakerAddTweetToOtherMoment">
-                                            <button type="button" class="dropdown-link">More</button>
-                                          </li>
-                                          <li class="js-actionMomentMakerCreateMoment">
-                                            <button type="button" class="dropdown-link">New Moment</button>
-                                          </li>
-                                        </ul>
-                                      </div>
-
-                                    </div>
-
-                                  </div>
-
-                                </div>
-                              </div>
-
-
-
-                              <div class="js-tweet-text-container">
-                                <p class="TweetTextSize TweetTextSize--26px js-tweet-text tweet-text" lang="en" data-aria-label-part="0">So to all Americans, in every city near and far, small and large, from mountain to mountain...</p>
-                              </div>
-
-
-
-
-
-
-
-                              <div class="js-tweet-details-fixer tweet-details-fixer">
-
-                                <div class="js-machine-translated-tweet-container"></div>
-                                <div class="js-tweet-stats-container tweet-stats-container">
-
-                                  <ul class="stats" aria-label="Retweeted and favorited by">
-                                    <li class="js-stat-count js-stat-retweets stat-count" aria-hidden="true">
-                                      <a tabindex="0" role="button" data-tweet-stat-count="10433" data-compact-localized-count="10K" class="request-retweeted-popup"
-                                        data-activity-popup-title="10,433 retweets">
-                              
-                              Retweets <strong>10,433</strong>
+                  </div>
+              </div>
+              <div class="js-tweet-text-container">
+                <paper-textarea id="input-textArea" label="Click to start typing..."></paper-textarea>
+              </div>
+              <div class="js-tweet-details-fixer tweet-details-fixer">
+                <div class="js-machine-translated-tweet-container"></div>
+                <div class="js-tweet-stats-container tweet-stats-container">
+                  <ul class="stats" aria-label="Retweeted and favorited by">
+                    <li class="js-stat-count js-stat-retweets stat-count" aria-hidden="true">
+                      <a tabindex="0" role="button" data-tweet-stat-count="10433" data-compact-localized-count="10K" class="request-retweeted-popup"
+                        data-activity-popup-title="10,433 retweets">
+                        Retweets <strong>10,433</strong>
+                        </a>
+                    </li>
+                    <li class="js-stat-count js-stat-favorites stat-count" aria-hidden="true">
+                      <a tabindex="0" role="button" data-tweet-stat-count="54820" data-compact-localized-count="55K" class="request-favorited-popup"
+                        data-activity-popup-title="54,820 likes">
+                        Likes <strong>54,820</strong>
+                        </a>
+                    </li>
+                    <li class="avatar-row js-face-pile-container">
+                      <a class="js-profile-popup-actionable js-tooltip" data-user-id="930429612" original-title="Robert Golden" title="Robert Golden"rel="noopener">
+                        <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_1.jpeg" alt="Robert Golden">
+                      </a>
+                        <a class="js-profile-popup-actionable js-tooltip" data-user-id="3084231070" original-title="Wanda Brewington" title="Wanda Brewington"
+                          rel="noopener">
+                          <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_2.png" alt="Wanda Brewington">
                           </a>
-                                    </li>
-
-                                    <li class="js-stat-count js-stat-favorites stat-count" aria-hidden="true">
-                                      <a tabindex="0" role="button" data-tweet-stat-count="54820" data-compact-localized-count="55K" class="request-favorited-popup"
-                                        data-activity-popup-title="54,820 likes">
-                              
-                              Likes <strong>54,820</strong>
-                          </a>
-                                    </li>
-
-                                    <li class="avatar-row js-face-pile-container">
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/RGGIII" data-user-id="930429612" original-title="Robert Golden"
-                                        title="Robert Golden" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://pbs.twimg.com/profile_images/565211037826154497/CVMBvRb5_normal.jpeg"
-                                          alt="Robert Golden">
+                          <a class="js-profile-popup-actionable js-tooltip" data-user-id="755004241383751680" original-title="TrumpPepe2020" title="TrumpPepe2020"
+                            rel="noopener">
+                            <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_3.jpg" alt="TrumpPepe2020">
+                            </a>
+                            <a class="js-profile-popup-actionable js-tooltip" data-user-id="3303150538" original-title="Thomas Jon IV" title="Thomas Jon IV"
+                              rel="noopener">
+                              <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_4.jpg" alt="Thomas Jon IV">
+                              </a>
+                              <a class="js-profile-popup-actionable js-tooltip" data-user-id="3439191809" original-title="Zachary Lippincott" title="Zachary Lippincott"
+                                rel="noopener">
+                                <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_5.jpg" alt="Zachary Lippincott">
+                                </a>
+                                <a class="js-profile-popup-actionable js-tooltip" data-user-id="758491129104834560" original-title="Hillary Diane" title="Hillary Diane"
+                                  rel="noopener">
+                                  <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_6.png" alt="Hillary Diane">
+                                  </a>
+                                  <a class="js-profile-popup-actionable js-tooltip" data-user-id="822447154182688768" original-title="Sandra Darby" title="Sandra Darby"
+                                    rel="noopener">
+                                    <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_7.png" alt="Sandra Darby">
+                                    </a>
+                                    <a class="js-profile-popup-actionable js-tooltip" data-user-id="818129288763351040" original-title="Patti Collis" title="Patti Collis"
+                                      rel="noopener">
+                                      <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_8.png" alt="Patti Collis">
                                       </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/WandaBrewingto3" data-user-id="3084231070" original-title="Wanda Brewington"
-                                        title="Wanda Brewington" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png"
-                                          alt="Wanda Brewington">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/Fuehrer_Pepe" data-user-id="755004241383751680" original-title="TrumpPepe2020"
-                                        title="TrumpPepe2020" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://pbs.twimg.com/profile_images/796309639361085440/fQULNeky_normal.jpg"
-                                          alt="TrumpPepe2020">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/SportsfanThomas" data-user-id="3303150538" original-title="Thomas Jon IV"
-                                        title="Thomas Jon IV" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_2_normal.png"
-                                          alt="Thomas Jon IV">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/TideLipp" data-user-id="3439191809" original-title="Zachary Lippincott"
-                                        title="Zachary Lippincott" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://pbs.twimg.com/profile_images/725791110656827392/Hxijcl6x_normal.jpg"
-                                          alt="Zachary Lippincott">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/mrsbdavis514" data-user-id="758491129104834560" original-title="Hillary Diane"
-                                        title="Hillary Diane" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://pbs.twimg.com/profile_images/819579275237998593/OpOn1s1B_normal.jpg"
-                                          alt="Hillary Diane">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/Sld4901" data-user-id="822447154182688768" original-title="Sandra Darby"
-                                        title="Sandra Darby" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_6_normal.png"
-                                          alt="Sandra Darby">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/Saavy001" data-user-id="818129288763351040" original-title="Patti Collis"
-                                        title="Patti Collis" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_0_normal.png"
-                                          alt="Patti Collis">
-                                      </a>
-                                      <a class="js-profile-popup-actionable js-tooltip" href="/AGuzauskis" data-user-id="742092612195078145" original-title="sagcambridge15@yahoo"
-                                        title="sagcambridge15@yahoo" rel="noopener">
-                                        <img class="avatar size24 js-user-profile-link" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_1_normal.png"
-                                          alt="sagcambridge15@yahoo">
-                                      </a>
-                                    </li>
-                                  </ul>
-
-
-                                </div>
-
-                                <div class="client-and-actions">
-                                  <span class="metadata">
+                    </li>
+                  </ul>
+                </div>
+                <div class="client-and-actions">
+                  <span class="metadata">
                         <span>10:00 AM - 20 Jan 2017</span>
-
-                                  </span>
-                                </div>
-
-
-                              </div>
-                              <div class="stream-item-footer">
-                                <div class="ProfileTweet-actionCountList u-hiddenVisually">
-                                  <span class="ProfileTweet-action--reply u-hiddenVisually">
+                  </span>
+                </div>
+              </div>
+              <div class="stream-item-footer">
+                <div class="ProfileTweet-actionCountList u-hiddenVisually">
+                  <span class="ProfileTweet-action--reply u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="4775">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">4,775 replies</span>
-                                  </span>
-                                  </span>
-                                  <span class="ProfileTweet-action--retweet u-hiddenVisually">
+                  </span>
+                  </span>
+                  <span class="ProfileTweet-action--retweet u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="10433">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">10,433 retweets</span>
-                                  </span>
-                                  </span>
-                                  <span class="ProfileTweet-action--favorite u-hiddenVisually">
+                  </span>
+                  </span>
+                  <span class="ProfileTweet-action--favorite u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="54820">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">54,820 likes</span>
-                                  </span>
-                                  </span>
-                                </div>
-
-                                <div class="ProfileTweet-actionList js-actions buffer-inserted pocket-inserted" role="group" aria-label="Tweet actions">
-                                  <div class="ProfileTweet-action ProfileTweet-action--reply">
-                                    <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply"
-                                      type="button">
-                        <div class="IconContainer js-tooltip" title="Reply">
-                          <span class="Icon Icon--reply"></span>
-                          <span class="u-hiddenVisually">Reply</span>
-                        </div>
-                          <div class="IconTextContainer">
-                            <span class="ProfileTweet-actionCount ">
-                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">4.8K</span>
-                            </span>
-                          </div>
-                      </button>
-                                  </div>
-                                  <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
-                                    <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
-                        <div class="IconContainer js-tooltip" title="Retweet">
-                          <span class="Icon Icon--retweet"></span>
-                          <span class="u-hiddenVisually">Retweet</span>
-                        </div>
-                          <div class="IconTextContainer">
-                            <span class="ProfileTweet-actionCount">
-                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">10K</span>
-                            </span>
-                          </div>
-                      </button><button class="ProfileTweet-actionButtonUndo js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet"
-                                      type="button">
-                        <div class="IconContainer js-tooltip" title="Undo retweet">
-                          <span class="Icon Icon--retweet"></span>
-                          <span class="u-hiddenVisually">Retweeted</span>
-                        </div>
-                          <div class="IconTextContainer">
-                            <span class="ProfileTweet-actionCount">
-                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">10K</span>
-                            </span>
-                          </div>
-                      </button>
-                                  </div>
-                                  <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
-                                    <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
-                        <div class="IconContainer js-tooltip" title="Like">
-                          <div class="HeartAnimationContainer">
-                            <div class="HeartAnimation"></div>
-                          </div>
-                          <span class="u-hiddenVisually">Like</span>
-                        </div>
-                          <div class="IconTextContainer">
-                            <span class="ProfileTweet-actionCount">
-                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
-                            </span>
-                          </div>
-                      </button><button class="ProfileTweet-actionButtonUndo u-linkClean js-actionButton js-actionFavorite" type="button">
-                        <div class="IconContainer js-tooltip" title="Undo like">
-                          <div class="HeartAnimationContainer">
-                            <div class="HeartAnimation"></div>
-                          </div>
-                          <span class="u-hiddenVisually">Liked</span>
-                        </div>
-                          <div class="IconTextContainer">
-                            <span class="ProfileTweet-actionCount">
-                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
-                            </span>
-                          </div>
-                      </button>
+                  </span>
+                  </span>
+                </div>
+                <div class="ProfileTweet-actionList js-actions buffer-inserted pocket-inserted" role="group" aria-label="Tweet actions">
+                  <div class="ProfileTweet-action ProfileTweet-action--reply">
+                    <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply"
+                      type="button">
+                      <div class="IconContainer js-tooltip" title="Reply">
+                        <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_replypng.png"></iron-image>
+                        <span class="u-hiddenVisually">Reply</span>
                       </div>
-                    </div>
+                      <div class="IconTextContainer">
+                        <span class="ProfileTweet-actionCount ">
+                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">4.8K</span>
+                        </span>
+                      </div>
+                      </button>
+                  </div>
+                  <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+                    <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+                                      <div class="IconContainer js-tooltip" title="Retweet">
+                                        <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_retweetpng.png" ></iron-image>
+                                        <span class="u-hiddenVisually">Retweet</span>
+                                      </div>
+                                        <div class="IconTextContainer">
+                                          <span class="ProfileTweet-actionCount">
+                                            <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">10K</span>
+                                          </span>
+                                        </div>
+                                    </button>
+                  </div>
+                  <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                    <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+                                      <div class="IconContainer js-tooltip" title="Like"></div>
+                                        <div class="IconTextContainer">
+                              <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_likepng.png" ></iron-image>
+                              <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
+                          </div>
+                      </button>
                   </div>
                 </div>
               </div>
-              <br>
-            </iron-grid>
           </div>
+        </div>
+        </iron-grid>
+        <iron-grid>
+          <paper-button id="shareImage-button" raised class="offset-s3 s6">Share your fake tweet.</paper-button>
+        </iron-grid>
+        
+      </div>
+      
       </div>
       <!------End of twitter stuffe------>
-     <div id="previewImage"></div>
-    </div>
-  
+      <div id="previewImage"></div>
+      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../../images/png/donaldHandUp.png" ></iron-image>
+      </div>
+      <div class="s0 m2 americanFlagRed"></div>
+    </iron-grid>
+  </template>
+  <script>
+    Polymer({
 
-  <div class="s0 m2 americanFlagRed"></div>
+      is: 'RumpTweets-app',
 
-</iron-grid>
-</template>
-
-<script>
-  Polymer({
-
-    is: 'RumpTweets-app',
-
-    properties: {
-      prop1: {
-        type: String,
-        value: 'RumpTweets-app',
+      properties: {
+        prop1: {
+          type: String,
+          value: 'RumpTweets-app',
+        },
       },
-    },
 
-    takePicture:function(){
-      var categorySection = Polymer.dom(this.root).querySelector('#twitterCard');
-      var doucumentRootRef = this.root;
-      console.log(categorySection);
-       html2canvas(categorySection, {
-        onrendered: function(canvas) {
-          console.log(Polymer.dom(this.root).querySelector('#previewImage'));
-          Polymer.dom(doucumentRootRef).querySelector('#previewImage').appendChild(canvas);
-        }
-      });
-    }
+      ready: function () {
+        var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
+        var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
+        var imageContainer = donaldTrunpHandUp.getElementsByTagName("img");
+        //console.log(imageContainer.getBoundingClientRect());
 
-  });
+      },
 
- 
-</script>
+      takePicture: function () {
+        var categorySection = Polymer.dom(this.root).querySelector('#twitterCard');
+        var doucumentRootRef = this.root;
+        console.log(categorySection);
+        html2canvas(categorySection, {
+          onrendered: function (canvas) {
+            console.log(Polymer.dom(this.root).querySelector('#previewImage'));
+            Polymer.dom(doucumentRootRef).querySelector('#previewImage').appendChild(canvas);
+          }
+        });
+      }
+
+    });
+  </script>
 </dom-module>
