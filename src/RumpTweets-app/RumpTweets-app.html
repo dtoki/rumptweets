@@ -5,6 +5,10 @@
 <link rel="import" href="../../bower_components/iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <link rel="import" href="shared-styles.html">
@@ -72,6 +76,12 @@
       .greeting{
         font-size: 26pt;
         font-weight: 300;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      iron-icon{
+        --iron-icon-fill-color:grey;
       }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650">
@@ -83,19 +93,14 @@
         <div id="twitterCard" >
           <div class="permalink-inner permalink-tweet-container">
             <iron-grid>
-              <div class="s12 offset-m2 m8 ">
+              <div  class="s12 offset-m2 m8">
                 <div class="greeting">
-                  <p style="margin-top:20px;">Congratulations, Mr. President. </p>
+                  <p style="margin-top:80px;">Congratulations, Mr. President. </p>
                   <p style="margin-top: 30px;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, 
                     and your actions can change our world for the better</span> or for the worse. 
                     So please use it with the care we expect from your office. </p>
                 </div>       
-                <div class=" card tweet permalink-tweet js-actionable-user js-actionable-tweet js-original-tweet with-social-proof logged-in js-initial-focus  focus"
-                  data-associated-tweet-id="822504142178500608" data-tweet-id="822504142178500608" data-item-id="822504142178500608"
-                  data-permalink-path="/realDonaldTrump/status/822504142178500608" data-conversation-id="822504142178500608"
-                  data-tweet-nonce="822504142178500608-152725ae-1a35-4132-9d78-db3756b852e7" data-screen-name="realDonaldTrump"
-                  data-name="Donald J. Trump" data-user-id="25073877" data-you-follow="false" data-follows-you="false" data-you-block="false"
-                  data-disclosure-type="" tabindex="0">
+                <div style="margin-top:50px;" id="trump_tweet" class=" card tweet permalink-tweet">
                   <div class="content clearfix">
                     <div class="permalink-header">
                       <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
@@ -121,7 +126,7 @@
                   </div>
               </div>
               <div class="js-tweet-text-container">
-                <paper-textarea id="input-textArea" label="Click to start typing..."></paper-textarea>
+                <paper-textarea id="input-textArea" label="{{myLabel}}" value="{{userInput}}"></paper-textarea>
               </div>
               <div class="js-tweet-details-fixer tweet-details-fixer">
                 <div class="js-machine-translated-tweet-container"></div>
@@ -251,13 +256,39 @@
       </div>
       <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
+    
+    <paper-dialog>
+      <h2>Share your image</h2>
+      <iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image>
+      <paper-item >imageUri: {{imageLink}}</paper-item>
+      
+      <div id="share_buttons" class="buttons">
+        <!--<paper-button dialog-dismiss>Download Image</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>-->
+        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> Downlod</paper-button>
+        <paper-button disabled><iron-icon  src="../../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> Share</paper-button>
+        <paper-button disabled><iron-icon  src="../../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> Share</paper-button>
+      </div>
+    </paper-dialog>
+
   </template>
   <script>
+    var globalThis;
     Polymer({
 
       is: 'RumpTweets-app',
 
       properties: {
+        userInput:{
+          type: String,
+          value:"",
+          notify:true,
+        },
+        myLabel:{
+          type:String,
+          value:"Click to start typing...",
+          notify:true,
+        },
         prop1: {
           type: String,
           value: 'RumpTweets-app',
@@ -265,14 +296,23 @@
         user :{
           type:Object,
           value:{}
+        },
+        imageLink:{
+          type:String,
+          notify:true,
+          value:""
         }
       },
 
       ready: function () {
         var rootThis = this;
+        
         var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
         var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
         var imageContainer = donaldTrunpHandUp.getElementsByTagName("img");
+        imageContainer[0].style.maxWidth = "800px"; 
+        imageContainer[0].style.marginLeft = "auto";
+        imageContainer[0].style.marginRight = "auto";     
         //console.log(imageContainer.getBoundingClientRect());
         setTimeout(function() {
             firebase.auth().signInAnonymously().catch(function(error) {
@@ -288,7 +328,7 @@
               var isAnonymous = user.isAnonymous;
               var uid = user.uid;
               rootThis.user = user;
-              console.log(rootThis.user);
+              //console.log(rootThis.user);
               // ...
             } else {
               // User is signed out.
@@ -300,10 +340,21 @@
         
 
       },
+      listeners: {
+        'change': 'userTyped',
+      },
+      userTyped: function(){
+        if(this.userInput==""){
+          this.myLabel = "Click to start typing...";
+        }else{
+          this.myLabel = "";
+        }
+      },
 
       takePicture: function () {
+       globalThis = this;
         var rootThis = this;
-        var categorySection = Polymer.dom(this.root).querySelector('#twitterCard');
+        var categorySection = Polymer.dom(this.root).querySelector('#trump_tweet');
         var doucumentRootRef = this.root;
         //console.log(categorySection);
         html2canvas(categorySection, {
@@ -316,7 +367,7 @@
             //get ref to new key
             var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
             // Create a reference to were you want to store data
-            var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.jpeg');
+            var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
 
              var postData = {
               imgeUrl: mountainImagesRef.fullPath,
@@ -325,15 +376,63 @@
             updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
 
             var file = blob // use the Blob or File API
-            mountainImagesRef.put(file).then(function(snapshot) {
-              console.log('Uploaded a blob or file!');
+            var uploadTask = mountainImagesRef.put(file);
+            // var uploadTask = mountainImagesRef.put(file).then(function(snapshot) {
+            //   console.log('Uploaded a blob or file!');
+            //   firebase.database().ref().update(updates);
+            //   //Open dialog askig user how to share
+            // });
+
+
+            uploadTask.on('state_changed', function(snapshot){
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              //console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                  console.log('Upload is paused');
+                  break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                  console.log('Upload is running');
+                  break;
+              }
+            }, function(error) {
+              // Handle unsuccessful uploads
+            }, function() {
+              // Handle successful uploads on complete
+              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+              //console.log('Uploaded a blob or file!');
               firebase.database().ref().update(updates);
+              rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
             });
 
-          }, 'image/jpeg', 1);
+          }, 'image/png', 1);
             
           }
         });
+      },
+      shortenUrl: function(data){
+        console.log("short was called " + data );
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", this.reqListener);
+        oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
+        oReq.setRequestHeader('Content-Type', 'application/json');
+        oReq.send(JSON.stringify({"longUrl": data}));
+      },
+      
+      reqListener: function(e) {
+        var paperDialog = Polymer.dom(globalThis.root).querySelector("paper-dialog");
+        //console.log(this.responseText);
+        var temp = JSON.parse(this.responseText);
+        globalThis.imageLink = temp.id;
+        paperDialog.open();
+      },
+      downloadImage: function(){
+        var a = document.createElement("a");
+        a.href = this.imageLink;
+        a.download = "rump_tweet.png"
+        a.click();
       }
 
     });
