@@ -51,6 +51,10 @@
         height: 40px;
         background: #2AA4EF;
         color: white;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
       }
       
       paper-textarea {
@@ -76,12 +80,20 @@
       .greeting{
         font-size: 26pt;
         font-weight: 300;
-        max-width: 600px;
         margin-left: auto;
         margin-right: auto;
       }
       iron-icon{
         --iron-icon-fill-color:grey;
+      }
+      @media screen and (max-width: 480px) {
+        .xs12{
+            margin-left: 0px !important;
+            padding: 20px;
+        }
+        .greeting{
+          font-size: 20pt;
+        }
       }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650">
@@ -93,13 +105,14 @@
         <div id="twitterCard" >
           <div class="permalink-inner permalink-tweet-container">
             <iron-grid>
-              <div  class=" offset-m1 m10">
-                <div class="greeting">
-                  <p style="margin-top:80px;">Congratulations, Mr. President. </p>
-                  <p style="margin-top: 30px;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, 
+              <div  class="offset-m1 offset-xs0 xs12 m10 ">
+                <div class="greeting" style="width: 100%;">
+                  <p style="margin-top:80px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
+                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, 
                     and your actions can change our world for the better</span> or for the worse. 
                     So please use it with the care we expect from your office. </p>
-                </div>       
+                </div>
+                <br>      
                 <div style="margin-top:50px;" id="trump_tweet" class=" card tweet permalink-tweet">
                   <div class="content clearfix">
                     <div class="permalink-header">
@@ -246,7 +259,7 @@
         </div>
         </iron-grid>
         <iron-grid>
-          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s3 s6">Share your fake tweet.</paper-button>
+          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.</paper-button>
         </iron-grid>
           <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../../images/png/donaldHandUp.png" ></iron-image>
       </div>
