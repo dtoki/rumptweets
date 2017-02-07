@@ -1,16 +1,17 @@
-<link rel="import" href="../../bower_components/iron-grid/iron-grid.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-grid/iron-grid.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <link rel="import" href="shared-styles.html">
 <dom-module id="RumpTweets-app">
   <template>
@@ -95,6 +96,11 @@
           font-size: 20pt;
         }
       }
+      #tweet_picture_holder{
+        margin-left: auto;
+        margin-right: auto;
+        width: inherit;
+      }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650">
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
@@ -112,8 +118,9 @@
                     and your actions can change our world for the better</span> or for the worse. 
                     So please use it with the care we expect from your office. </p>
                 </div>
-                <br>      
-                <div style="margin-top:50px;" id="trump_tweet" class=" card tweet permalink-tweet">
+                <br> 
+                <div id="tweet_picture_holder">     
+                <div style="margin-top:50px; width:initial;" id="trump_tweet" class=" card tweet permalink-tweet">
                   <div class="content clearfix">
                     <div class="permalink-header">
                       <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
@@ -257,6 +264,7 @@
               </div>
           </div>
         </div>
+        </div>
         </iron-grid>
         <iron-grid>
           <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.</paper-button>
@@ -272,18 +280,18 @@
     
     <paper-dialog>
       <h2>Share your image</h2>
-      <iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image>
+      <div id="scrollOutside" style="width:initial; overflow: auto;"><iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image></div>
       <paper-item >imageUri: {{imageLink}}</paper-item>
-      
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
-        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> Downlod</paper-button>
-        <paper-button disabled><iron-icon  src="../../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> Share</paper-button>
-        <paper-button disabled><iron-icon  src="../../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> Share</paper-button>
+        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
+        <paper-button disabled><iron-icon  src="../../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button disabled><iron-icon  src="../../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
       </div>
     </paper-dialog>
 
+    <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
   </template>
   <script>
     var globalThis;
@@ -314,9 +322,51 @@
           type:String,
           notify:true,
           value:""
+        },
+        mobilePhone:{
+          type:Boolean,
+          notify:true,
+          observer: '_mobilePhoneChange'
+        },
+        hideShareText:{
+          type:Boolean,
+          notify:true,
+          value:false
+        },
+        shareText:{
+          type:String,
+          notify:true,
+          value:"Share"
+        },
+        downloadText:{
+          type:String,
+          notify:true,
+          value:"Download"
         }
       },
+      //Remove words on download dialog and the margin right based on width of screen
+      _mobilePhoneChange: function(newValue,oldValue){
+        var allIronImages = Polymer.dom(this.root).querySelectorAll("iron-icon");
+        if(newValue==false){
+          this.shareText = "";
+          this.downloadText = "";
+          //get all the iron-icons and remove the paddings
+          for(item in allIronImages){
+            var ironIconItem = allIronImages[item];
+            ironIconItem.style.marginRight = "0px";
+          }
+        }else{
+          this.shareText = "Share";
+          this.downloadText = "Download";
+          //get all the iron-icons and add the paddings
+          for(item in allIronImages){
+            var ironIconItem = allIronImages[item];
+            ironIconItem.style.marginRight = "4px";
+          }
+        }
 
+      },
+      //Callback when the system is ready
       ready: function () {
         var rootThis = this;
         
@@ -353,6 +403,7 @@
         
 
       },
+      //Listners
       listeners: {
         'change': 'userTyped',
       },
@@ -363,18 +414,25 @@
           this.myLabel = "";
         }
       },
-
+      //Take the picture and post to server
       takePicture: function () {
        globalThis = this;
         var rootThis = this;
-        var categorySection = Polymer.dom(this.root).querySelector('#trump_tweet');
+        var categorySection = Polymer.dom(this.root).querySelector('#tweet_picture_holder');
         var doucumentRootRef = this.root;
         //console.log(categorySection);
         html2canvas(categorySection, {
           onrendered: function (canvas) {
-          
-          canvas.toBlob(function(blob){
-               // Create a root reference
+            var url = canvas.toDataURL();
+            var blobBin = atob(url.split(',')[1]);
+            var array = [];
+            for(var i = 0; i < blobBin.length; i++) {
+                array.push(blobBin.charCodeAt(i));
+            }
+            var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
+            
+
+             // Create a root reference
             var storageRef = firebase.storage().ref();
 
             //get ref to new key
@@ -388,14 +446,8 @@
             var updates = {};
             updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
 
-            var file = blob // use the Blob or File API
+            
             var uploadTask = mountainImagesRef.put(file);
-            // var uploadTask = mountainImagesRef.put(file).then(function(snapshot) {
-            //   console.log('Uploaded a blob or file!');
-            //   firebase.database().ref().update(updates);
-            //   //Open dialog askig user how to share
-            // });
-
 
             uploadTask.on('state_changed', function(snapshot){
               // Observe state change events such as progress, pause, and resume
@@ -404,10 +456,10 @@
               //console.log('Upload is ' + progress + '% done');
               switch (snapshot.state) {
                 case firebase.storage.TaskState.PAUSED: // or 'paused'
-                  console.log('Upload is paused');
+                  //console.log('Upload is paused');
                   break;
                 case firebase.storage.TaskState.RUNNING: // or 'running'
-                  console.log('Upload is running');
+                  //console.log('Upload is running');
                   break;
               }
             }, function(error) {
@@ -419,14 +471,64 @@
               firebase.database().ref().update(updates);
               rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
             });
+          
 
-          }, 'image/png', 1);
+
+          //Support for chrome only
+          // canvas.toBlob(function(blob){
+          //   // Create a root reference
+          //   var storageRef = firebase.storage().ref();
+
+          //   //get ref to new key
+          //   var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
+          //   // Create a reference to were you want to store data
+          //   var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
+
+          //    var postData = {
+          //     imgeUrl: mountainImagesRef.fullPath,
+          //   };
+          //   var updates = {};
+          //   updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
+
+          //   var file = blob // use the Blob or File API
+          //   var uploadTask = mountainImagesRef.put(file);
+          //   console.log(blob);
+          //   // var uploadTask = mountainImagesRef.put(file).then(function(snapshot) {
+          //   //   console.log('Uploaded a blob or file!');
+          //   //   firebase.database().ref().update(updates);
+          //   //   //Open dialog askig user how to share
+          //   // });
+
+
+          //   uploadTask.on('state_changed', function(snapshot){
+          //     // Observe state change events such as progress, pause, and resume
+          //     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          //     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          //     //console.log('Upload is ' + progress + '% done');
+          //     switch (snapshot.state) {
+          //       case firebase.storage.TaskState.PAUSED: // or 'paused'
+          //         console.log('Upload is paused');
+          //         break;
+          //       case firebase.storage.TaskState.RUNNING: // or 'running'
+          //         console.log('Upload is running');
+          //         break;
+          //     }
+          //   }, function(error) {
+          //     // Handle unsuccessful uploads
+          //   }, function() {
+          //     // Handle successful uploads on complete
+          //     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          //     //console.log('Uploaded a blob or file!');
+          //     firebase.database().ref().update(updates);
+          //     rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
+          //   });
+
+          // }, 'image/png', 1);
             
           }
         });
       },
       shortenUrl: function(data){
-        console.log("short was called " + data );
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.reqListener);
         oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
