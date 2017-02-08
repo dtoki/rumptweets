@@ -97,9 +97,12 @@
         }
       }
       #tweet_picture_holder{
-        margin-left: auto;
-        margin-right: auto;
-        width: inherit;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+      #trump_tweet{
+        width: 100% !important;
       }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650">
@@ -114,9 +117,8 @@
               <div  class="offset-m1 offset-xs0 xs12 m10 ">
                 <div class="greeting" style="width: 100%;">
                   <p style="margin-top:80px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
-                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, 
-                    and your actions can change our world for the better</span> or for the worse. 
-                    So please use it with the care we expect from your office. </p>
+                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, and your actions can change our world for the better or for the worse</span> or for the worse. 
+                    So please…please use it with the care</p>
                 </div>
                 <br> 
                 <div id="tweet_picture_holder">     
@@ -418,7 +420,7 @@
       takePicture: function () {
        globalThis = this;
         var rootThis = this;
-        var categorySection = Polymer.dom(this.root).querySelector('#tweet_picture_holder');
+        var categorySection = Polymer.dom(this.root).querySelector('#trump_tweet');
         var doucumentRootRef = this.root;
         //console.log(categorySection);
         html2canvas(categorySection, {
