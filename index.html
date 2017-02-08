@@ -94,6 +94,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </script>
 
+    <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",
+        authDomain: "rumptweets-2c7cc.firebaseapp.com",
+        databaseURL: "https://rumptweets-2c7cc.firebaseio.com",
+        storageBucket: "rumptweets-2c7cc.appspot.com",
+        messagingSenderId: "570027697414"
+      };
+      firebase.initializeApp(config);
+      // Get a reference to the storage service, which is used to create references in your storage bucket
+      var storage = firebase.storage();
+      console.log("done");
+    </script>
+
     <link rel="import" href="/src/my-app.html">
 
     <style>
@@ -102,7 +118,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: 'Roboto', 'Noto', sans-serif;
         line-height: 1.5;
         min-height: 100vh;
-        background-color: #eeeeee;
+        background: #b22234;
       }
     </style>
   </head>
