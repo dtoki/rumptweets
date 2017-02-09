@@ -1,3 +1,4 @@
 ## Ignore folders
 bower_components/
 build/
+node_modules/
