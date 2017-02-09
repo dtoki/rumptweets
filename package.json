@@ -1,0 +1,24 @@
+{
+  "name": "rump_image_server",
+  "version": "0.0.1",
+  "description": "Server to generate trump tweets ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Capdt/rumptweets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Capdt/rumptweets/issues"
+  },
+  "homepage": "https://github.com/Capdt/rumptweets#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cheerio": "^0.22.0",
+    "express": "^4.14.1"
+  }
+}
