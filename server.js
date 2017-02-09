@@ -88,7 +88,7 @@ function uploadToFirebaseStorage(userPost,callback){
             }
         };
         //upload file to bucket
-        bucket.upload(__dirname+'/image_upload_repo/'+userPost.uid.toString() + '.png', options, function(err, file) {
+        bucket.upload(__dirname+'/image_upload_repo/'+userPost.imagePostKey.toString()+userPost.uid.toString()+ '.png', options, function(err, file) {
             if(!err){
                 console.log('file upload complete');
             }
