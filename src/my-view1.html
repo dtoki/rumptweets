@@ -446,125 +446,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       takePicture: function () {
         globalThis = this;
         var rootThis = this;
-        setTimeout(function() {
-          
-       
-          var categorySection = Polymer.dom(rootThis.root).querySelector('#tweet_picture_holder');
-          console.log(categorySection);
-          //console.log(categorySection);
-          html2canvas(categorySection, {
-            onrendered: function (canvas) {
-              var url = canvas.toDataURL();
-              var blobBin = atob(url.split(',')[1]);
-              var array = [];
-              for(var i = 0; i < blobBin.length; i++) {
-                  array.push(blobBin.charCodeAt(i));
-              }
-              var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
-              
-
-              // Create a root reference
-              var storageRef = firebase.storage().ref();
-
-              //get ref to new key
-              var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
-              // Create a reference to were you want to store data
-              var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
-
-              var postData = {
-                imgeUrl: mountainImagesRef.fullPath,
-              };
-              var updates = {};
-              updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
-
-              
-              var uploadTask = mountainImagesRef.put(file);
-
-              uploadTask.on('state_changed', function(snapshot){
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                //console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                  case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    //console.log('Upload is paused');
-                    break;
-                  case firebase.storage.TaskState.RUNNING: // or 'running'
-                    //console.log('Upload is running');
-                    break;
-                }
-              }, function(error) {
-                // Handle unsuccessful uploads
-              }, function() {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                //console.log('Uploaded a blob or file!');
-                firebase.database().ref().update(updates);
-                rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
-              });
-            
-
-
-            //Support for chrome only
-            // canvas.toBlob(function(blob){
-            //   // Create a root reference
-            //   var storageRef = firebase.storage().ref();
-
-            //   //get ref to new key
-            //   var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
-            //   // Create a reference to were you want to store data
-            //   var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
-
-            //    var postData = {
-            //     imgeUrl: mountainImagesRef.fullPath,
-            //   };
-            //   var updates = {};
-            //   updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
-
-            //   var file = blob // use the Blob or File API
-            //   var uploadTask = mountainImagesRef.put(file);
-            //   console.log(blob);
-            //   // var uploadTask = mountainImagesRef.put(file).then(function(snapshot) {
-            //   //   console.log('Uploaded a blob or file!');
-            //   //   firebase.database().ref().update(updates);
-            //   //   //Open dialog askig user how to share
-            //   // });
-
-
-            //   uploadTask.on('state_changed', function(snapshot){
-            //     // Observe state change events such as progress, pause, and resume
-            //     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            //     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //     //console.log('Upload is ' + progress + '% done');
-            //     switch (snapshot.state) {
-            //       case firebase.storage.TaskState.PAUSED: // or 'paused'
-            //         console.log('Upload is paused');
-            //         break;
-            //       case firebase.storage.TaskState.RUNNING: // or 'running'
-            //         console.log('Upload is running');
-            //         break;
-            //     }
-            //   }, function(error) {
-            //     // Handle unsuccessful uploads
-            //   }, function() {
-            //     // Handle successful uploads on complete
-            //     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            //     //console.log('Uploaded a blob or file!');
-            //     firebase.database().ref().update(updates);
-            //     rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
-            //   });
-
-            // }, 'image/png', 1);
-              
-            }
-          });
-         }, 1000);
+         //get ref to new key
+        var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
+        var postData = {
+          userId: this.user.uid,
+          imagePostId:newPostKey,
+          message: this.userInput
+        }
+        this.makeImage(postData);
+        
+      },
+      makeImage:function(data){
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", this.makeImageReqListener);
+        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet",true);
+        oReq.setRequestHeader('Access-Control-Allow-Origin', "http://localhost:8080");
+        oReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        oReq.send(JSON.stringify(data));
       },
       shortenUrl: function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.reqListener);
         oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
         oReq.setRequestHeader('Content-Type', 'application/json');
+        
         oReq.send(JSON.stringify({"longUrl": data}));
       },
       
@@ -574,6 +479,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var temp = JSON.parse(this.responseText);
         globalThis.imageLink = temp.id;
         paperDialog.open();
+      },
+      makeImageReqListener: function(e) {
+        // globalThis.shortenUrl(this);
+        // var temp = JSON.parse(this.responseText);
+        // globalThis.imageLink = temp.id;
+        // paperDialog.open();
+        console.log(this);
       },
       downloadImage: function(){
         var a = document.createElement("a");
