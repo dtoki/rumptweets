@@ -9,21 +9,17 @@ var app = express();
 
 
 //Configure app
-app.use(bodyParser.urlencoded({extended:true}));
+//app.use(bodyParser.json({extended:true}));
 app.use(bodyParser.json());
 app.use('/images',  express.static(__dirname + '/images'));
 //Configure Headers
 app.use(function (req, res, next){
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+   
     next();
 });
 //Load the html file
 var $ = cheerio.load(fs.readFileSync('app/html/index.html','utf8'));
-
-
-
 var port = process.env.PORT || 8080;
-
 var router = express.Router();
 
 // Enable Storage
@@ -34,23 +30,19 @@ var gcs = storage({
 var bucket = gcs.bucket('rumptweets-2c7cc.appspot.com');
 
 
-// middleware to use for all requests
+// Middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
-    //console.log('Something is happening.');
-    //Need to auth user
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers","Access-Control-Allow-Headers");
+    //Set the default headers needed
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:9090");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Content-Type","application/json");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 app.get('/', function(req, res) {
-    //res.json({ message: 'hooray! welcome to our api!' });
-    res.send($.html());
-    // res.json({your_imagePostId: req.body.imagePostId });
-    // console.log(res.body);
+    //res.send($.html());
 });
 
 var userPost;
@@ -59,12 +51,10 @@ router.route('/gentweet')
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         userPost = req.body;
-       //res.setHeader('Access-Control-Allow-Origin', '*');
+        
         uploadToFirebaseStorage(userPost,function(data){
-            //res.json(data);
             res.json({downloadUrl: data.mediaLink});
         });
-        //Send back the status and location of the upload
         
     });
 function uploadToFirebaseStorage(userPost,myCallback){
