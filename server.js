@@ -12,6 +12,11 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use('/images',  express.static(__dirname + '/images'));
+//Configure Headers
+app.use(function (req, res, next){
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
 //Load the html file
 var $ = cheerio.load(fs.readFileSync('app/html/index.html','utf8'));
 
@@ -29,14 +34,13 @@ var gcs = storage({
 var bucket = gcs.bucket('rumptweets-2c7cc.appspot.com');
 
 
-
 // middleware to use for all requests
 router.use(function(req, res, next) {
     // do logging
     //console.log('Something is happening.');
     //Need to auth user
     // Website you wish to allow to connect
-    router.setHeader('Access-Control-Allow-Origin', '*');
+    
     next(); // make sure we go to the next routes and don't stop here
 });
 
