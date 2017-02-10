@@ -35,6 +35,8 @@ router.use(function(req, res, next) {
     // do logging
     //console.log('Something is happening.');
     //Need to auth user
+    // Website you wish to allow to connect
+    router.setHeader('Access-Control-Allow-Origin', '*');
     next(); // make sure we go to the next routes and don't stop here
 });
 
