@@ -33,7 +33,7 @@ var bucket = gcs.bucket('rumptweets-2c7cc.appspot.com');
 // Middleware to use for all requests
 router.use(function(req, res, next) {
     //Set the default headers needed
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:9090");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Content-Type","application/json");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
