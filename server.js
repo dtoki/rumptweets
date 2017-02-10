@@ -15,6 +15,8 @@ app.use('/images',  express.static(__dirname + '/images'));
 //Load the html file
 var $ = cheerio.load(fs.readFileSync('app/html/index.html','utf8'));
 
+
+
 var port = process.env.PORT || 8080;
 
 var router = express.Router();
@@ -32,6 +34,7 @@ var bucket = gcs.bucket('rumptweets-2c7cc.appspot.com');
 router.use(function(req, res, next) {
     // do logging
     //console.log('Something is happening.');
+    //Need to auth user
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -39,7 +42,7 @@ router.use(function(req, res, next) {
 app.get('/', function(req, res) {
     //res.json({ message: 'hooray! welcome to our api!' });
     res.send($.html());
-    // res.json({your_uid: req.body.uid });
+    // res.json({your_imagePostId: req.body.imagePostId });
     // console.log(res.body);
 });
 
@@ -50,14 +53,16 @@ router.route('/gentweet')
     .post(function(req, res) {
         userPost = req.body;
        
-        uploadToFirebaseStorage(userPost);
+        uploadToFirebaseStorage(userPost,function(data){
+            //res.json(data);
+            res.json({downloadUrl: data.mediaLink});
+        });
         //Send back the status and location of the upload
-        res.json({ message: 'Request recived' });
+        
     });
-
-function uploadToFirebaseStorage(userPost,callback){
+function uploadToFirebaseStorage(userPost,myCallback){
     //Create file stream to upload
-     var file = fs.createWriteStream(__dirname+'/image_upload_repo/'+userPost.imagePostKey.toString()+userPost.uid.toString() + '.png', {encoding: 'binary'});
+     var file = fs.createWriteStream(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString() + '.png', {encoding: 'binary'});
      var options = {
         siteType:'html',
         captureSelector:'#tweet_picture_container',
@@ -66,31 +71,38 @@ function uploadToFirebaseStorage(userPost,callback){
         windowSize:{ width: 1000
         , height: 768 },
     };
+    //Change words on tweet
+    $('label.userInput').text(userPost.message.toString());
     //Take the picture withe the options above
     var renderStream = webshot($.html(),options);
     // Bug this is called twice
     renderStream.on('data', function(data) {
-        console.log("renderStream");
         //Write data to file
         file.write(data.toString('binary'), 'binary', function(err){
             if(err){
                 console.log(err);
             }
-            console.log('written file to folder');
+            console.log('written file to folder...');
         });
+    });
+    //Wen the data ends then upload file
+    renderStream.on('end', function(data){
         //option for file
         var options = {
-            destination: 'server_upload_test/'+userPost.uid.toString()+'/'+userPost.imagePostKey.toString()+'.png',
+            destination: 'server_upload_test/'+userPost.userId.toString()+'/'+userPost.imagePostId.toString()+'.png',
             resumable: true,
+            public:true,
             validation: 'crc32c',
             metadata: {
                 event: ''
             }
         };
         //upload file to bucket
-        bucket.upload(__dirname+'/image_upload_repo/'+userPost.imagePostKey.toString()+userPost.uid.toString()+ '.png', options, function(err, file) {
+        bucket.upload(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString()+ '.png', options, function(err, file, apiResponse) {
             if(!err){
                 console.log('file upload complete');
+                //console.log(apiResponse);
+                myCallback(file.metadata);
             }
         });        
     });
