@@ -461,7 +461,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.makeImageReqListener);
         oReq.withCredentials = true;
-        oReq.open("POST", "http://localhost:8080/api/gentweet");
+        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
         //oReq.setRequestHeader("access-control-allow-origin", 'http://localhost:9090*');
         oReq.send(JSON.stringify(data));
