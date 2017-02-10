@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use('/images',  express.static(__dirname + '/images'));
 //Configure Headers
 app.use(function (req, res, next){
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    //res.setHeader('Access-Control-Allow-Origin', '*');
     next();
 });
 //Load the html file
@@ -40,7 +40,8 @@ router.use(function(req, res, next) {
     //console.log('Something is happening.');
     //Need to auth user
     // Website you wish to allow to connect
-    
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers","Access-Control-Allow-Headers");
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -58,7 +59,7 @@ router.route('/gentweet')
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         userPost = req.body;
-       
+       //res.setHeader('Access-Control-Allow-Origin', '*');
         uploadToFirebaseStorage(userPost,function(data){
             //res.json(data);
             res.json({downloadUrl: data.mediaLink});
