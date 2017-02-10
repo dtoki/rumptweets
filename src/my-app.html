@@ -25,14 +25,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="styles/animate-css.html">
 <link rel="import" href="my-icons.html">
 
 <dom-module id="my-app">
   <template>
-    <style include="shared-styles">
+    <style include="shared-styles animate-css">
       :host {
         --app-primary-color: #3b3c61;
         --app-secondary-color: black;
@@ -116,7 +118,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
               <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
                 <a name="view1" href="/view1"tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
-                  <paper-icon-button src="../images/png/ic_trump_head.png" ></paper-icon-button>
+                  <paper-icon-button id='djtMenu' class$="[[djtMenuClass]]" src="../images/png/ic_trump_head.png" ></paper-icon-button>
                 </a>
               </iron-selector>   
             <div main-title>       
@@ -133,10 +135,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
+          <my-view1  name="view1"></my-view1>
+          <my-view2 class="animated  fadeIn" name="view2"></my-view2>
+          <my-view3 class="animated  fadeIn" name="view3"></my-view3>
+          <my-view404 class="animated  fadeIn"  name="view404"></my-view404>
         </iron-pages>
       
       </app-header-layout>
@@ -168,6 +170,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify:true,
           value:false,
           observer:'_computeIfHidden'
+        },
+        djtMenuClass:{
+          type:String,
+          value:"animated bounceIn"
+        },
+        loadCount:{
+          type:Number,
+          value:0
         }
       },
 
@@ -184,15 +194,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _routePageChanged: function(page) {
         this.page = page || 'view1';
+        var globalThis = this;
+        if(this.loadCount !=0){
+         //Move it all in here
+        }
         if(this.page == 'view1'){
-          this.homeSelected = true;
+           globalThis.djtMenuClass = "animated bounceOut";
+          setTimeout(function() {
+            globalThis.homeSelected = true;
+          }, 500);
           this.$.headerTabs.selected= "-1";
         }else{
+          globalThis.djtMenuClass = "animated bounceIn";
           this.homeSelected = false;
         }
         if (!this.$.drawer.persistent) {
           this.$.drawer.close();
         }
+        this.loadCount++;
       },
 
       _pageChanged: function(page) {

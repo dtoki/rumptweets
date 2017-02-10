@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-grid/iron-grid.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../bower_components/iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
@@ -20,11 +21,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
-
+<link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
 <dom-module id="my-view1">
   <template>
-    <style include="twitter-style">
+    <style include="twitter-style animate-css">
        :host {
         display: block;
         height: 100%;
@@ -118,8 +119,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-right: 0px;
         max-width: none;
       }
+      paper-spinner{
+        --paper-spinner-layer-1-color:white;
+        --paper-spinner-layer-2-color:yellow;
+        --paper-spinner-layer-3-color:red;
+        --paper-spinner-layer-4-color:black;
+      }
     </style>
-    <iron-grid xs-max-width="300" s-max-width="650">
+    <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn" >
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
       <div  class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px;">
         <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../images/png/banner.png" preload ></iron-image>
@@ -284,7 +291,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
         </iron-grid>
         <iron-grid>
-          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.</paper-button>
+          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.<paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner></paper-button>
         </iron-grid>
           <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../images/png/donald_hand_up.png" ></iron-image>
       </div>
@@ -294,8 +301,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
-    
-    <paper-dialog>
+    <paper-dialog id="paperDialog" class$="{{dialogCss}}">
       <h2>Share your image</h2>
       <div id="scrollOutside" style="width:initial; overflow: auto;"><iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image></div>
       <paper-item >imageUri: {{imageLink}}</paper-item>
@@ -315,7 +321,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'my-view1',
-
+      behaviors: [
+        Polymer.NeonAnimationRunnerBehavior
+      ],
       properties: {
         userInput:{
           type: String,
@@ -360,10 +368,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type:String,
           notify:true,
           value:"Download"
+        },
+        dialogCss:{
+          type:String,
+          value:"animated zoomIn"
         }
       },
-
-     
+      listeners: {
+        // this event is fired when the animation finishes
+        'neon-animation-finish': '_onNeonAnimationFinish',
+        'iron-overlay-canceled': '_closeTheDialog'
+      },
+      _closeTheDialog: function(e){
+        e.preventDefault();
+        console.log(e);
+        this.dialogCss="animated zoomOutDown";
+        setTimeout(function() {
+          globalThis.$.paperDialog.close();
+        }, 1300);
+      },
+      animate: function() {
+        // run scale-down-animation
+        this.playAnimation();
+      },
+      _onNeonAnimationFinish: function() {
+        console.log('animation done!');
+      },
       _userInputChange: function(){
          if(this.userInput==""){
           this.myLabel = "Click to start typing...";
@@ -395,8 +425,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
+        globalThis = this;
         var rootThis = this;
-        
         var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
         var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
         //console.log(donaldTrunpHandUp.shadowRoot);
@@ -406,7 +436,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         imageContainer.style.marginLeft = "auto";
         imageContainer.style.marginRight = "auto";     
         //console.log(imageContainer.getBoundingClientRect());
+        setTimeout(function(){
+          rootThis.animate();
+        },1000);
         setTimeout(function() {
+          
             firebase.auth().signInAnonymously().catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -444,7 +478,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Take the picture and post to server
       takePicture: function () {
-        globalThis = this;
+        this.dialogCss="animated zoomIn"
+        this.$.paperSpinner.active = true;
         var rootThis = this;
          //get ref to new key
         var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
@@ -460,10 +495,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       makeImage:function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.makeImageReqListener);
-        oReq.withCredentials = true;
+        oReq.withCredentials = false;
         oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
-        //oReq.setRequestHeader("access-control-allow-origin", 'http://localhost:9090*');
         oReq.send(JSON.stringify(data));
       },
       shortenUrl: function(data){
@@ -479,6 +513,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         //console.log(this.responseText);
         var temp = JSON.parse(this.responseText);
         globalThis.imageLink = temp.id;
+        globalThis.$.paperSpinner.active = false;
         paperDialog.open();
       },
       makeImageReqListener: function(e) {
