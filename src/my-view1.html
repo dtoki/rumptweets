@@ -452,24 +452,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           userId: this.user.uid,
           imagePostId:newPostKey,
           message: this.userInput
-        }
+        };
         this.makeImage(postData);
-        
+         //console.log(JSON.stringify(postData));  
       },
+
       makeImage:function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.makeImageReqListener);
-        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet",true);
-        oReq.setRequestHeader('Access-Control-Allow-Origin', "http://localhost:8080");
-        oReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        oReq.withCredentials = true;
+        oReq.open("POST", "http://localhost:8080/api/gentweet");
+        oReq.setRequestHeader("content-type", "application/json");
+        //oReq.setRequestHeader("access-control-allow-origin", 'http://localhost:9090*');
         oReq.send(JSON.stringify(data));
       },
       shortenUrl: function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.reqListener);
         oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
-        oReq.setRequestHeader('Content-Type', 'application/json');
-        
+        oReq.setRequestHeader('Content-Type', 'application/json');      
         oReq.send(JSON.stringify({"longUrl": data}));
       },
       
@@ -481,11 +482,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         paperDialog.open();
       },
       makeImageReqListener: function(e) {
-        // globalThis.shortenUrl(this);
-        // var temp = JSON.parse(this.responseText);
-        // globalThis.imageLink = temp.id;
-        // paperDialog.open();
-        console.log(this);
+        globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
       },
       downloadImage: function(){
         var a = document.createElement("a");
