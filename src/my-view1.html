@@ -495,7 +495,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       makeImage:function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.makeImageReqListener);
-        oReq.withCredentials = false;
+        //oReq.withCredentials = false;
         oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
         oReq.send(JSON.stringify(data));

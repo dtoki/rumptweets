@@ -1,4 +1,8 @@
+##Ignore this folders
 bower_components/
 build/
 node_modules/
 image_upload_repo
+
+##Ignore this files
+*.log
