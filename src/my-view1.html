@@ -320,9 +320,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'my-view1',
-      behaviors: [
-        Polymer.NeonAnimationRunnerBehavior
-      ],
       properties: {
         userInput:{
           type: String,
@@ -375,7 +372,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       listeners: {
         // this event is fired when the animation finishes
-        'neon-animation-finish': '_onNeonAnimationFinish',
         'iron-overlay-canceled': '_closeTheDialog'
       },
       _closeTheDialog: function(e){
@@ -385,13 +381,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         setTimeout(function() {
           globalThis.$.paperDialog.close();
         }, 1300);
-      },
-      animate: function() {
-        // run scale-down-animation
-        this.playAnimation();
-      },
-      _onNeonAnimationFinish: function() {
-        console.log('animation done!');
       },
       _userInputChange: function(){
          if(this.userInput==""){
@@ -424,10 +413,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
-        globalThis = this;
         var rootThis = this;
-        var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
-        var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
+        var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         //console.log(donaldTrunpHandUp.shadowRoot);
         var imageContainer = donaldTrunpHandUp.shadowRoot.querySelector("img");
         //console.log(imageContainer);
@@ -436,7 +423,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         imageContainer.style.marginRight = "auto";     
         //console.log(imageContainer.getBoundingClientRect());
         setTimeout(function(){
-          rootThis.animate();
         },1000);
         setTimeout(function() {
           
@@ -477,6 +463,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Take the picture and post to server
       takePicture: function () {
+        globalThis = this;
         this.dialogCss="animated zoomIn"
         this.$.paperSpinner.active = true;
         var rootThis = this;
