@@ -1,15 +1,9 @@
-# Polymer App Toolbox - Starter Kit
+# Rump tweets
 
-[![Build Status](https://travis-ci.org/PolymerElements/polymer-starter-kit.svg?branch=master)](https://travis-ci.org/PolymerElements/polymer-starter-kit)
 
-This template is a starting point for building apps using a drawer-based
-layout. The layout is provided by `app-layout` elements.
-
-This template, along with the `polymer-cli` toolchain, also demonstrates use
-of the "PRPL pattern" This pattern allows fast first delivery and interaction with
-the content at the initial route requested by the user, along with fast subsequent
-navigation by pre-caching the remaining components required by the app and
-progressively loading them on-demand as the user navigates through the app.
+This is the Web app for Rump Tweets. the application uses the prpl pattern to load 
+pages the html pages and loads the pages into the index.html page so it's one 
+file.
 
 The PRPL pattern, in a nutshell:
 
@@ -18,24 +12,23 @@ The PRPL pattern, in a nutshell:
 * **Pre-cache** components for remaining routes
 * **Lazy-load** and progressively upgrade next routes on-demand
 
-### Migrating from Polymer Starter Kit v1?
-
-[Check out our blog post that covers what's changed in PSK2 and how to migrate!](https://www.polymer-project.org/1.0/blog/2016-08-18-polymer-starter-kit-or-polymer-cli.html)
 
 ### Setup
 
 ##### Prerequisites
 
 First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
-[npm](https://www.npmjs.com) (we assume you have pre-installed [node.js](https://nodejs.org)).
+[npm](https://www.npmjs.com) (I assume you have pre-installed [node.js](https://nodejs.org)).
 
     npm install -g polymer-cli
 
-##### Initialize project from template
+##### Clone this repository
 
-    mkdir my-app
-    cd my-app
-    polymer init starter-kit
+    mkdir webapps
+    cd webapps
+    git clone https://remote_server_location.git
+
+You cana also use the git for desktop software to clone the project.
 
 ### Start the development server
 
@@ -85,3 +78,6 @@ application. Each new demand-loaded fragment should be added to the list of
 `fragments` in the included `polymer.json` file. This will ensure those
 components and their dependencies are added to the list of pre-cached components
 and will be included in the `bundled` build.
+
+Consider taking a look at the polymer getting started guide [here](https://www.polymer-project.org/1.0/start/toolbox/set-up) it's explains the structure of an app 
+and how to create new pages.
