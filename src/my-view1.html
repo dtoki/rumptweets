@@ -1,21 +1,31 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-grid/iron-grid.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/iron-fit-behavior/iron-fit-behavior.html">
-<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-<link rel="import" href="shared-styles.html">
-<dom-module id="RumpTweets-app">
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-grid/iron-grid.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/iron-fit-behavior/iron-fit-behavior.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="styles/animate-css.html">
+<link rel="import" href="styles/twitter-style.html">
+<dom-module id="my-view1">
   <template>
-    <style include="shared-styles">
+    <style include="twitter-style animate-css">
        :host {
         display: block;
         height: 100%;
@@ -97,18 +107,29 @@
         }
       }
       #tweet_picture_holder{
-        display: flex;
+        margin-left: auto;
+        margin-right: auto;
         width: 100%;
-        justify-content: center;
+        display: flex;
+        max-width: 700px;
       }
       #trump_tweet{
         width: 100% !important;
+        margin-left: 0px;
+        margin-right: 0px;
+        max-width: none;
+      }
+      paper-spinner{
+        --paper-spinner-layer-1-color:white;
+        --paper-spinner-layer-2-color:yellow;
+        --paper-spinner-layer-3-color:red;
+        --paper-spinner-layer-4-color:black;
       }
     </style>
-    <iron-grid xs-max-width="300" s-max-width="650">
+    <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn" >
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
       <div  class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px;">
-        <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../../images/png/banner.png" preload ></iron-image>
+        <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../images/png/banner.png" preload ></iron-image>
         <!------Start of twitter stuff------>
         
         <div id="twitterCard" >
@@ -126,8 +147,8 @@
                   <div class="content clearfix">
                     <div class="permalink-header">
                       <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
-                        <img class="avatar js-action-profile-avatar" src="../../images/png/djt_headshot.jpg" alt="">
-                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<iron-image class="Icon" style="position: absolute; margin-left:4px;" src="../../images/png/ic_verify.png" ></strong>
+                        <img class="avatar js-action-profile-avatar" src="../images/png/djt_headshot.jpg" alt="">
+                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<iron-image class="Icon" style="position: absolute; margin-left:4px;" src="../images/png/ic_verify.png" ></strong>
                         <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
                       </a>
                       <!--<small class="time">
@@ -138,7 +159,7 @@
                           data-name="Donald J. Trump" data-protected="false">
                           <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
                           <span class="button-text follow-text" style="margin-top:4px;">
-                           <iron-image class="Icon" style="margin-bottom:3px" src="../../images/png/follow_icon.png" ></iron-image>Follow 
+                           <iron-image class="Icon" style="margin-bottom:3px" src="../images/png/follow_icon.png" ></iron-image>Follow 
                             
                           </span>
                           
@@ -168,35 +189,35 @@
                     </li>
                     <li class="avatar-row js-face-pile-container">
                       <a class="js-profile-popup-actionable js-tooltip" data-user-id="930429612" original-title="Robert Golden" title="Robert Golden"rel="noopener">
-                        <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_1.jpeg" alt="Robert Golden">
+                        <img class="avatar size24 js-user-profile-link" src="../images/png/follower_1.jpeg" alt="Robert Golden">
                       </a>
                         <a class="js-profile-popup-actionable js-tooltip" data-user-id="3084231070" original-title="Wanda Brewington" title="Wanda Brewington"
                           rel="noopener">
-                          <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_2.png" alt="Wanda Brewington">
+                          <img class="avatar size24 js-user-profile-link" src="../images/png/follower_2.png" alt="Wanda Brewington">
                           </a>
                           <a class="js-profile-popup-actionable js-tooltip" data-user-id="755004241383751680" original-title="TrumpPepe2020" title="TrumpPepe2020"
                             rel="noopener">
-                            <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_3.jpg" alt="TrumpPepe2020">
+                            <img class="avatar size24 js-user-profile-link" src="../images/png/follower_3.jpg" alt="TrumpPepe2020">
                             </a>
                             <a class="js-profile-popup-actionable js-tooltip" data-user-id="3303150538" original-title="Thomas Jon IV" title="Thomas Jon IV"
                               rel="noopener">
-                              <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_4.jpg" alt="Thomas Jon IV">
+                              <img class="avatar size24 js-user-profile-link" src="../images/png/follower_4.jpg" alt="Thomas Jon IV">
                               </a>
                               <a class="js-profile-popup-actionable js-tooltip" data-user-id="3439191809" original-title="Zachary Lippincott" title="Zachary Lippincott"
                                 rel="noopener">
-                                <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_5.jpg" alt="Zachary Lippincott">
+                                <img class="avatar size24 js-user-profile-link" src="../images/png/follower_5.jpg" alt="Zachary Lippincott">
                                 </a>
                                 <a class="js-profile-popup-actionable js-tooltip" data-user-id="758491129104834560" original-title="Hillary Diane" title="Hillary Diane"
                                   rel="noopener">
-                                  <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_6.png" alt="Hillary Diane">
+                                  <img class="avatar size24 js-user-profile-link" src="../images/png/follower_6.png" alt="Hillary Diane">
                                   </a>
                                   <a class="js-profile-popup-actionable js-tooltip" data-user-id="822447154182688768" original-title="Sandra Darby" title="Sandra Darby"
                                     rel="noopener">
-                                    <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_7.png" alt="Sandra Darby">
+                                    <img class="avatar size24 js-user-profile-link" src="../images/png/follower_7.png" alt="Sandra Darby">
                                     </a>
                                     <a class="js-profile-popup-actionable js-tooltip" data-user-id="818129288763351040" original-title="Patti Collis" title="Patti Collis"
                                       rel="noopener">
-                                      <img class="avatar size24 js-user-profile-link" src="../../images/png/follower_8.png" alt="Patti Collis">
+                                      <img class="avatar size24 js-user-profile-link" src="../images/png/follower_8.png" alt="Patti Collis">
                                       </a>
                     </li>
                   </ul>
@@ -230,7 +251,7 @@
                     <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply"
                       type="button">
                       <div class="IconContainer js-tooltip" title="Reply">
-                        <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_replypng.png"></iron-image>
+                        <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_replypng.png"></iron-image>
                         <span class="u-hiddenVisually">Reply</span>
                       </div>
                       <div class="IconTextContainer">
@@ -243,7 +264,7 @@
                   <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
                     <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
                                       <div class="IconContainer js-tooltip" title="Retweet">
-                                        <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_retweetpng.png" ></iron-image>
+                                        <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_retweetpng.png" ></iron-image>
                                         <span class="u-hiddenVisually">Retweet</span>
                                       </div>
                                         <div class="IconTextContainer">
@@ -257,7 +278,7 @@
                     <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
                                       <div class="IconContainer js-tooltip" title="Like"></div>
                                         <div class="IconTextContainer">
-                              <iron-image class="Icon tweet_bottom_icons" src="../../images/png/ic_likepng.png" ></iron-image>
+                              <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_likepng.png" ></iron-image>
                               <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
                           </div>
                       </button>
@@ -269,9 +290,9 @@
         </div>
         </iron-grid>
         <iron-grid>
-          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.</paper-button>
+          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.<paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner></paper-button>
         </iron-grid>
-          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../../images/png/donaldHandUp.png" ></iron-image>
+          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../images/png/donald_hand_up.png" ></iron-image>
       </div>
       
       </div>
@@ -279,8 +300,7 @@
       </div>
       <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
-    
-    <paper-dialog>
+    <paper-dialog id="paperDialog" class$="{{dialogCss}}">
       <h2>Share your image</h2>
       <div id="scrollOutside" style="width:initial; overflow: auto;"><iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image></div>
       <paper-item >imageUri: {{imageLink}}</paper-item>
@@ -288,8 +308,8 @@
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
         <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
-        <paper-button disabled><iron-icon  src="../../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
-        <paper-button disabled><iron-icon  src="../../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button disabled><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
       </div>
     </paper-dialog>
 
@@ -299,13 +319,16 @@
     var globalThis;
     Polymer({
 
-      is: 'RumpTweets-app',
-
+      is: 'my-view1',
+      behaviors: [
+        Polymer.NeonAnimationRunnerBehavior
+      ],
       properties: {
         userInput:{
           type: String,
           value:"",
           notify:true,
+          observer:"_userInputChange"
         },
         myLabel:{
           type:String,
@@ -344,6 +367,37 @@
           type:String,
           notify:true,
           value:"Download"
+        },
+        dialogCss:{
+          type:String,
+          value:"animated zoomIn"
+        }
+      },
+      listeners: {
+        // this event is fired when the animation finishes
+        'neon-animation-finish': '_onNeonAnimationFinish',
+        'iron-overlay-canceled': '_closeTheDialog'
+      },
+      _closeTheDialog: function(e){
+        e.preventDefault();
+        console.log(e);
+        this.dialogCss="animated zoomOutDown";
+        setTimeout(function() {
+          globalThis.$.paperDialog.close();
+        }, 1300);
+      },
+      animate: function() {
+        // run scale-down-animation
+        this.playAnimation();
+      },
+      _onNeonAnimationFinish: function() {
+        console.log('animation done!');
+      },
+      _userInputChange: function(){
+         if(this.userInput==""){
+          this.myLabel = "Click to start typing...";
+        }else{
+          this.myLabel = "";
         }
       },
       //Remove words on download dialog and the margin right based on width of screen
@@ -370,16 +424,22 @@
       },
       //Callback when the system is ready
       ready: function () {
+        globalThis = this;
         var rootThis = this;
-        
         var textArea = Polymer.dom(this.root).querySelector("#input-textArea");
         var donaldTrunpHandUp = Polymer.dom(this.root).querySelector("#donaldHandUp_Image");
-        var imageContainer = donaldTrunpHandUp.getElementsByTagName("img");
-        imageContainer[0].style.maxWidth = "800px"; 
-        imageContainer[0].style.marginLeft = "auto";
-        imageContainer[0].style.marginRight = "auto";     
+        //console.log(donaldTrunpHandUp.shadowRoot);
+        var imageContainer = donaldTrunpHandUp.shadowRoot.querySelector("img");
+        //console.log(imageContainer);
+        imageContainer.style.maxWidth = "800px"; 
+        imageContainer.style.marginLeft = "auto";
+        imageContainer.style.marginRight = "auto";     
         //console.log(imageContainer.getBoundingClientRect());
+        setTimeout(function(){
+          rootThis.animate();
+        },1000);
         setTimeout(function() {
+          
             firebase.auth().signInAnonymously().catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -406,10 +466,9 @@
 
       },
       //Listners
-      listeners: {
-        'change': 'userTyped',
-      },
+      
       userTyped: function(){
+        console.log("sfaf");
         if(this.userInput==""){
           this.myLabel = "Click to start typing...";
         }else{
@@ -418,123 +477,32 @@
       },
       //Take the picture and post to server
       takePicture: function () {
-       globalThis = this;
+        this.dialogCss="animated zoomIn"
+        this.$.paperSpinner.active = true;
         var rootThis = this;
-        var categorySection = Polymer.dom(this.root).querySelector('#trump_tweet');
-        var doucumentRootRef = this.root;
-        //console.log(categorySection);
-        html2canvas(categorySection, {
-          onrendered: function (canvas) {
-            var url = canvas.toDataURL();
-            var blobBin = atob(url.split(',')[1]);
-            var array = [];
-            for(var i = 0; i < blobBin.length; i++) {
-                array.push(blobBin.charCodeAt(i));
-            }
-            var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
-            
-
-             // Create a root reference
-            var storageRef = firebase.storage().ref();
-
-            //get ref to new key
-            var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
-            // Create a reference to were you want to store data
-            var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
-
-             var postData = {
-              imgeUrl: mountainImagesRef.fullPath,
-            };
-            var updates = {};
-            updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
-
-            
-            var uploadTask = mountainImagesRef.put(file);
-
-            uploadTask.on('state_changed', function(snapshot){
-              // Observe state change events such as progress, pause, and resume
-              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              //console.log('Upload is ' + progress + '% done');
-              switch (snapshot.state) {
-                case firebase.storage.TaskState.PAUSED: // or 'paused'
-                  //console.log('Upload is paused');
-                  break;
-                case firebase.storage.TaskState.RUNNING: // or 'running'
-                  //console.log('Upload is running');
-                  break;
-              }
-            }, function(error) {
-              // Handle unsuccessful uploads
-            }, function() {
-              // Handle successful uploads on complete
-              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-              //console.log('Uploaded a blob or file!');
-              firebase.database().ref().update(updates);
-              rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
-            });
-          
-
-
-          //Support for chrome only
-          // canvas.toBlob(function(blob){
-          //   // Create a root reference
-          //   var storageRef = firebase.storage().ref();
-
-          //   //get ref to new key
-          //   var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
-          //   // Create a reference to were you want to store data
-          //   var mountainImagesRef = storageRef.child('images/'+rootThis.user.uid+'/'+newPostKey+'trump_tweet.png');
-
-          //    var postData = {
-          //     imgeUrl: mountainImagesRef.fullPath,
-          //   };
-          //   var updates = {};
-          //   updates['/Posts/' + rootThis.user.uid + '/' + newPostKey] = postData;
-
-          //   var file = blob // use the Blob or File API
-          //   var uploadTask = mountainImagesRef.put(file);
-          //   console.log(blob);
-          //   // var uploadTask = mountainImagesRef.put(file).then(function(snapshot) {
-          //   //   console.log('Uploaded a blob or file!');
-          //   //   firebase.database().ref().update(updates);
-          //   //   //Open dialog askig user how to share
-          //   // });
-
-
-          //   uploadTask.on('state_changed', function(snapshot){
-          //     // Observe state change events such as progress, pause, and resume
-          //     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          //     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          //     //console.log('Upload is ' + progress + '% done');
-          //     switch (snapshot.state) {
-          //       case firebase.storage.TaskState.PAUSED: // or 'paused'
-          //         console.log('Upload is paused');
-          //         break;
-          //       case firebase.storage.TaskState.RUNNING: // or 'running'
-          //         console.log('Upload is running');
-          //         break;
-          //     }
-          //   }, function(error) {
-          //     // Handle unsuccessful uploads
-          //   }, function() {
-          //     // Handle successful uploads on complete
-          //     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          //     //console.log('Uploaded a blob or file!');
-          //     firebase.database().ref().update(updates);
-          //     rootThis.shortenUrl(uploadTask.snapshot.downloadURL);
-          //   });
-
-          // }, 'image/png', 1);
-            
-          }
-        });
+         //get ref to new key
+        var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
+        var postData = {
+          userId: this.user.uid,
+          imagePostId:newPostKey,
+          message: this.userInput
+        };
+        this.makeImage(postData);
+         //console.log(JSON.stringify(postData));  
+      },
+      makeImage:function(data){
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", this.makeImageReqListener);
+        //oReq.withCredentials = false;
+        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
+        oReq.setRequestHeader("content-type", "application/json");
+        oReq.send(JSON.stringify(data));
       },
       shortenUrl: function(data){
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.reqListener);
         oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
-        oReq.setRequestHeader('Content-Type', 'application/json');
+        oReq.setRequestHeader('Content-Type', 'application/json');      
         oReq.send(JSON.stringify({"longUrl": data}));
       },
       
@@ -543,7 +511,11 @@
         //console.log(this.responseText);
         var temp = JSON.parse(this.responseText);
         globalThis.imageLink = temp.id;
+        globalThis.$.paperSpinner.active = false;
         paperDialog.open();
+      },
+      makeImageReqListener: function(e) {
+        globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
       },
       downloadImage: function(){
         var a = document.createElement("a");
