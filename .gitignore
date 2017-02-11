@@ -5,4 +5,4 @@ node_modules/
 image_upload_repo/
 
 ##Ignore all log files
-.log
+*.log
