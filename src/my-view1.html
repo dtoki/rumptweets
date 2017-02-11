@@ -300,7 +300,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
-    <paper-dialog id="paperDialog" class$="{{dialogCss}}">
+    <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
       <div id="scrollOutside" style="width:initial; overflow: auto;"><iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image></div>
       <paper-item >imageUri: {{imageLink}}</paper-item>
@@ -367,12 +367,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         dialogCss:{
           type:String,
-          value:"animated zoomIn"
+          value:"animated pulse"
         }
       },
       listeners: {
         // this event is fired when the animation finishes
-        'iron-overlay-canceled': '_closeTheDialog'
+        'iron-overlay-canceled': '_closeTheDialog',
       },
       _closeTheDialog: function(e){
         e.preventDefault();
@@ -415,9 +415,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function () {
         var rootThis = this;
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
-        //console.log(donaldTrunpHandUp.shadowRoot);
-        var imageContainer = donaldTrunpHandUp.shadowRoot.querySelector("img");
-        //console.log(imageContainer);
+        var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+        var isSafariMobile = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+        var isChromeIos = navigator.userAgent.match('CriOS');
+        var imageContainer;
+        if(isSafari||isSafariMobile||isChromeIos){
+            imageContainer = donaldTrunpHandUp.querySelector("img");
+        }else{
+            imageContainer = donaldTrunpHandUp.root.querySelector("img");
+        }
         imageContainer.style.maxWidth = "800px"; 
         imageContainer.style.marginLeft = "auto";
         imageContainer.style.marginRight = "auto";     
@@ -464,7 +470,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //Take the picture and post to server
       takePicture: function () {
         globalThis = this;
-        this.dialogCss="animated zoomIn"
+        this.dialogCss="animated pulse"
         this.$.paperSpinner.active = true;
         var rootThis = this;
          //get ref to new key
