@@ -534,6 +534,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       shareFacebook:function(){
         console.log(this.responseText);
+        document.getElementById("facebookOgImage").setAttribute("content",this.responseText.publicUrl);
+        console.log(document.getElementById("facebookOgImage"));
       },
       makeImageDoneListener: function(event) {
         ga('set', 'userId', globalThis.user.uid);
