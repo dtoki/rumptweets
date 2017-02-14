@@ -142,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
           <my-view1 name="view1"></my-view1>
           <my-view2 class="animated  fadeIn" name="view2"></my-view2>
-          <my-view3 class="animated  fadeIn" name="view3"></my-view3>
+          <my-view3  id="view3" class="animated  fadeIn" name="view3"></my-view3>
           <my-view404 class="animated  fadeIn" name="view404"></my-view404>
         </iron-pages>
 
@@ -189,6 +189,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       observers: [
         '_routePageChanged(routeData.page)',
       ],
+      ready:function(){
+        var globalThis = this;
+        //Resive widow 3 to be the width of the inner window
+        this.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
+        window.addEventListener('resize',function(){
+          globalThis.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
+        });
+      },
       _screenChange: function () {
         console.log("the screen is large " + this.largeScreen);
       },
