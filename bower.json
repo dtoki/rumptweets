@@ -27,7 +27,8 @@
     "paper-input": "^1.1.23",
     "iron-image": "^1.2.5",
     "paper-dialog": "^1.1.0",
-    "paper-item": "^1.2.1"
+    "paper-item": "^1.2.1",
+    "iron-form": "^1.1.4"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

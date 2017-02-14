@@ -172,7 +172,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           notify: true,
           value: false,
-          observer: '_computeIfHidden'
         },
         djtMenuClass: {
           type: String,
@@ -195,18 +194,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           globalThis.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
         });
       },
-      _computeIfHidden: function () {
-        if (this.homeSelected) {
-
-        }
-      },
       //There is a bug that makes this fire 2wice https://github.com/PolymerElements/app-route/issues/129
       _routePageChanged: function (page) {
         this.page = page || 'view1';
         var globalThis = this;
-        if (this.loadCount != 0) {
-          //Move it all in here
-        }
         if (this.page == 'view1') {
           globalThis.djtMenuClass = "animated bounceOut";
           setTimeout(function () {
@@ -224,17 +215,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.sendPageAnalytics(page);
       },
       //Log the page view events (Note id will be null if the user enters form a page that is not the root)
-      sendPageAnalytics(page){
-        if(page=='view1'){            
+      sendPageAnalytics:function(page){
+        if(page=='view1'){
           if(this.loadCount>2){
-                ga('set', {
+            ga('set', {
               page: '/home_page',
               title: 'Home Page'
             });
             ga('set', 'userId', globalUid);
             ga('send', 'pageview');
           }
-          
+        
         }
         else if(page == 'view2'){
           ga('set', {
@@ -249,7 +240,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               page: '/privacy',
               title: 'Privacy Page'
           });
-          //console.log(globalUid);
           ga('set', 'userId', globalUid);
           ga('send', 'pageview');
         }
