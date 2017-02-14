@@ -422,7 +422,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
-
+          ga('set', {
+            page: '/home_page',
+            title: 'Home Page'
+          });
+          ga('set', 'userId', globalUid);
+          ga('send', 'pageview');
         var rootThis = this;
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
