@@ -84,11 +84,12 @@ function uploadToFirebaseStorage(userPost,myCallback){
         //options for file
         var options = {
             destination: 'server_upload_test/'+userPost.userId.toString()+'/'+userPost.imagePostId.toString()+'.png',
-            resumable: true,
             public:true,
             validation: 'crc32c',
             metadata: {
-                event: ''
+                'fb:app_id': '',
+                'og:title':'Rump Tweets',
+                'og:description':'Tweet like the most powerful man in the world'
             }
         };
         //Upload file to bucket
@@ -96,6 +97,30 @@ function uploadToFirebaseStorage(userPost,myCallback){
             if(!err){
                 console.log('file upload complete');
                 //TODO delete file after upload
+                //console.log(apiResponse);
+               // console.log(data);
+               var publicUrl;
+                var options = {
+                    entity: 'allUsers',
+                    role: gcs.acl.READER_ROLE
+                };
+                file.acl.add(options).then(function(data) {
+                    //Log the self link useful to look at the meta data information.
+                     console.log(data[0]);
+                     //console.log(data[1]);
+                    publicUrl = `https://storage.googleapis.com/${bucket.name}/${data[1].object}`;
+                   var metadata = {
+                    metadata: {
+                        'og:title':'Rump Tweets',
+                        'og:description':'Tweet like the most powerful man in the world',
+                        'og:image': publicUrl
+                    }
+                    };
+                    file.setMetadata(metadata, function(err, apiResponse) {
+                        console.log(err);
+                        //console.log(apiResponse);
+                    });
+                });
                 myCallback(file.metadata);
             }
         });        
