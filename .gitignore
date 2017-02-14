@@ -6,3 +6,6 @@ image_upload_repo/
 
 ##Ignore all log files
 *.log
+
+##Ignore file
+debug.log
