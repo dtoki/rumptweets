@@ -65,12 +65,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 0 16px;
         text-decoration: none;
-        color: var(--app-secondary-color);
+        color: white;
         line-height: 40px;
       }
 
       .drawer-list a.iron-selected {
-        color: black;
+        color: white;
         font-weight: bold;
       }
       .tabNavigation{
@@ -116,15 +116,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
               <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
-                <a name="view1" href="/view1"tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
-                  <paper-icon-button id='djtMenu' class$="[[djtMenuClass]]" src="../images/png/ic_trump_head.png" ></paper-icon-button>
+                <a class="tabNavigation" name="view1" href="/view1"tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
+                  <paper-icon-button id='djtMenu' class$="[[djtMenuClass]]" src="../images/png/ic_trump_head.png" ></paper-icon-button>Home
                 </a>
               </iron-selector>   
             <div main-title>       
             </div>
             <paper-tabs id="headerTabs" hidden$={{!largeScreen}}>
-              <paper-tab><a class="tabNavigation" name="view2" href="/view2">About Us</a></paper-tab>
-              <paper-tab><a class="tabNavigation" name="view3" href="/view3">Privacy</a></paper-tab>
+              <paper-tab><a class="tabNavigation" name="view2" href="/view2">about & donate</a></paper-tab>
+              <paper-tab><a class="tabNavigation" name="view3" href="/view3">privacy</a></paper-tab>
             </paper-tabs>
           </app-toolbar>
         </app-header>
