@@ -49,8 +49,8 @@ router.route('/gentweet')
         var userPost;
         userPost = req.body;
         //Upload file
-        uploadToFirebaseStorage(userPost,function(data){
-            res.json({downloadUrl: data.mediaLink});
+        uploadToFirebaseStorage(userPost,function(data,publicUrl){
+            res.json({downloadUrl: data.mediaLink, publicUrl: publicUrl});
         });
         
     });
@@ -74,9 +74,9 @@ function uploadToFirebaseStorage(userPost,myCallback){
         //Write data to file
         file.write(data.toString('binary'), 'binary', function(err){
             if(err){
-                console.log(err);
+                console.log("error writing file to folder"+err);
             }
-            console.log('written file to folder...');
+            console.log('writing file to folder...');
         });
     });
     //When the data ends then upload file
@@ -97,8 +97,6 @@ function uploadToFirebaseStorage(userPost,myCallback){
             if(!err){
                 console.log('file upload complete');
                 //TODO delete file after upload
-                //console.log(apiResponse);
-               // console.log(data);
                var publicUrl;
                 var options = {
                     entity: 'allUsers',
@@ -106,9 +104,10 @@ function uploadToFirebaseStorage(userPost,myCallback){
                 };
                 file.acl.add(options).then(function(data) {
                     //Log the self link useful to look at the meta data information.
-                     console.log(data[0]);
                      //console.log(data[1]);
                     publicUrl = `https://storage.googleapis.com/${bucket.name}/${data[1].object}`;
+                    //Make callback when the file is set
+                    myCallback(file.metadata,publicUrl);
                    var metadata = {
                     metadata: {
                         'og:title':'Rump Tweets',
@@ -117,11 +116,12 @@ function uploadToFirebaseStorage(userPost,myCallback){
                     }
                     };
                     file.setMetadata(metadata, function(err, apiResponse) {
-                        console.log(err);
-                        //console.log(apiResponse);
+                        if(err){
+                            console.log("Error setting meta data file : " + err)
+                        }
                     });
                 });
-                myCallback(file.metadata);
+                
             }
         });        
     });
