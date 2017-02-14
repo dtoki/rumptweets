@@ -297,7 +297,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-grid>
           <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.<paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner></paper-button>
         </iron-grid>
-          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white;" src="../images/png/donald_hand_up.png" ></iron-image>
+          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;" src="../images/png/donald_hand_up.png" ></iron-image>
       </div>
       
       </div>
@@ -343,7 +343,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         user :{
           type:Object,
-          value:{}
+          value:{},
+          observer:'_userStatusChange'
         },
         imageLink:{
           type:String,
@@ -381,7 +382,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _closeTheDialog: function(e){
         e.preventDefault();
-        console.log(e);
         this.dialogCss="animated zoomOutDown";
         setTimeout(function() {
           globalThis.$.paperDialog.close();
@@ -416,8 +416,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
       },
+      _userStatusChange:function(){
+          globalUid=this.user.uid;
+          ga('set', 'userId', this.user.uid); // Set the user ID using signed-in user_id.
+      },
       //Callback when the system is ready
       ready: function () {
+
         var rootThis = this;
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
@@ -432,16 +437,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         imageContainer.style.maxWidth = "800px"; 
         imageContainer.style.marginLeft = "auto";
         imageContainer.style.marginRight = "auto";     
-        //console.log(imageContainer.getBoundingClientRect());
-        setTimeout(function(){
-        },1000);
+       
         setTimeout(function() {
-          
             firebase.auth().signInAnonymously().catch(function(error) {
+              console.log(error);
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            // ...
+            console.log("Iijasdfasdfasdf");
           });
 
           firebase.auth().onAuthStateChanged(function(user) {
@@ -458,7 +461,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             // ...
           });
-        }, 500);
+        }, 2000);
         
 
       },
@@ -490,11 +493,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       makeImage:function(data){
         var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", this.makeImageReqListener);
+        oReq.addEventListener("load", this.makeImageDoneListener);
+        oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
         oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
         oReq.send(JSON.stringify(data));
+        //Send analytics 
+        ga('set', 'userId', this.user.uid);
+        ga('send', 'event', {
+          eventCategory: 'Generate Image',
+          eventAction: 'click',
+          eventLabel: "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet",
+           transport: 'beacon'
+        });
       },
       shortenUrl: function(data){
         var oReq = new XMLHttpRequest();
@@ -504,7 +516,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.send(JSON.stringify({"longUrl": data}));
       },
       
-      reqListener: function(e) {
+      reqListener: function(event) {
         var paperDialog = Polymer.dom(globalThis.root).querySelector("paper-dialog");
         //console.log(this.responseText);
         var temp = JSON.parse(this.responseText);
@@ -512,14 +524,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         globalThis.$.paperSpinner.active = false;
         paperDialog.open();
       },
-      makeImageReqListener: function(e) {
+      makeImageDoneListener: function(event) {
+        ga('set', 'userId', globalThis.user.uid);
+        ga('send', 'event', {
+          eventCategory: 'Generate Image',
+          eventAction: 'success',
+          eventLabel: 'Server respose',
+           transport: 'beacon'
+        },{nonInteraction:true});
         globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
+      },
+      makeImageErrorListener:function(event){
+        ga('set', 'userId', globalThis.user.uid);
+        ga('send', 'event', {
+          eventCategory: 'Generate Image',
+          eventAction: 'error',
+          eventLabel: 'Server respose',
+          transport: 'beacon'
+        },{nonInteraction:true});
+        ga('send', 'exception', {
+          exDescription : event,
+          exFatal: false
+        });
       },
       downloadImage: function(){
         var a = document.createElement("a");
         a.href = this.imageLink;
         a.download = "rump_tweet.png"
         a.click();
+        //Send analytics 
+        ga('set', 'userId', this.user.uid);
+        ga('send', 'event', {
+          eventCategory: 'Download Image',
+          eventAction: 'click',
+          eventLabel: "User action",
+           transport: 'beacon'
+        });
       }
 
     });
