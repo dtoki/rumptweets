@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600" rel="stylesheet">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
 <dom-module id="my-view1">
@@ -30,7 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         height: 100%;
       }
-      
+
       .whiteColor {
         background: white;
       }
@@ -67,6 +68,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-right: auto;
         margin-top: 30px;
       }
+
+
       
       paper-textarea {
         --paper-input-container-color: white;
@@ -90,9 +93,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }*/
       .greeting{
         font-size: 26pt;
-        font-weight: 300;
+        font-weight: 100;
         margin-left: auto;
         margin-right: auto;
+        letter-spacing: 0.8px;
       }
       iron-icon{
         --iron-icon-fill-color:grey;
@@ -103,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             padding: 20px;
         }
         .greeting{
-          font-size: 20pt;
+          font-size: 18pt;
         }
       }
       #tweet_picture_holder{
@@ -138,8 +142,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div  class="offset-m1 offset-xs0 xs12 m10 ">
                 <div class="greeting" style="width: 100%;">
                   <p style="margin-top:80px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
-                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the most powerful man in the world. Before you use this tool, <span style="font-weight:400;">you must know that your voice, your words, and your actions can change our world for the better or for the worse</span> or for the worse. 
-                    So please…please use it with the care</p>
+                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the <i>most powerful man in the world</i>. Before you use this tool, you must know that <i>your voice, your words, and your actions can change our world for the better or for the worse.</i></p>
+
+                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">So please...please use it with care...</p>
                 </div>
                 <br> 
                 <div id="tweet_picture_holder">     
