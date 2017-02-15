@@ -27,11 +27,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-view1">
   <template>
     <style include="twitter-style animate-css">
-       :host {
+      :host {
         display: block;
         height: 100%;
       }
-
+      
       .whiteColor {
         background: white;
       }
@@ -68,8 +68,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-right: auto;
         margin-top: 30px;
       }
-
-
       
       paper-textarea {
         --paper-input-container-color: white;
@@ -78,12 +76,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           color: grey;
         }
       }
-      .baner_Image{
+      
+      .baner_Image {
         --iron-image-width: 100%;
       }
-      #donaldHandUp_Image{
+      
+      #donaldHandUp_Image {
         width: 100%;
-        margin-top:100px;
+        margin-top: 100px;
         /*padding-top: 40px;
         padding-left: 40px;
         padding-right: 40px;*/
@@ -91,183 +91,190 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       /*#mainContent{
         background: red;
       }*/
-      .greeting{
+      
+      .greeting {
         font-size: 26pt;
         font-weight: 100;
         margin-left: auto;
         margin-right: auto;
         letter-spacing: 0.8px;
       }
-      iron-icon{
-        --iron-icon-fill-color:grey;
+      
+      iron-icon {
+        --iron-icon-fill-color: grey;
       }
+      
       @media screen and (max-width: 480px) {
-        .xs12{
-            margin-left: 0px !important;
-            padding: 20px;
+        .xs12 {
+          margin-left: 0px !important;
+          padding: 20px;
         }
-        .greeting{
+        .greeting {
           font-size: 18pt;
         }
       }
-      #tweet_picture_holder{
+      
+      #tweet_picture_holder {
         margin-left: auto;
         margin-right: auto;
         width: 100%;
         display: flex;
         max-width: 700px;
       }
-      #trump_tweet{
+      
+      #trump_tweet {
         width: 100% !important;
         margin-left: 0px;
         margin-right: 0px;
         max-width: none;
       }
-      paper-spinner{
-        --paper-spinner-layer-1-color:white;
-        --paper-spinner-layer-2-color:yellow;
-        --paper-spinner-layer-3-color:red;
-        --paper-spinner-layer-4-color:black;
+      
+      paper-spinner {
+        --paper-spinner-layer-1-color: white;
+        --paper-spinner-layer-2-color: yellow;
+        --paper-spinner-layer-3-color: red;
+        --paper-spinner-layer-4-color: black;
       }
     </style>
-    <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn" >
+    <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn">
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
-      <div  class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px;">
-        <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../images/png/banner.png" preload ></iron-image>
+      <div class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px;">
+        <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../images/png/banner.png" preload></iron-image>
         <!------Start of twitter stuff------>
-        
-        <div id="twitterCard" >
+
+        <div id="twitterCard">
           <div class="permalink-inner permalink-tweet-container">
             <iron-grid>
-              <div  class="offset-m1 offset-xs0 xs12 m10 ">
+              <div class="offset-m1 offset-xs0 xs12 m10 ">
                 <div class="greeting" style="width: 100%;">
                   <p style="margin-top:80px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
                   <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the <i>most powerful man in the world</i>. Before you use this tool, you must know that <i>your voice, your words, and your actions can change our world for the better or for the worse.</i></p>
 
                   <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">So please...please use it with care...</p>
                 </div>
-                <br> 
-                <div id="tweet_picture_holder">     
-                <div style="margin-top:50px; width:initial;" id="trump_tweet" class=" card tweet permalink-tweet">
-                  <div class="content clearfix">
-                    <div class="permalink-header">
-                      <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
-                        <img class="avatar js-action-profile-avatar" src="../images/png/djt_headshot.jpg" alt="">
-                        <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<iron-image class="Icon" style="position: absolute; margin-left:4px;" src="../images/png/ic_verify.png" ></strong>
-                        <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
-                      </a>
-                      <!--<small class="time">
+                <br>
+                <div id="tweet_picture_holder">
+                  <div style="margin-top:50px; width:initial;" id="trump_tweet" class=" card tweet permalink-tweet">
+                    <div class="content clearfix">
+                      <div class="permalink-header">
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" data-user-id="25073877">
+                          <img class="avatar js-action-profile-avatar" src="../images/png/djt_headshot.jpg" alt="">
+                          <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">Donald J. Trump<iron-image class="Icon" style="position: absolute; margin-left:4px;" src="../images/png/ic_verify.png" ></strong>
+                          <span>&rlm;</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>realDonaldTrump</b></span>
+                        </a>
+                        <!--<small class="time">
                           <a  class="tweet-timestamp js-permalink js-nav js-tooltip" title="10:00 AM - 20 Jan 2017" data-conversation-id="822504142178500608"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1484935243" data-time-ms="1484935243000" data-long-form="true" aria-hidden="true">8h</span><span class="u-hiddenVisually" data-aria-label-part="last">8 hours ago</span></a>
                         </small>-->
-                      <div class="follow-bar">
-                        <div class="user-actions btn-group not-following not-muting  " data-user-id="25073877" data-screen-name="realDonaldTrump"
-                          data-name="Donald J. Trump" data-protected="false">
-                          <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
+                        <div class="follow-bar">
+                          <div class="user-actions btn-group not-following not-muting  " data-user-id="25073877" data-screen-name="realDonaldTrump"
+                            data-name="Donald J. Trump" data-protected="false">
+                            <button class="user-actions-follow-button js-follow-btn follow-button btn" type="button">
                           <span class="button-text follow-text" style="margin-top:4px;">
                            <iron-image class="Icon" style="margin-bottom:3px" src="../images/png/follow_icon.png" ></iron-image>Follow 
                             
                           </span>
                           
                         </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-              </div>
-              <div class="js-tweet-text-container">
-                <paper-textarea id="input-textArea" label="{{myLabel}}" value="{{userInput}}"></paper-textarea>
-              </div>
-              <div class="js-tweet-details-fixer tweet-details-fixer">
-                <div class="js-machine-translated-tweet-container"></div>
-                <div class="js-tweet-stats-container tweet-stats-container">
-                  <ul class="stats" aria-label="Retweeted and favorited by">
-                    <li class="js-stat-count js-stat-retweets stat-count" aria-hidden="true">
-                      <a tabindex="0" role="button" data-tweet-stat-count="10433" data-compact-localized-count="10K" class="request-retweeted-popup"
-                        data-activity-popup-title="10,433 retweets">
-                        Retweets <strong>10,433</strong>
-                        </a>
-                    </li>
-                    <li class="js-stat-count js-stat-favorites stat-count" aria-hidden="true">
-                      <a tabindex="0" role="button" data-tweet-stat-count="54820" data-compact-localized-count="55K" class="request-favorited-popup"
-                        data-activity-popup-title="54,820 likes">
-                        Likes <strong>54,820</strong>
-                        </a>
-                    </li>
-                    <li class="avatar-row js-face-pile-container">
-                      <a class="js-profile-popup-actionable js-tooltip" data-user-id="930429612" original-title="Robert Golden" title="Robert Golden"rel="noopener">
-                        <img class="avatar size24 js-user-profile-link" src="../images/png/follower_1.jpeg" alt="Robert Golden">
-                      </a>
-                        <a class="js-profile-popup-actionable js-tooltip" data-user-id="3084231070" original-title="Wanda Brewington" title="Wanda Brewington"
-                          rel="noopener">
-                          <img class="avatar size24 js-user-profile-link" src="../images/png/follower_2.png" alt="Wanda Brewington">
-                          </a>
-                          <a class="js-profile-popup-actionable js-tooltip" data-user-id="755004241383751680" original-title="TrumpPepe2020" title="TrumpPepe2020"
-                            rel="noopener">
-                            <img class="avatar size24 js-user-profile-link" src="../images/png/follower_3.jpg" alt="TrumpPepe2020">
+                  <div class="js-tweet-text-container">
+                    <paper-textarea id="input-textArea" label="{{myLabel}}" value="{{userInput}}"></paper-textarea>
+                  </div>
+                  <div class="js-tweet-details-fixer tweet-details-fixer">
+                    <div class="js-machine-translated-tweet-container"></div>
+                    <div class="js-tweet-stats-container tweet-stats-container">
+                      <ul class="stats" aria-label="Retweeted and favorited by">
+                        <li class="js-stat-count js-stat-retweets stat-count" aria-hidden="true">
+                          <a tabindex="0" role="button" data-tweet-stat-count="10433" data-compact-localized-count="10K" class="request-retweeted-popup"
+                            data-activity-popup-title="10,433 retweets">
+                            Retweets <strong>10,433</strong>
                             </a>
-                            <a class="js-profile-popup-actionable js-tooltip" data-user-id="3303150538" original-title="Thomas Jon IV" title="Thomas Jon IV"
+                        </li>
+                        <li class="js-stat-count js-stat-favorites stat-count" aria-hidden="true">
+                          <a tabindex="0" role="button" data-tweet-stat-count="54820" data-compact-localized-count="55K" class="request-favorited-popup"
+                            data-activity-popup-title="54,820 likes">
+                            Likes <strong>54,820</strong>
+                            </a>
+                        </li>
+                        <li class="avatar-row js-face-pile-container">
+                          <a class="js-profile-popup-actionable js-tooltip" data-user-id="930429612" original-title="Robert Golden" title="Robert Golden"
+                            rel="noopener">
+                            <img class="avatar size24 js-user-profile-link" src="../images/png/follower_1.jpeg" alt="Robert Golden">
+                            </a>
+                            <a class="js-profile-popup-actionable js-tooltip" data-user-id="3084231070" original-title="Wanda Brewington" title="Wanda Brewington"
                               rel="noopener">
-                              <img class="avatar size24 js-user-profile-link" src="../images/png/follower_4.jpg" alt="Thomas Jon IV">
+                              <img class="avatar size24 js-user-profile-link" src="../images/png/follower_2.png" alt="Wanda Brewington">
                               </a>
-                              <a class="js-profile-popup-actionable js-tooltip" data-user-id="3439191809" original-title="Zachary Lippincott" title="Zachary Lippincott"
+                              <a class="js-profile-popup-actionable js-tooltip" data-user-id="755004241383751680" original-title="TrumpPepe2020" title="TrumpPepe2020"
                                 rel="noopener">
-                                <img class="avatar size24 js-user-profile-link" src="../images/png/follower_5.jpg" alt="Zachary Lippincott">
+                                <img class="avatar size24 js-user-profile-link" src="../images/png/follower_3.jpg" alt="TrumpPepe2020">
                                 </a>
-                                <a class="js-profile-popup-actionable js-tooltip" data-user-id="758491129104834560" original-title="Hillary Diane" title="Hillary Diane"
+                                <a class="js-profile-popup-actionable js-tooltip" data-user-id="3303150538" original-title="Thomas Jon IV" title="Thomas Jon IV"
                                   rel="noopener">
-                                  <img class="avatar size24 js-user-profile-link" src="../images/png/follower_6.png" alt="Hillary Diane">
+                                  <img class="avatar size24 js-user-profile-link" src="../images/png/follower_4.jpg" alt="Thomas Jon IV">
                                   </a>
-                                  <a class="js-profile-popup-actionable js-tooltip" data-user-id="822447154182688768" original-title="Sandra Darby" title="Sandra Darby"
+                                  <a class="js-profile-popup-actionable js-tooltip" data-user-id="3439191809" original-title="Zachary Lippincott" title="Zachary Lippincott"
                                     rel="noopener">
-                                    <img class="avatar size24 js-user-profile-link" src="../images/png/follower_7.png" alt="Sandra Darby">
+                                    <img class="avatar size24 js-user-profile-link" src="../images/png/follower_5.jpg" alt="Zachary Lippincott">
                                     </a>
-                                    <a class="js-profile-popup-actionable js-tooltip" data-user-id="818129288763351040" original-title="Patti Collis" title="Patti Collis"
+                                    <a class="js-profile-popup-actionable js-tooltip" data-user-id="758491129104834560" original-title="Hillary Diane" title="Hillary Diane"
                                       rel="noopener">
-                                      <img class="avatar size24 js-user-profile-link" src="../images/png/follower_8.png" alt="Patti Collis">
+                                      <img class="avatar size24 js-user-profile-link" src="../images/png/follower_6.png" alt="Hillary Diane">
                                       </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="client-and-actions">
-                  <span class="metadata">
+                                      <a class="js-profile-popup-actionable js-tooltip" data-user-id="822447154182688768" original-title="Sandra Darby" title="Sandra Darby"
+                                        rel="noopener">
+                                        <img class="avatar size24 js-user-profile-link" src="../images/png/follower_7.png" alt="Sandra Darby">
+                                        </a>
+                                        <a class="js-profile-popup-actionable js-tooltip" data-user-id="818129288763351040" original-title="Patti Collis" title="Patti Collis"
+                                          rel="noopener">
+                                          <img class="avatar size24 js-user-profile-link" src="../images/png/follower_8.png" alt="Patti Collis">
+                                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="client-and-actions">
+                      <span class="metadata">
                         <span>10:00 AM - 20 Jan 2017</span>
-                  </span>
-                </div>
-              </div>
-              <div class="stream-item-footer">
-                <div class="ProfileTweet-actionCountList u-hiddenVisually">
-                  <span class="ProfileTweet-action--reply u-hiddenVisually">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="stream-item-footer">
+                    <div class="ProfileTweet-actionCountList u-hiddenVisually">
+                      <span class="ProfileTweet-action--reply u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="4775">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">4,775 replies</span>
-                  </span>
-                  </span>
-                  <span class="ProfileTweet-action--retweet u-hiddenVisually">
+                      </span>
+                      </span>
+                      <span class="ProfileTweet-action--retweet u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="10433">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">10,433 retweets</span>
-                  </span>
-                  </span>
-                  <span class="ProfileTweet-action--favorite u-hiddenVisually">
+                      </span>
+                      </span>
+                      <span class="ProfileTweet-action--favorite u-hiddenVisually">
                           <span class="ProfileTweet-actionCount" data-tweet-stat-count="54820">
                             <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">54,820 likes</span>
-                  </span>
-                  </span>
-                </div>
-                <div class="ProfileTweet-actionList js-actions buffer-inserted pocket-inserted" role="group" aria-label="Tweet actions">
-                  <div class="ProfileTweet-action ProfileTweet-action--reply">
-                    <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply"
-                      type="button">
-                      <div class="IconContainer js-tooltip" title="Reply">
-                        <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_replypng.png"></iron-image>
-                        <span class="u-hiddenVisually">Reply</span>
-                      </div>
-                      <div class="IconTextContainer">
-                        <span class="ProfileTweet-actionCount ">
+                      </span>
+                      </span>
+                    </div>
+                    <div class="ProfileTweet-actionList js-actions buffer-inserted pocket-inserted" role="group" aria-label="Tweet actions">
+                      <div class="ProfileTweet-action ProfileTweet-action--reply">
+                        <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply"
+                          type="button">
+                          <div class="IconContainer js-tooltip" title="Reply">
+                            <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_replypng.png"></iron-image>
+                            <span class="u-hiddenVisually">Reply</span>
+                          </div>
+                          <div class="IconTextContainer">
+                            <span class="ProfileTweet-actionCount ">
                               <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">4.8K</span>
-                        </span>
+                            </span>
+                          </div>
+                          </button>
                       </div>
-                      </button>
-                  </div>
-                  <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
-                    <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+                      <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+                        <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
                                       <div class="IconContainer js-tooltip" title="Retweet">
                                         <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_retweetpng.png" ></iron-image>
                                         <span class="u-hiddenVisually">Retweet</span>
@@ -278,20 +285,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                           </span>
                                         </div>
                                     </button>
-                  </div>
-                  <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
-                    <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+                      </div>
+                      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                        <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
                                       <div class="IconContainer js-tooltip" title="Like"></div>
                                         <div class="IconTextContainer">
                               <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_likepng.png" ></iron-image>
                               <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
                           </div>
                       </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-          </div>
-        </div>
         </div>
         </iron-grid>
         <iron-grid>
@@ -299,16 +306,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </iron-grid>
           <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;" src="../images/png/donald_hand_up.png" ></iron-image>
       </div>
-      
+    
       </div>
-      
+
       </div>
       <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
     <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
-      <div id="scrollOutside" style="width:initial; overflow: auto;"><iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image></div>
-      <paper-item >imageUri: {{imageLink}}</paper-item>
+      <div id="scrollOutside" style="width:initial; overflow: auto;">
+        <iron-image id="image_preview" style="width:500px; height:260px;" src="{{imageLink}}" preload sizing="contain"></iron-image>
+      </div>
+      <paper-item>imageUri: {{imageLink}}</paper-item>
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
@@ -321,21 +330,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
   </template>
   <script>
+
+   
+
     var globalThis;
+    
     Polymer({
 
       is: 'my-view1',
       properties: {
-        userInput:{
+        userInput: {
           type: String,
-          value:"",
-          notify:true,
-          observer:"_userInputChange"
+          value: "",
+          notify: true,
+          observer: "_userInputChange"
         },
-        myLabel:{
-          type:String,
-          value:"Click to start typing...",
-          notify:true,
+        myLabel: {
+          type: String,
+          value: "Click to start typing...",
+          notify: true,
         },
         prop1: {
           type: String,
@@ -346,30 +359,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value:{},
           observer:'_userStatusChange'
         },
-        imageLink:{
-          type:String,
-          notify:true,
-          value:""
+        imageLink: {
+          type: String,
+          notify: true,
+          value: ""
         },
-        mobilePhone:{
-          type:Boolean,
-          notify:true,
+        mobilePhone: {
+          type: Boolean,
+          notify: true,
           observer: '_mobilePhoneChange'
         },
-        hideShareText:{
-          type:Boolean,
-          notify:true,
-          value:false
+        hideShareText: {
+          type: Boolean,
+          notify: true,
+          value: false
         },
-        shareText:{
-          type:String,
-          notify:true,
-          value:"Share"
+        shareText: {
+          type: String,
+          notify: true,
+          value: "Share"
         },
-        downloadText:{
-          type:String,
-          notify:true,
-          value:"Download"
+        downloadText: {
+          type: String,
+          notify: true,
+          value: "Download"
         },
         dialogCss:{
           type:String,
@@ -383,36 +396,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // this event is fired when the animation finishes
         'iron-overlay-canceled': '_closeTheDialog',
       },
-      _closeTheDialog: function(e){
+      _closeTheDialog: function (e) {
         e.preventDefault();
         this.dialogCss="animated zoomOutDown";
         setTimeout(function() {
           globalThis.$.paperDialog.close();
         }, 1300);
       },
-      _userInputChange: function(){
-         if(this.userInput==""){
+      _userInputChange: function () {
+        if (this.userInput == "") {
           this.myLabel = "Click to start typing...";
-        }else{
+        } else {
           this.myLabel = "";
         }
       },
       //Remove words on download dialog and the margin right based on width of screen
-      _mobilePhoneChange: function(newValue,oldValue){
+      _mobilePhoneChange: function (newValue, oldValue) {
         var allIronImages = Polymer.dom(this.root).querySelectorAll("iron-icon");
-        if(newValue==false){
+        if (newValue == false) {
           this.shareText = "";
           this.downloadText = "";
           //get all the iron-icons and remove the paddings
-          for(item in allIronImages){
+          for (item in allIronImages) {
             var ironIconItem = allIronImages[item];
             ironIconItem.style.marginRight = "0px";
           }
-        }else{
+        } else {
           this.shareText = "Share";
           this.downloadText = "Download";
           //get all the iron-icons and add the paddings
-          for(item in allIronImages){
+          for (item in allIronImages) {
             var ironIconItem = allIronImages[item];
             ironIconItem.style.marginRight = "4px";
           }
@@ -437,69 +450,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var isSafariMobile = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
         var isChromeIos = navigator.userAgent.match('CriOS');
         var imageContainer;
-        if(isSafari||isSafariMobile||isChromeIos){
-            imageContainer = donaldTrunpHandUp.querySelector("img");
-        }else{
-            imageContainer = donaldTrunpHandUp.root.querySelector("img");
+        if (isSafari || isSafariMobile || isChromeIos) {
+          imageContainer = donaldTrunpHandUp.querySelector("img");
+        } else {
+          imageContainer = donaldTrunpHandUp.root.querySelector("img");
         }
-        imageContainer.style.maxWidth = "800px"; 
+        imageContainer.style.maxWidth = "800px";
         imageContainer.style.marginLeft = "auto";
         imageContainer.style.marginRight = "auto";     
        
         setTimeout(function() {
             firebase.auth().signInAnonymously().catch(function(error) {
-              console.log(error);
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log("Iijasdfasdfasdf");
           });
 
-          firebase.auth().onAuthStateChanged(function(user) {
+          firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
               // User is signed in.
               var isAnonymous = user.isAnonymous;
               var uid = user.uid;
               rootThis.user = user;
-              //console.log(rootThis.user);
-              // ...
+             
             } else {
-              // User is signed out.
-              // ...
+        
             }
-            // ...
+
           });
         }, 2000);
-        
-
       },
       //Listners
-      
-      userTyped: function(){
-        console.log("sfaf");
-        if(this.userInput==""){
+
+      userTyped: function () {
+        if (this.userInput == "") {
           this.myLabel = "Click to start typing...";
-        }else{
+        } else {
           this.myLabel = "";
         }
       },
       //Take the picture and post to server
       takePicture: function () {
         globalThis = this;
-        this.dialogCss="animated pulse"
+        this.dialogCss = "animated pulse"
         this.$.paperSpinner.active = true;
         var rootThis = this;
-         //get ref to new key
-        var newPostKey = firebase.database().ref().child('Posts/'+rootThis.user.uid+'/').push().key;
+        //get ref to new key
+        var newPostKey = firebase.database().ref().child('Posts/' + rootThis.user.uid + '/').push().key;
         var postData = {
           userId: this.user.uid,
-          imagePostId:newPostKey,
+          imagePostId: newPostKey,
           message: this.userInput
         };
         this.makeImage(postData);
-         //console.log(JSON.stringify(postData));  
       },
-      makeImage:function(data){
+      makeImage: function (data) {
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.makeImageDoneListener);
         oReq.addEventListener("error", this.makeImageErrorListener);
@@ -516,26 +521,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            transport: 'beacon'
         });
       },
-      shortenUrl: function(data){
+      shortenUrl: function (data) {
         var oReq = new XMLHttpRequest();
         oReq.addEventListener("load", this.reqListener);
-        oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",true);
-        oReq.setRequestHeader('Content-Type', 'application/json');      
-        oReq.send(JSON.stringify({"longUrl": data}));
+        oReq.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0", true);
+        oReq.setRequestHeader('Content-Type', 'application/json');
+        oReq.send(JSON.stringify({ "longUrl": data }));
       },
-      
       reqListener: function(event) {
+
         var paperDialog = Polymer.dom(globalThis.root).querySelector("paper-dialog");
-        //console.log(this.responseText);
         var temp = JSON.parse(this.responseText);
         globalThis.imageLink = temp.id;
         globalThis.$.paperSpinner.active = false;
         paperDialog.open();
       },
+
       shareFacebook:function(){
-        console.log(this.responseText);
-        document.getElementById("facebookOgImage").setAttribute("content",this.responseText.publicUrl);
-        console.log(document.getElementById("facebookOgImage"));
+        FB.ui({
+          method: 'share',
+          display: 'popup',
+          href: window.location.href,
+        }, function (response) {
+          
+         });
       },
       makeImageDoneListener: function(event) {
         ga('set', 'userId', globalThis.user.uid);
@@ -548,6 +557,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         globalThis.responseText = JSON.parse(this.responseText);
         globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
       },
+
       makeImageErrorListener:function(event){
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
@@ -562,10 +572,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
       downloadImage: function(){
-        var a = document.createElement("a");
-        a.href = this.imageLink;
-        a.download = "rump_tweet.png"
-        a.click();
         //Send analytics 
         ga('set', 'userId', this.user.uid);
         ga('send', 'event', {
@@ -574,7 +580,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventLabel: "User action",
            transport: 'beacon'
         });
+        var a = document.createElement("a");
+        a.href = this.imageLink;
+        a.download = "rump_tweet.png"
+        a.click();
+      },
+
+      facebookShare: function (data) {
+        
       }
+
 
     });
   </script>
