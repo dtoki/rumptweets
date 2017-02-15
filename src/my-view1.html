@@ -461,11 +461,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        
         setTimeout(function() {
             firebase.auth().signInAnonymously().catch(function(error) {
-              console.log(error);
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log("Iijasdfasdfasdf");
           });
 
           firebase.auth().onAuthStateChanged(function (user) {
@@ -474,20 +472,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               var isAnonymous = user.isAnonymous;
               var uid = user.uid;
               rootThis.user = user;
-              //console.log(rootThis.user);
-              // ...
+             
             } else {
-              // User is signed out.
-              // ...
+        
             }
-            // ...
+
           });
         }, 2000);
       },
       //Listners
 
       userTyped: function () {
-        console.log("sfaf");
         if (this.userInput == "") {
           this.myLabel = "Click to start typing...";
         } else {
@@ -508,7 +503,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           message: this.userInput
         };
         this.makeImage(postData);
-        console.log(JSON.stringify(postData));  
       },
       makeImage: function (data) {
         var oReq = new XMLHttpRequest();
@@ -537,7 +531,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       reqListener: function(event) {
 
         var paperDialog = Polymer.dom(globalThis.root).querySelector("paper-dialog");
-        console.log(this.responseText);
         var temp = JSON.parse(this.responseText);
         globalThis.imageLink = temp.id;
         globalThis.$.paperSpinner.active = false;
@@ -545,19 +538,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       shareFacebook:function(){
-        console.log(this.responseText);
-        // document.getElementById("facebookOgImage").setAttribute("content",this.responseText.publicUrl);
-        // document.getElementById("facebookOgUrl").setAttribute("content",this.responseText.publicUrl);
-        console.log(document.getElementById("facebookOgImage"));
-         console.log(document.getElementById("facebookOgUrl"));
-        //console.log("fuckthis");
-        console.log(window.location.href);
         FB.ui({
           method: 'share',
           display: 'popup',
           href: window.location.href,
         }, function (response) {
-          console.log(response);
+          
          });
       },
       makeImageDoneListener: function(event) {
@@ -570,7 +556,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },{nonInteraction:true});
         globalThis.responseText = JSON.parse(this.responseText);
         globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
-        console.log((this.responseText));
       },
 
       makeImageErrorListener:function(event){
