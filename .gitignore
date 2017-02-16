@@ -3,6 +3,7 @@ bower_components/
 build/
 node_modules/
 image_upload_repo/
+app/
 
 ##Ignore all log files
 *.log
