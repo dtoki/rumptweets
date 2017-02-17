@@ -509,7 +509,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.addEventListener("load", this.makeImageDoneListener);
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
-        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
+        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
         oReq.send(JSON.stringify(data));
         //Send analytics 
