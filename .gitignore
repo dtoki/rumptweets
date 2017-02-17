@@ -1,5 +1,6 @@
-##Ignore this folders
+##Ignore this folders in this branch
 node_modules/
 bower_components/
 image_upload_repo/
 build/
+images/
