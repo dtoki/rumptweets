@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600" rel="stylesheet">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
@@ -328,11 +329,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-dialog>
 
     <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
+    <paper-toast id="toast" text="Hmm there seems to be a problem generating your tweet. Please try again in a moment" duration="7000"></paper-toast>
   </template>
+  
   <script>
-
-   
-
     var globalThis;
     
     Polymer({
@@ -559,6 +559,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       makeImageErrorListener:function(event){
+        globalThis.$.toast.open();
+        globalThis.$.paperSpinner.active = false;
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
