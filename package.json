@@ -2,7 +2,7 @@
   "name": "rump_image_server",
   "version": "0.0.1",
   "description": "Server to generate trump tweets ",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

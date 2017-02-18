@@ -22,7 +22,7 @@ threadsafe: false
 resources:
   cpu: 1
   memory_gb: 0.6
-  disk_size_gb: 5
+  disk_size_gb: 10
 #disable health_check until we can figure out what it does and how it force restarts https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
 health_check:
     enable_health_check: false
