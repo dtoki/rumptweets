@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view2">
@@ -42,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 needs to be tackled, please consider donating to our site. We want to keep this tool free of advertising
                 and hope to explore new features and projects that will tackle this issue.
             </h2>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form id="form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <div style="margin-bottom: 0;">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="VDVU9VTRZAPYQ">
@@ -102,8 +104,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <script>
-                            Polymer({
-                                is: 'my-view2',
-                            });
+        Polymer({
+            is: 'my-view2',
+            ready:function(){
+                this.$.form.addEventListener('submit',function(){
+                   ga('set', 'userId', globalThis.user.uid);
+                        ga('send', 'event', {
+                        eventCategory: 'Donate Button',
+                        eventAction: 'click',
+                        eventLabel: 'Pay Pal',
+                        transport: 'beacon'
+                        });
+                });
+            }
+        });
     </script>
 </dom-module>

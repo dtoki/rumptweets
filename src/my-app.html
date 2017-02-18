@@ -25,8 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="my-icons.html">
@@ -113,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- Drawer content -->
       <app-drawer id="drawer" hidden$={{largeScreen}}>
         <!--<app-toolbar>Menu</app-toolbar>-->
-        <iron-selector selected="{{page}}" attr-for-selected="name" class="drawer-list" role="navigation">
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">Home</a>
           <a name="view2" href="/view2">About &amp; Donate</a>
           <a name="view3" href="/view3">Privacy</a>
@@ -125,7 +123,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <iron-selector selected="{{page}}" attr-for-selected="name" role="navigation">
+            <iron-selector selected="[[page]]" attr-for-selected="name" role="navigation">
               <a class="tabNavigation" name="view1" href="/view1" tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
                 <paper-icon-button id='djtMenu' class$="[[djtMenuClass]]" src="../images/png/ic_trump_head.png"></paper-icon-button>Home
               </a>
@@ -155,9 +153,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
+    var globalUid="";
     Polymer({
       is: 'my-app',
-
       properties: {
         page: {
           type: String,
@@ -168,13 +166,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           notify: true,
           value: false,
-          observer: '_screenChange'
+         
         },
         homeSelected: {
           type: Boolean,
           notify: true,
           value: false,
-          observer: '_computeIfHidden'
         },
         djtMenuClass: {
           type: String,
@@ -197,20 +194,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           globalThis.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
         });
       },
-      _screenChange: function () {
-        console.log("the screen is large " + this.largeScreen);
-      },
-      _computeIfHidden: function () {
-        if (this.homeSelected) {
-
-        }
-      },
+      //There is a bug that makes this fire 2wice https://github.com/PolymerElements/app-route/issues/129
       _routePageChanged: function (page) {
         this.page = page || 'view1';
         var globalThis = this;
-        if (this.loadCount != 0) {
-          //Move it all in here
-        }
         if (this.page == 'view1') {
           globalThis.djtMenuClass = "animated bounceOut";
           setTimeout(function () {
@@ -225,6 +212,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.drawer.close();
         }
         this.loadCount++;
+        this.sendPageAnalytics(page);
+      },
+      //Log the page view events (Note id will be null if the user enters form a page that is not the root)
+      sendPageAnalytics:function(page){
+        if(page=='view1'){
+          if(this.loadCount>2){
+            ga('set', {
+              page: '/home_page',
+              title: 'Home Page'
+            });
+            ga('set', 'userId', globalUid);
+            ga('send', 'pageview');
+          }
+        
+        }
+        else if(page == 'view2'){
+          ga('set', {
+              page: '/about_and_donate',
+              title: 'About and Donate Page'
+          });
+          ga('set', 'userId', globalUid);
+          ga('send', 'pageview');
+        }
+        else if(page == 'view3'){
+           ga('set', {
+              page: '/privacy',
+              title: 'Privacy Page'
+          });
+          ga('set', 'userId', globalUid);
+          ga('send', 'pageview');
+        }
+        else if(page == 'view404'){
+            ga('set', {
+              page: '/404',
+              title: 'Page not found'
+          });
+          ga('set', 'userId', globalUid);
+          ga('send', 'pageview');
+        }
       },
 
       _pageChanged: function (page) {
@@ -236,6 +262,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _showPage404: function () {
         this.page = 'view404';
       },
+
     });
   </script>
 </dom-module>

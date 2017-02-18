@@ -15,6 +15,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
+    <!--Facebook twitter tag-->
+    <meta property="fb:app_id" content="302184056577324" /> 
+    <meta property="og:type"   content="website" /> 
+    <meta id="facebookOgUrl" property="og:url" content="https://rumptweets.com"/> 
+    <meta property="og:title"  content="Rump Tweets" /> 
+    <meta id="facebookOgImage" property="og:image"  content="https://storage.googleapis.com/rumptweets-2c7cc.appspot.com/server_upload_test/uFRaFvug6MMdj2BnBLHRPdQ31F92/-Kd-8-FhLu4Nmvgmq2FW.png"/> 
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="300">
+
     <title>Rump Tweets</title>
     <meta name="description" content="Tweet like the most powerful man in the world">
 
@@ -48,6 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="msapplication-tap-highlight" content="no">
 
     <script>
+    
       // Setup Polymer options
       window.Polymer = {
         dom: 'shadow',
@@ -96,18 +106,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
     <script>
-        // Initialize Firebase
+      // Initialize Firebase
       var config = {
         apiKey: "AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",
         authDomain: "rumptweets-2c7cc.firebaseapp.com",
         databaseURL: "https://rumptweets-2c7cc.firebaseio.com",
-        storageBucket: "rumptweets-2c7cc.appspot.com",
-        messagingSenderId: "570027697414"
       };
       firebase.initializeApp(config);
-      // Get a reference to the storage service, which is used to create references in your storage bucket
-      var storage = firebase.storage();
-      console.log("done");
+
+        //Google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      
+      //Google analytics config
+      ga('create', 'UA-83846906-2', 'auto');
+      if (location.hostname == 'localhost') {
+        ga('set', 'sendHitTask', null);
+      }
+
+      //Face book stuff
+       //facebook shit
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '221420734992546',
+          xfbml: true,
+          version: 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      } (document, 'script', 'facebook-jssdk'));
     </script>
 
     <link rel="import" href="/src/my-app.html">
