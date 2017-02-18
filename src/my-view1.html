@@ -80,11 +80,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       .baner_Image {
         --iron-image-width: 100%;
+        /*max-width:800px;*/
+      }
+      
+      @media (min-width:1200px) {
+        .baner_Image {
+          max-width: 60%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+      
+      @media (min-width:900px) and (max-width:1199px) {
+        .baner_Image {
+          max-width: 80%;
+          margin-left: auto;
+          margin-right: auto;
+        }
       }
       
       #donaldHandUp_Image {
         width: 100%;
-        margin-top: 100px;
+        margin-top: 60px;
         /*padding-top: 40px;
         padding-left: 40px;
         padding-right: 40px;*/
@@ -94,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }*/
       
       .greeting {
-        font-size: 26pt;
+        font-size: 22pt;
         font-weight: 100;
         margin-left: auto;
         margin-right: auto;
@@ -139,7 +156,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn">
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
-      <div class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px;">
+      <div class="offset-s0 offset-m1 s12 m10 whiteColor" style="padding-left:0px; padding-right:0px; padding-bottom:0.65em;">
         <iron-image class="baner_Image" style="margin-left:auto; margin-right: auto;" src="../images/png/banner.png" preload></iron-image>
         <!------Start of twitter stuff------>
 
@@ -148,10 +165,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-grid>
               <div class="offset-m1 offset-xs0 xs12 m10 ">
                 <div class="greeting" style="width: 100%;">
-                  <p style="margin-top:80px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
+                  <p style="margin-top:60px; max-width: 600px; margin-left:auto; margin-right: auto;">Congratulations, Mr. President. </p>
                   <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">You are now the <i>most powerful man in the world</i>. Before you use this tool, you must know that <i>your voice, your words, and your actions can change our world for the better or for the worse.</i></p>
 
-                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">So please...please use it with care...</p>
+                  <p style="margin-top: 30px; max-width: 600px; margin-left:auto; margin-right: auto;">So please...please use it with care.</p>
                 </div>
                 <br>
                 <div id="tweet_picture_holder">
@@ -300,18 +317,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </div>
                 </div>
               </div>
-        </div>
-        </iron-grid>
-        <iron-grid>
-          <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet.<paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner></paper-button>
-        </iron-grid>
-          <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;" src="../images/png/donald_hand_up.png" ></iron-image>
-      </div>
-    
-      </div>
+          </div>
+          </iron-grid>
+          <iron-grid>
+            <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet
+              <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
+            </paper-button>
+          </iron-grid>
 
+
+        </div>
       </div>
-      <!--<div class="s0 m2 americanFlagRed"></div>-->
+      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;"
+        src="../images/png/donald_hand_up.png"></iron-image>
+        </div>
+        <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
     <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
@@ -322,9 +342,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
+<<<<<<< HEAD
         <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
         <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
         <paper-button on-tap="shareFacebook"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
+=======
+        <paper-button on-tap="downloadImage" style="color:grey;">
+          <iron-icon icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
+        <paper-button disabled>
+          <iron-icon src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button on-tap="shareFacebook">
+          <iron-icon src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+>>>>>>> a2736ca61c5d465b9f4c6f361fe791454df37915
       </div>
     </paper-dialog>
 
@@ -334,7 +363,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   <script>
     var globalThis;
-    
+
     Polymer({
 
       is: 'my-view1',
@@ -354,10 +383,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'RumpTweets-app',
         },
-        user :{
-          type:Object,
-          value:{},
-          observer:'_userStatusChange'
+        user: {
+          type: Object,
+          value: {},
+          observer: '_userStatusChange'
         },
         imageLink: {
           type: String,
@@ -384,12 +413,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true,
           value: "Download"
         },
-        dialogCss:{
-          type:String,
-          value:"animated pulse"
+        dialogCss: {
+          type: String,
+          value: "animated pulse"
         },
-        responseText:{
-          type:Object
+        responseText: {
+          type: Object
         }
       },
       listeners: {
@@ -398,8 +427,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _closeTheDialog: function (e) {
         e.preventDefault();
-        this.dialogCss="animated zoomOutDown";
-        setTimeout(function() {
+        this.dialogCss = "animated zoomOutDown";
+        setTimeout(function () {
           globalThis.$.paperDialog.close();
         }, 1300);
       },
@@ -432,18 +461,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
       },
-      _userStatusChange:function(){
-          globalUid=this.user.uid;
-          ga('set', 'userId', this.user.uid); // Set the user ID using signed-in user_id.
+      _userStatusChange: function () {
+        globalUid = this.user.uid;
+        ga('set', 'userId', this.user.uid); // Set the user ID using signed-in user_id.
       },
       //Callback when the system is ready
       ready: function () {
-          ga('set', {
-            page: '/home_page',
-            title: 'Home Page'
-          });
-          ga('set', 'userId', globalUid);
-          ga('send', 'pageview');
+        ga('set', {
+          page: '/home_page',
+          title: 'Home Page'
+        });
+        ga('set', 'userId', globalUid);
+        ga('send', 'pageview');
         var rootThis = this;
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
@@ -457,10 +486,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         imageContainer.style.maxWidth = "800px";
         imageContainer.style.marginLeft = "auto";
-        imageContainer.style.marginRight = "auto";     
-       
-        setTimeout(function() {
-            firebase.auth().signInAnonymously().catch(function(error) {
+        imageContainer.style.marginRight = "auto";
+
+        setTimeout(function () {
+          firebase.auth().signInAnonymously().catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -472,9 +501,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               var isAnonymous = user.isAnonymous;
               var uid = user.uid;
               rootThis.user = user;
-             
+
             } else {
-        
+
             }
 
           });
@@ -518,7 +547,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventCategory: 'Generate Image',
           eventAction: 'click',
           eventLabel: "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet",
-           transport: 'beacon'
+          transport: 'beacon'
         });
       },
       shortenUrl: function (data) {
@@ -528,7 +557,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.setRequestHeader('Content-Type', 'application/json');
         oReq.send(JSON.stringify({ "longUrl": data }));
       },
-      reqListener: function(event) {
+      reqListener: function (event) {
 
         var paperDialog = Polymer.dom(globalThis.root).querySelector("paper-dialog");
         var temp = JSON.parse(this.responseText);
@@ -537,26 +566,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         paperDialog.open();
       },
 
-      shareFacebook:function(){
+      shareFacebook: function () {
         FB.ui({
           method: 'share',
           display: 'popup',
           href: window.location.href,
         }, function (response) {
-          
-         });
+
+        });
       },
-      makeImageDoneListener: function(event) {
+      makeImageDoneListener: function (event) {
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
           eventAction: 'success',
           eventLabel: 'Server respose',
-           transport: 'beacon'
-        },{nonInteraction:true});
+          transport: 'beacon'
+        }, { nonInteraction: true });
         globalThis.responseText = JSON.parse(this.responseText);
         globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
       },
+
 
       makeImageErrorListener:function(event){
         globalThis.$.toast.open();
@@ -567,20 +597,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventAction: 'error',
           eventLabel: 'Server respose',
           transport: 'beacon'
-        },{nonInteraction:true});
+        }, { nonInteraction: true });
         ga('send', 'exception', {
-          exDescription : event,
+          exDescription: event,
           exFatal: false
         });
       },
-      downloadImage: function(){
+      downloadImage: function () {
         //Send analytics 
         ga('set', 'userId', this.user.uid);
         ga('send', 'event', {
           eventCategory: 'Download Image',
           eventAction: 'click',
           eventLabel: "User action",
-           transport: 'beacon'
+          transport: 'beacon'
         });
         var a = document.createElement("a");
         a.href = this.imageLink;
@@ -589,7 +619,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       facebookShare: function (data) {
-        
+
       }
 
 
