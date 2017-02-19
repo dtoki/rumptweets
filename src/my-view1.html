@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600" rel="stylesheet">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
@@ -341,17 +342,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
-        <paper-button on-tap="downloadImage" style="color:grey;">
-          <iron-icon icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
-        <paper-button disabled>
-          <iron-icon src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
-        <paper-button on-tap="shareFacebook">
-          <iron-icon src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
+        <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
+        <paper-button on-tap="shareFacebook"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
       </div>
     </paper-dialog>
 
     <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
+    <paper-toast id="toast" text="Hmm there seems to be a problem generating your tweet. Please try again in a moment" duration="7000"></paper-toast>
   </template>
+  
   <script>
     var globalThis;
 
@@ -529,7 +529,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.addEventListener("load", this.makeImageDoneListener);
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
-        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot.com/api/gentweet");
+        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet");
         oReq.setRequestHeader("content-type", "application/json");
         oReq.send(JSON.stringify(data));
         //Send analytics 
@@ -578,7 +578,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
       },
 
-      makeImageErrorListener: function (event) {
+
+      makeImageErrorListener:function(event){
+        globalThis.$.toast.open();
+        globalThis.$.paperSpinner.active = false;
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
