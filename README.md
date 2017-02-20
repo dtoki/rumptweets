@@ -1,6 +1,9 @@
 # Rump tweets
 
+### Build status
+[![Production](https://travis-ci.com/Capdt/rumptweets.svg?token=AxChYBy4KoAyjsd75Ua6&branch=master)](https://travis-ci.com/Capdt/rumptweets)
 
+ ___
 This is the Web app for Rump Tweets. the application uses the prpl pattern to load 
 pages the html pages and loads the pages into the index.html page so it's one 
 file.
