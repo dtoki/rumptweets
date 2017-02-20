@@ -21,8 +21,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta property="og:type" content="website" />
   <meta id="facebookOgUrl" property="og:url" content="https://rumptweets.com" />
   <meta property="og:title" content="Rump Tweets" />
-  <meta id="facebookOgImage" property="og:image" href="/images/png/Social_icon.jpg"/>
-  
+  <meta id="facebookOgImage" property="og:image" href="/images/png/Social_icon.jpg" />
+
   <meta property="og:image:width" content="500">
   <meta property="og:image:height" content="300">
 
@@ -53,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
   <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
   <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
-  
+
   <!-- Tile icon for Windows 8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
   <meta name="msapplication-TileColor" content="#3f51b5">
@@ -157,6 +157,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=221420734992546";
       fjs.parentNode.insertBefore(js, fjs);
     } (document, 'script', 'facebook-jssdk'));
+
+    //Twitter bs
+    window.twttr = (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function (f) {
+        t._e.push(f);
+      };
+
+      return t;
+    } (document, "script", "twitter-wjs"));
   </script>
 
   <link rel="import" href="/src/my-app.html">
