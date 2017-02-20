@@ -18,9 +18,8 @@ branches:
 before_script:
   - npm install -g bower polymer-cli firebase-tools
   - bower install
-  - firebase build
 script:
   # - xvfb-run npm test
-  
+  - polymer build
 after_success:
   - firebase deploy --token=${FIREBASE_API_TOKEN} --only hosting
