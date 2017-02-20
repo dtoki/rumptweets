@@ -68,6 +68,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-left: auto;
         margin-right: auto;
         margin-top: 30px;
+        width:100%;
+        
       }
       
       paper-textarea {
@@ -320,12 +322,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           </iron-grid>
           <iron-grid>
-            <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet
-              <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
-            </paper-button>
+            <div style="flex-direction: column;" class="offset-s2 s8 ">
+              <paper-button id="shareImage-button" on-tap="takePicture" raised  >Share your fake tweet
+                <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
+              </paper-button>
+              <!--Moved iframe inside the grid-->
+              <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frumptweets.com&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=221420734992546"
+          width="450" height="80" style="border:none;overflow:hidden; margin-right: auto; margin-left: auto; margin-top:1em;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            </div>
           </iron-grid>
-
-
         </div>
       </div>
       <iron-grid style="height:auto;">
