@@ -12,8 +12,14 @@ node_js:
   - '6'
   - '5'
   - '4'
+branches:
+  only:
+    - master
 before_script:
-  - npm install -g bower polymer-cli
+  - npm install -g bower polymer-cli firebase-tools
   - bower install
 script:
-  - xvfb-run npm test
+  # - xvfb-run npm test
+  - firebase build
+after_success:
+  - firebase deploy --token=${FIREBASE_API_TOKEN} --only hosting
