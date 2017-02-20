@@ -20,4 +20,4 @@ script:
   # - xvfb-run npm test
   - polymer build
 after_success:
-  - firebase deploy --token=${FIREBASE_API_TOKEN} --only hosting
+  - firebase deploy --token ${FIREBASE_API_TOKEN}
