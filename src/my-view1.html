@@ -326,9 +326,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
               </paper-button>
               <!--Moved iframe inside the grid-->
-
-              <!--<a href="https://twitter.com/rumptweet" class="twitter-follow-button" data-size="large">Follow @rumptweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>-->
-              
+              <div>
+<a href="https://twitter.com/rumptweets" id="twitterFollow" class="twitter-follow-button" data-size="large">Follow @rumptweets</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
               <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frumptweets.com&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=221420734992546"
           width="450" height="80" style="border:none;overflow:hidden; margin-right: auto; margin-left: auto; margin-top:1em;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
             </div>
@@ -467,6 +467,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
+        twttr.widgets.load(
+          this.$.twitterFollow
+        );
         ga('set', {
           page: '/home_page',
           title: 'Home Page'
