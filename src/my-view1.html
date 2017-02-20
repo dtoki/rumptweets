@@ -59,6 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .tweet_bottom_icons {
         --iron-image-width: 17px;
       }
+
+      .tweet_bottom_icons_heart{
+        --iron-image-height: 13px;
+      }
       
       #shareImage-button {
         height: 40px;
@@ -306,11 +310,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         </div>
                                     </button>
                       </div>
-                      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState" style="height: 100%; display: inline-flex;">
                         <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
-                                      <div class="IconContainer js-tooltip" title="Like"></div>
-                                        <div class="IconTextContainer">
-                              <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_likepng.png" ></iron-image>
+                                        <div class="IconTextContainer" style="display: inline-flex; align-items: flex-end;">
+                              <iron-image style="margin-right: 5px; " class="Icon tweet_bottom_icons_heart" src="../images/png/ic_likepng.png" ></iron-image>
                               <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
                           </div>
                       </button>
@@ -332,12 +335,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </iron-grid>
         </div>
-      </div>
-      
+      </div>  
       <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; margin-top:0; background: white; bottom: -10px;"
             src="../images/png/donald_hand_up.png"></iron-image>
       </div>
-            <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
     <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
