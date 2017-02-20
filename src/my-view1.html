@@ -64,7 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-image-height: 13px;
       }
       
-      #shareImage-button {
+      #shareImage_button {
         height: 40px;
         background: #2AA4EF;
         color: white;
@@ -158,6 +158,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-spinner-layer-2-color: yellow;
         --paper-spinner-layer-3-color: red;
         --paper-spinner-layer-4-color: black;
+      }
+      paper-button{
+        --paper-button-disabled:{
+          opacity:0.6;
+        }
       }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn">
@@ -326,7 +331,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </iron-grid>
           <iron-grid>
             <div style="flex-direction: column;" class="offset-s2 s8 ">
-              <paper-button id="shareImage-button" on-tap="takePicture" raised  >Share your fake tweet
+              <paper-button id="shareImage_button" on-tap="takePicture" raised  >Share your fake tweet
                 <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
               </paper-button>
               <!--Moved iframe inside the grid-->
@@ -434,8 +439,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _userInputChange: function () {
         if (this.userInput == "") {
           this.myLabel = "Click to start typing...";
+          console.log("yeah");
+          this.$.shareImage_button.disabled = true;
         } else {
           this.myLabel = "";
+          this.$.shareImage_button.disabled = false;
         }
       },
       //Remove words on download dialog and the margin right based on width of screen
