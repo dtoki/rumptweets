@@ -67,6 +67,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-left: auto;
         margin-right: auto;
         margin-top: 30px;
+        width:100%;
+        
       }
       
       paper-textarea {
@@ -319,18 +321,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           </iron-grid>
           <iron-grid>
-            <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet
-              <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
-            </paper-button>
+            <div style="flex-direction: column;" class="offset-s2 s8 ">
+              <paper-button id="shareImage-button" on-tap="takePicture" raised  >Share your fake tweet
+                <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
+              </paper-button>
+              <!--Moved iframe inside the grid-->
+              <div>
+<a href="https://twitter.com/rumptweets" id="twitterFollow" class="twitter-follow-button" data-size="large">Follow @rumptweets</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
+              <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frumptweets.com&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=221420734992546"
+          width="450" height="80" style="border:none;overflow:hidden; margin-right: auto; margin-left: auto; margin-top:1em;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            </div>
           </iron-grid>
-
-
         </div>
       </div>
-      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;"
-        src="../images/png/donald_hand_up.png"></iron-image>
-        </div>
-        <!--<div class="s0 m2 americanFlagRed"></div>-->
+    
+      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-top: 0.25em; background: white; bottom: -10px;" src="../images/png/donald_hand_up.png"></iron-image>
+      </div>
+      <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
     <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
@@ -341,7 +349,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
-        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
+        <paper-button on-tap="downloadImage" style="color:grey;">
+          <iron-icon icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
         <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
         <paper-button on-tap="shareFacebook"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
       </div>
@@ -350,8 +359,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
     <paper-toast id="toast" text="Hmm there seems to be a problem generating your tweet. Please try again in a moment" duration="7000"></paper-toast>
   </template>
-  
+
   <script>
+  
     var globalThis;
 
     Polymer({
@@ -457,6 +467,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
+        twttr.widgets.load(
+          this.$.twitterFollow
+        );
         ga('set', {
           page: '/home_page',
           title: 'Home Page'
@@ -578,7 +591,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
 
-      makeImageErrorListener:function(event){
+      makeImageErrorListener: function (event) {
         globalThis.$.toast.open();
         globalThis.$.paperSpinner.active = false;
         ga('set', 'userId', globalThis.user.uid);
@@ -611,6 +624,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       facebookShare: function (data) {
 
       }
+
+      
 
 
     });
