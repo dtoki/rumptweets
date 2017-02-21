@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../bower_components/iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-char-counter.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
@@ -58,8 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .tweet_bottom_icons {
         --iron-image-width: 17px;
       }
+
+      .tweet_bottom_icons_heart{
+        --iron-image-height: 13px;
+      }
       
-      #shareImage-button {
+      #shareImage_button {
         height: 40px;
         background: #2AA4EF;
         color: white;
@@ -67,6 +73,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-left: auto;
         margin-right: auto;
         margin-top: 30px;
+        width:100%;
+        
       }
       
       paper-textarea {
@@ -74,6 +82,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-input-container-focus-color: white;
         --paper-input-container-label: {
           color: grey;
+        }
+        max-width:660px;
+        --paper-input-char-counter:{
+          color:grey!important;
         }
       }
       
@@ -152,6 +164,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-spinner-layer-3-color: red;
         --paper-spinner-layer-4-color: black;
       }
+      paper-button{
+        --paper-button-disabled:{
+          opacity:0.6;
+        }
+      }
     </style>
     <iron-grid xs-max-width="300" s-max-width="650" class="animated fadeIn">
       <!--<div class=" s0 m2 americanFlagRed"></div>-->
@@ -197,7 +214,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                   </div>
                   <div class="js-tweet-text-container">
-                    <paper-textarea id="input-textArea" label="{{myLabel}}" value="{{userInput}}"></paper-textarea>
+                    <paper-textarea id="input-textArea" label="{{myLabel}}" value="{{userInput}}" char-counter maxlength="140">
+                      <paper-input-char-counter></paper-input-char-counter>
+                    </paper-textarea>
                   </div>
                   <div class="js-tweet-details-fixer tweet-details-fixer">
                     <div class="js-machine-translated-tweet-container"></div>
@@ -303,11 +322,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         </div>
                                     </button>
                       </div>
-                      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState" style="height: 100%; display: inline-flex;">
                         <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
-                                      <div class="IconContainer js-tooltip" title="Like"></div>
-                                        <div class="IconTextContainer">
-                              <iron-image class="Icon tweet_bottom_icons" src="../images/png/ic_likepng.png" ></iron-image>
+                                        <div class="IconTextContainer" style="display: inline-flex; align-items: flex-end;">
+                              <iron-image style="margin-right: 5px; " class="Icon tweet_bottom_icons_heart" src="../images/png/ic_likepng.png" ></iron-image>
                               <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">55K</span>
                           </div>
                       </button>
@@ -319,18 +337,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           </iron-grid>
           <iron-grid>
-            <paper-button id="shareImage-button" on-tap="takePicture" raised class="offset-s2 s8 ">Share your fake tweet
-              <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
-            </paper-button>
+            <div style="flex-direction: column;" class="offset-s2 s8 ">
+              <paper-button id="shareImage_button" on-tap="takePicture" raised  >Share your fake tweet
+                <paper-spinner id="paperSpinner" style="margin-left: 15px;"></paper-spinner>
+              </paper-button>
+              <!--Moved iframe inside the grid-->
+              <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Frumptweets.com&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId=221420734992546"
+          width="450" height="80" style="border:none;overflow:hidden; margin-right: auto; margin-left: auto; margin-top:1em;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            </div>
           </iron-grid>
-
-
         </div>
+      </div>  
+      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; margin-top:0; background: white; bottom: -10px;"
+            src="../images/png/donald_hand_up.png"></iron-image>
       </div>
-      <iron-image id="donaldHandUp_Image" class="baner_Image" style="margin-left:auto; margin-right: auto; background: white; bottom: -10px;"
-        src="../images/png/donald_hand_up.png"></iron-image>
-        </div>
-        <!--<div class="s0 m2 americanFlagRed"></div>-->
     </iron-grid>
     <paper-dialog id="paperDialog" class$="{{dialogCss}}" horizontal-offset="20">
       <h2>Share your image</h2>
@@ -341,7 +361,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="share_buttons" class="buttons">
         <!--<paper-button dialog-dismiss>Download Image</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
-        <paper-button on-tap="downloadImage" style="color:grey;"><iron-icon  icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
+        <paper-button on-tap="downloadImage" style="color:grey;">
+          <iron-icon icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
         <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
         <paper-button on-tap="shareFacebook"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
       </div>
@@ -350,7 +371,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
     <paper-toast id="toast" text="Hmm there seems to be a problem generating your tweet. Please try again in a moment" duration="7000"></paper-toast>
   </template>
-  
+
   <script>
     var globalThis;
     Polymer({
@@ -423,8 +444,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _userInputChange: function () {
         if (this.userInput == "") {
           this.myLabel = "Click to start typing...";
+          console.log("yeah");
+          this.$.shareImage_button.disabled = true;
         } else {
           this.myLabel = "";
+          this.$.shareImage_button.disabled = false;
         }
       },
       //Remove words on download dialog and the margin right based on width of screen
@@ -576,7 +600,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
 
-      makeImageErrorListener:function(event){
+      makeImageErrorListener: function (event) {
         globalThis.$.toast.open();
         globalThis.$.paperSpinner.active = false;
         ga('set', 'userId', globalThis.user.uid);
