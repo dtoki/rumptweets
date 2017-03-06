@@ -434,7 +434,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         responseText: {
           type: Object
         },
-        postData:{
+        postData: {
           type: Object
         }
       },
@@ -619,8 +619,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           exFatal: false
         });
       },
-      postDataToFireBase(data){
-        firebase.database().ref().child('Posts/' + globalThis.user.uid + '/' +data.imagePostId).set(data);
+      postDataToFireBase: function(data){
+        firebase.database().ref().child('Posts/' + globalThis.user.uid + '/' + data.imagePostId ).set(data);
       },
       downloadImage: function () {
         //Send analytics 
@@ -633,7 +633,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
         var a = document.createElement("a");
         a.href = this.imageLink;
-        a.download = "rump_tweet.png"
+        a.download = "rump_tweet.png";
         a.click();
       },
 
@@ -648,7 +648,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var shareUrl = "https://rumptweets.com/tweetgallery/"+ this.postData.userId + "/" + this.postData.imagePostId;
         FB.ui(
           {
-              method: `share`,
+              method: 'share',
               name: 'Facebook Dialogs',
               href: shareUrl,
               link: 'https://rumptweets.com/',
