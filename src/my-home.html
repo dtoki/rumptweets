@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600" rel="stylesheet">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
-<dom-module id="my-view1">
+<dom-module id="my-home">
   <template>
     <style include="twitter-style animate-css">
       :host {
@@ -375,7 +375,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     var globalThis;
     Polymer({
-      is: 'my-view1',
+      is: 'my-home',
       properties: {
         userInput: {
           type: String,
@@ -547,7 +547,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       makeImage: function (data) {
         var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", this.makeImageDoneListener);
+        oReq.addEventListener("load",function(){globalThis.makeImageDoneListener(event,data)});
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
         oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet");
@@ -587,7 +587,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         });
       },
-      makeImageDoneListener: function (event) {
+      makeImageDoneListener: function (event,data) {
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
@@ -595,11 +595,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventLabel: 'Server respose',
           transport: 'beacon'
         }, { nonInteraction: true });
-        globalThis.responseText = JSON.parse(this.responseText);
-        globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
+       globalThis.postDataToFireBase(data);
+       globalThis.responseText = JSON.parse(event.target.responseText);
+       globalThis.shortenUrl(JSON.parse(event.target.responseText).downloadUrl);
       },
-
-
       makeImageErrorListener: function (event) {
         globalThis.$.toast.open();
         globalThis.$.paperSpinner.active = false;
@@ -614,6 +613,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           exDescription: event,
           exFatal: false
         });
+      },
+      postDataToFireBase(data){
+        firebase.database().ref().child('Posts/' + globalThis.user.uid + '/' +data.imagePostId).set(data);
       },
       downloadImage: function () {
         //Send analytics 

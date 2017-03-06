@@ -112,9 +112,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" hidden$={{largeScreen}}>
         <!--<app-toolbar>Menu</app-toolbar>-->
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="/view1">Home</a>
-          <a name="view2" href="/view2">About &amp; Donate</a>
-          <a name="view3" href="/view3">Privacy</a>
+          <a name="home" href="/home">Home</a>
+          <a name="aboutus" href="/aboutus">About &amp; Donate</a>
+          <a name="privacy" href="/privacy">Privacy</a>
         </iron-selector>
       </app-drawer>
 
@@ -124,23 +124,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <iron-selector selected="[[page]]" attr-for-selected="name" role="navigation">
-              <a class="tabNavigation" name="view1" href="/view1" tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
+              <a class="tabNavigation" name="home" href="/home" tabindex="-1" hidden$={{!largeScreen}} homeSelected$={{homeSelected}}>
                 <paper-icon-button id='djtMenu' class$="[[djtMenuClass]]" src="../images/png/ic_trump_head.png"></paper-icon-button>Home
               </a>
             </iron-selector>
             <div main-title>
             </div>
             <paper-tabs id="headerTabs" hidden$={{!largeScreen}}>
-              <paper-tab><a class="tabNavigation" name="view2" href="/view2">about &amp; donate</a></paper-tab>
-              <paper-tab><a class="tabNavigation" name="view3" href="/view3">privacy</a></paper-tab>
+              <paper-tab><a class="tabNavigation" name="aboutus" href="/aboutus">about &amp; donate</a></paper-tab>
+              <paper-tab><a class="tabNavigation" name="privacy" href="/privacy">privacy</a></paper-tab>
             </paper-tabs>
           </app-toolbar>
         </app-header>
 
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 class="animated  fadeIn" name="view2"></my-view2>
-          <my-view3  id="view3" class="animated  fadeIn" name="view3"></my-view3>
+          <my-home name="home"></my-home>
+          <my-aboutus class="animated  fadeIn" name="aboutus"></my-aboutus>
+          <my-privacy  id="privacy" class="animated  fadeIn" name="privacy"></my-privacy>
+          <my-tweetgallery  id="tweetgallery"  name="tweetgallery" route="{{subroute}}"></my-tweetgallery>
           <my-view404 class="animated  fadeIn" name="view404"></my-view404>
         </iron-pages>
 
@@ -189,16 +190,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready:function(){
         var globalThis = this;
         //Resive widow 3 to be the width of the inner window
-        this.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
+        this.$.privacy.style.minHeight = (window.innerHeight-70).toString()+"px";
         window.addEventListener('resize',function(){
-          globalThis.$.view3.style.minHeight = (window.innerHeight-70).toString()+"px";
+          globalThis.$.privacy.style.minHeight = (window.innerHeight-70).toString()+"px";
         });
       },
       //There is a bug that makes this fire 2wice https://github.com/PolymerElements/app-route/issues/129
       _routePageChanged: function (page) {
-        this.page = page || 'view1';
+        this.page = page || 'home';
         var globalThis = this;
-        if (this.page == 'view1') {
+        if (this.page == 'home') {
           globalThis.djtMenuClass = "animated bounceOut";
           setTimeout(function () {
             globalThis.homeSelected = true;
@@ -216,7 +217,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Log the page view events (Note id will be null if the user enters form a page that is not the root)
       sendPageAnalytics:function(page){
-        if(page=='view1'){
+        if(page=='home'){
           if(this.loadCount>2){
             ga('set', {
               page: '/home_page',
@@ -227,7 +228,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         
         }
-        else if(page == 'view2'){
+        else if(page == 'aboutus'){
           ga('set', {
               page: '/about_and_donate',
               title: 'About and Donate Page'
@@ -235,7 +236,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ga('set', 'userId', globalUid);
           ga('send', 'pageview');
         }
-        else if(page == 'view3'){
+        else if(page == 'privacy'){
            ga('set', {
               page: '/privacy',
               title: 'Privacy Page'
