@@ -1,24 +1,22 @@
-
 language: node_js
 sudo: required
 dist: trusty
-addons:
-  firefox: latest
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
 node_js:
   - '6'
+before_script:
+  - npm install -g bower polymer-cli
+  - npm install
+  - bower install
 branches:
   only:
-    - master
-before_script:
-  - npm install -g bower polymer-cli firebase-tools
-  - bower install
+    - master_staging
 script:
-  # - xvfb-run npm test
-  - polymer build
-after_success:
-  - firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+ - polymer build
+
+deploy:
+  provider: gae
+  keyfile: keys/app_engine_key.json
+  project: "rumptweets-2c7cc"
+  skip_cleanup: true
+  default: true
+  on: master
