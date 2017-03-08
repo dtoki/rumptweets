@@ -1,1 +1,4 @@
 * text=auto
+*.yml merge=ours
+*.md merge=ours
+.travis.yml merge=ours
