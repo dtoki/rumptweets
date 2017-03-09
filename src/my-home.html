@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600" rel="stylesheet">
 <link rel="import" href="styles/animate-css.html">
 <link rel="import" href="styles/twitter-style.html">
-<dom-module id="my-view1">
+<dom-module id="my-home">
   <template>
     <style include="twitter-style animate-css">
       :host {
@@ -363,8 +363,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button dialog-confirm autofocus>Accept</paper-button>-->
         <paper-button on-tap="downloadImage" style="color:grey;">
           <iron-icon icon="icons:file-download" style="margin-right:8px;"></iron-icon> {{downloadText}}</paper-button>
-        <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
-        <paper-button on-tap="shareFacebook"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
+        <!--<paper-button disabled><iron-icon  src="../images/png/ic_twitter.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>-->
+        <paper-button on-tap="facebookShare"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon> {{shareText}}</paper-button>
       </div>
     </paper-dialog>
 
@@ -375,7 +375,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     var globalThis;
     Polymer({
-      is: 'my-view1',
+      is: 'my-home',
       properties: {
         userInput: {
           type: String,
@@ -398,6 +398,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_userStatusChange'
         },
         imageLink: {
+          type: String,
+          notify: true,
+          value: ""
+        },
+        publicImageLink: {
           type: String,
           notify: true,
           value: ""
@@ -427,6 +432,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: "animated pulse"
         },
         responseText: {
+          type: Object
+        },
+        postData: {
           type: Object
         }
       },
@@ -479,13 +487,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       //Callback when the system is ready
       ready: function () {
+        var rootThis = this;
+        //Testing facebook
+        // setTimeout(()=>{
+        //   rootThis.facebookShare();
+        // },2000);
         ga('set', {
           page: '/home_page',
           title: 'Home Page'
         });
         ga('set', 'userId', globalUid);
         ga('send', 'pageview');
-        var rootThis = this;
+        
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
         var isSafariMobile = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
@@ -543,11 +556,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           imagePostId: newPostKey,
           message: this.userInput
         };
+        //To use for send data to fb
+        this.postData = postData;
         this.makeImage(postData);
       },
       makeImage: function (data) {
         var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", this.makeImageDoneListener);
+        oReq.addEventListener("load",function(){globalThis.makeImageDoneListener(event,data)});
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
         oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet");
@@ -577,17 +592,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         globalThis.$.paperSpinner.active = false;
         paperDialog.open();
       },
-
-      shareFacebook: function () {
-        FB.ui({
-          method: 'share',
-          display: 'popup',
-          href: window.location.href,
-        }, function (response) {
-
-        });
-      },
-      makeImageDoneListener: function (event) {
+      makeImageDoneListener: function (event,data) {
         ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
@@ -595,11 +600,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventLabel: 'Server respose',
           transport: 'beacon'
         }, { nonInteraction: true });
-        globalThis.responseText = JSON.parse(this.responseText);
-        globalThis.shortenUrl(JSON.parse(this.responseText).downloadUrl);
+       globalThis.postDataToFireBase(data);
+       globalThis.responseText = JSON.parse(event.target.responseText);
+       globalThis.shortenUrl(JSON.parse(event.target.responseText).downloadUrl);
       },
-
-
       makeImageErrorListener: function (event) {
         globalThis.$.toast.open();
         globalThis.$.paperSpinner.active = false;
@@ -615,6 +619,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           exFatal: false
         });
       },
+      postDataToFireBase: function(data){
+        firebase.database().ref().child('Posts/' + globalThis.user.uid + '/' + data.imagePostId ).set(data);
+      },
       downloadImage: function () {
         //Send analytics 
         ga('set', 'userId', this.user.uid);
@@ -626,12 +633,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
         var a = document.createElement("a");
         a.href = this.imageLink;
-        a.download = "rump_tweet.png"
+        a.download = "rump_tweet.png";
         a.click();
       },
 
-      facebookShare: function (data) {
-
+      facebookShare: function () {
+        ga('set', 'userId', this.user.uid);
+        ga('send', 'event', {
+          eventCategory: 'Share Image',
+          eventAction: 'click',
+          eventLabel: "Facebook",
+          transport: 'beacon'
+        });
+        var shareUrl = "https://rumptweets.com/tweetgallery/"+ this.postData.userId + "/" + this.postData.imagePostId;
+        FB.ui(
+          {
+              method: 'share',
+              name: 'Facebook Dialogs',
+              href: shareUrl,
+              link: 'https://rumptweets.com/',
+              picture: this.publicImageLink,
+              caption: 'Tweet like the most powerful man in the world',
+              description: 'Generate your very own trump tweet',
+              mobile_iframe: true
+          },
+          function (response) {
+              if (response && response.post_id) {
+                 ga('set', 'userId', globalThis.user.uid);
+                  ga('send', 'event', {
+                    eventCategory: 'Share Image',
+                    eventAction: 'success',
+                    eventLabel: 'Facebook',
+                    transport: 'beacon'
+                  }, { nonInteraction: true });
+              } else {
+                   ga('set', 'userId', globalThis.user.uid);
+                    ga('send', 'event', {
+                      eventCategory: 'Share Image',
+                      eventAction: 'fail',
+                      eventLabel: 'Facebook',
+                      transport: 'beacon'
+                    }, { nonInteraction: true });
+              }
+          }
+        );
       }
 
 
