@@ -1,0 +1,31 @@
+{
+  "name": "rump-tweets",
+  "version": "0.0.5",
+  "description": "Make tweets like the most “powerful” man in the world, our President, Donald J Trump",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Capdt/rumptweets.git"
+  },
+  "keywords": [
+    "tweet",
+    "generator"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Capdt/rumptweets/issues"
+  },
+  "homepage": "https://github.com/Capdt/rumptweets#readme"
+}

@@ -12,10 +12,10 @@ node_js:
   - '6'
 before_script:
   - npm install -g bower polymer-cli firebase-tools
-script:
-  # - xvfb-run npm test
   - cd $TRAVIS_BUILD_DIR/app/front-end-module/
   - bower install
+script:
+  # - xvfb-run npm test
   - polymer build
 after_success:
   - echo "Deploying Service";
