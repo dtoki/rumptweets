@@ -21,7 +21,7 @@ after_success:
 deploy:
   # deploy master banch to production server
   - provider: script
-    script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+    script: scripts/bash/deploy.sh
     on:
       branch: master
   # deploy test branch to test server
