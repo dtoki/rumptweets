@@ -1,4 +1,3 @@
-
 language: node_js
 sudo: required
 dist: trusty
@@ -31,4 +30,5 @@ deploy:
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
-    on: test
+    on: 
+      branch: test
