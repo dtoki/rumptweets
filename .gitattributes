@@ -3,3 +3,4 @@
 *.md merge=ours
 .travis.yml merge=ours
 app.yaml merge=ours
+
