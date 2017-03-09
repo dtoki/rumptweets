@@ -11,9 +11,6 @@ addons:
       - google-chrome-stable
 node_js:
   - '6'
-branches:
-  only:
-    - master
 before_script:
   - npm install -g bower polymer-cli firebase-tools
   - bower install
@@ -23,13 +20,15 @@ script:
 after_success:
   - echo "Deploying Service";
 deploy:
-  # deploy develop to the staging environment
+  # deploy master banch to production server
   - provider: script
-    script: scripts/deploy.sh staging
-    on:
-      branch: test
-  # deploy master to production
-  - provider: script
-    script: scripts/deploy.sh production
+    script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
     on:
       branch: master
+  # deploy test branch to test server
+  - provider: gae
+    keyfile: keys/app_engine_key.json
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: test
