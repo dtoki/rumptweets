@@ -12,8 +12,8 @@ node_js:
   - '6'
 before_script:
   - npm install -g bower polymer-cli firebase-tools
+  - cd app/front-end-module/
   - bower install
-  - chmod +x scripts/bash/deploy.sh
 script:
   # - xvfb-run npm test
   - polymer build
@@ -26,9 +26,43 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+
+  # deploy develop branch to test server
+  - provider: gae
+    keyfile: keys/app_engine_key.json
+    config: app/front-end-module/front-end-module.yaml
+    version: develop
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: 
+      branch: develop
+  # deploy develop branch to test server
+  - provider: gae
+    keyfile: keys/app_engine_key.json
+    config: app/image-server-module/image-server-module.yaml
+    version: develop
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: 
+      branch: develop
+
   # deploy test branch to test server
   - provider: gae
     keyfile: keys/app_engine_key.json
+    config: app/front-end-module/front-end-module.yaml
+    version: test
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: 
+      branch: test
+  # deploy test branch to test server
+  - provider: gae
+    keyfile: keys/app_engine_key.json
+    config: app/image-server-module/image-server-module.yaml
+    version: test
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
