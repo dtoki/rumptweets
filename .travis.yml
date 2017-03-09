@@ -20,6 +20,7 @@ script:
   - polymer build
 after_success:
   - echo "Generating scripts";
+  - cd $TRAVIS_BUILD_DIR
   - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh front-end-module $TRAVIS_BRANCH
   - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh image-server-module $TRAVIS_BRANCH
   - ls $TRAVIS_BUILD_DIR/app/font-end-module 
