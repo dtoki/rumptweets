@@ -14,11 +14,16 @@ before_script:
   - npm install -g bower polymer-cli firebase-tools
   - cd $TRAVIS_BUILD_DIR/app/front-end-module/
   - bower install
+  - chmod +x scripts/bash/config_module_deploy.sh
 script:
   # - xvfb-run npm test
   - polymer build
 after_success:
-  - echo "Deploying Service";
+  - echo "Generating scripts";
+  - sh scripts/bash/config_module_deploy.sh front-end-module $TRAVIS_BRANCH
+  - sh scripts/bash/config_module_deploy.sh image-server-module $TRAVIS_BRANCH
+  - ls app/font-end-module 
+  - ls app/image-server-module
 deploy:
   # deploy master banch to production server
   - provider: script
@@ -31,7 +36,6 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
-    version: develop
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -41,7 +45,6 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: develop
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -68,5 +71,3 @@ deploy:
     default: true
     on: 
       branch: test
-after_deploy:
-  - gcloud app deploy dispatch.yaml
