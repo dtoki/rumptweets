@@ -1,0 +1,8 @@
+dispatch:
+  # Send all mobile traffic to the mobile frontend.
+  - url: "*/front-end/*"
+    module: front-end-module
+
+  # Send all work to the one static backend. 
+  - url: "*/image-server/*"
+    module: image-server-module
