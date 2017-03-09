@@ -1,6 +1,9 @@
 # Rump tweets Staging
-    This is the staging server for rump tweets, you can view the website by visiting
 
+Production server build status
+
+
+Test server build status  
 ### Build status
 [![Production](https://travis-ci.com/Capdt/rumptweets.svg?token=AxChYBy4KoAyjsd75Ua6&branch=master)](https://travis-ci.com/Capdt/rumptweets)
 
