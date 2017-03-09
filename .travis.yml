@@ -13,6 +13,7 @@ node_js:
 before_script:
   - npm install -g bower polymer-cli firebase-tools
   - bower install
+   - chmod +x scripts/bash/deploy.sh
 script:
   # - xvfb-run npm test
   - polymer build
@@ -21,7 +22,7 @@ after_success:
 deploy:
   # deploy master banch to production server
   - provider: script
-    script: cd $TRAVIS_BUILD_DIR firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+    script: sh scripts/bash/deploy.sh
     on:
       branch: master
   # deploy test branch to test server
