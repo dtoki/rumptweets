@@ -21,7 +21,7 @@ after_success:
 deploy:
   # deploy master banch to production server
   - provider: script
-    script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+    script: cd $TRAVIS_BUILD_DIR firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
     on:
       branch: master
   # deploy test branch to test server
