@@ -12,10 +12,10 @@ node_js:
   - '6'
 before_script:
   - npm install -g bower polymer-cli firebase-tools
-script:
-  # - xvfb-run npm test
   - cd $TRAVIS_BUILD_DIR/app/front-end-module/
   - bower install
+script:
+  # - xvfb-run npm test
   - polymer build
 after_success:
   - echo "Deploying Service";
@@ -29,7 +29,7 @@ deploy:
 
   # deploy develop branch to test server
   - provider: gae
-    keyfile: keys/app_engine_key.json
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config: app/front-end-module/front-end-module.yaml
     version: develop
     project: "rumptweets-2c7cc"
@@ -39,7 +39,7 @@ deploy:
       branch: develop
   # deploy develop branch to test server
   - provider: gae
-    keyfile: keys/app_engine_key.json
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config: app/image-server-module/image-server-module.yaml
     version: develop
     project: "rumptweets-2c7cc"
@@ -50,7 +50,7 @@ deploy:
 
   # deploy test branch to test server
   - provider: gae
-    keyfile: keys/app_engine_key.json
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config: app/front-end-module/front-end-module.yaml
     version: test
     project: "rumptweets-2c7cc"
@@ -60,7 +60,7 @@ deploy:
       branch: test
   # deploy test branch to test server
   - provider: gae
-    keyfile: keys/app_engine_key.json
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config: app/image-server-module/image-server-module.yaml
     version: test
     project: "rumptweets-2c7cc"
