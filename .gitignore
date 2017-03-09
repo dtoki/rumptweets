@@ -1,22 +1,8 @@
-<<<<<<< HEAD
-##Ignore this folders
-=======
 ##Ignore this folders in this branch
 node_modules/
->>>>>>> image_server
 bower_components/
 image_upload_repo/
 build/
-<<<<<<< HEAD
-node_modules/
-image_upload_repo/
-app/
 
 ##Ignore all log files
 *.log
-
-##Ignore file
-debug.log
-=======
-images/
->>>>>>> image_server
