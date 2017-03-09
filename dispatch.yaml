@@ -1,6 +1,6 @@
 dispatch:
   # Send all mobile traffic to the mobile frontend.
-  - url: "*/front-end/*"
+  - url: "rumptweets-2c7cc.appspot.com/develop"
     module: front-end-module
 
   # Send all work to the one static backend. 
