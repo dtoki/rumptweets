@@ -30,7 +30,7 @@ deploy:
   # deploy develop branch to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config: app/front-end-module/front-end-module.yaml
+    config:  $TRAVIS_BUILD_DIR/keys/app/front-end-module/front-end-module.yaml
     version: develop
     project: "rumptweets-2c7cc"
     skip_cleanup: true
@@ -40,7 +40,7 @@ deploy:
   # deploy develop branch to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config: app/image-server-module/image-server-module.yaml
+    config:  $TRAVIS_BUILD_DIR/keys/app/image-server-module/image-server-module.yaml
     version: develop
     project: "rumptweets-2c7cc"
     skip_cleanup: true
@@ -51,7 +51,7 @@ deploy:
   # deploy test branch to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config: app/front-end-module/front-end-module.yaml
+    config:  $TRAVIS_BUILD_DIR/keys/app/front-end-module/front-end-module.yaml
     version: test
     project: "rumptweets-2c7cc"
     skip_cleanup: true
@@ -61,7 +61,7 @@ deploy:
   # deploy test branch to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config: app/image-server-module/image-server-module.yaml
+    config:  $TRAVIS_BUILD_DIR/keys/app/image-server-module/image-server-module.yaml
     version: test
     project: "rumptweets-2c7cc"
     skip_cleanup: true
