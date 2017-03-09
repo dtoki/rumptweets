@@ -2,7 +2,7 @@
   "name": "rump-tweets",
   "version": "0.0.5",
   "description": "Make tweets like the most “powerful” man in the world, our President, Donald J Trump",
-  "main": "server.js",
+  "main": "app.js",
   "directories": {
     "test": "test"
   },
@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
