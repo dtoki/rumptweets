@@ -68,3 +68,5 @@ deploy:
     default: true
     on: 
       branch: test
+after_deploy:
+  - gcloud app deploy dispatch.yaml
