@@ -26,33 +26,23 @@ after_success:
   - ls $TRAVIS_BUILD_DIR/app/font-end-module 
   - ls $TRAVIS_BUILD_DIR/app/image-server-module
 deploy:
-  # deploy master banch to production server
+  # deploy master banch front end to production server
   - provider: script
     script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
     skip_cleanup: true
     on:
       branch: master
-
-  # deploy develop branch to test server
-  - provider: gae
-    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
-    project: "rumptweets-2c7cc"
-    skip_cleanup: true
-    default: true
-    on: 
-      branch: develop
-  # deploy develop branch to test server
+  # deploy master image server module to production server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
+    version: master
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
     on: 
-      branch: develop
-
-  # deploy test branch to test server
+      branch: test
+  # deploy test branch front end to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
@@ -62,7 +52,7 @@ deploy:
     default: true
     on: 
       branch: test
-  # deploy test branch to test server
+  # deploy test branch image server module to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
@@ -72,3 +62,23 @@ deploy:
     default: true
     on: 
       branch: test
+  # deploy develop branch front end module to develop server
+  - provider: gae
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
+    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
+    version: develop
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: 
+      branch: develop
+  # deploy develop branch image server module to developp server
+  - provider: gae
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
+    config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
+    version: develop
+    project: "rumptweets-2c7cc"
+    skip_cleanup: true
+    default: true
+    on: 
+      branch: develop
