@@ -565,7 +565,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.addEventListener("load",function(){globalThis.makeImageDoneListener(event,data)});
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
-        oReq.open("POST", "https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet");
+        var url = window.location.href;
+        var postUrl;
+        if(url.indexOf("test")!=-1){
+          //develop is part of the url were being hosted
+          postUrl = "https://image-server-module-test-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+        }
+        else if(url.indexOf("develop")!=-1){
+          //develop is part of the url were being hoested
+          postUrl = "https://image-server-module-develop-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+        }else{
+          //it is the local host or it's been deployed; use the main link
+          postUrl = "https://image-server-module-master-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+        }
+        // https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet
+        oReq.open("POST", postUrl);
         oReq.setRequestHeader("content-type", "application/json");
         oReq.send(JSON.stringify(data));
         //Send analytics 
