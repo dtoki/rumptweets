@@ -2,6 +2,9 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+
 <link rel="import" href="styles/animate-css.html">
 <dom-module id="my-tweetgallery">
     <template>
@@ -9,14 +12,39 @@
             :host {
                 display: block;
             }
+            #facebookShare{
+                margin-top: 45px;
+                width: 500px;
+                color: black;
+                background: white;
+            }
+            #a001{
+                letter-spacing: 2px;
+                margin-top: 25px;
+                color: white;
+                margin-left: auto;
+                margin-right: auto;
+                text-decoration: none;
+                border-bottom:2px solid #fff;
+            }
+            a:visited{
+                color: white;
+            }
+            a:hover{
+                color: #ffffff;
+            }
         </style>
-        <app-route
-            route="{{route}}"
-            pattern="/:user_id/:image_id"
-            data="{{routeData}}"></app-route>
-            <div id="id001"style="background-color:black; width:100%; display: flex; align-content: center; justify-content: center;" class="animated fadeIn">
-                <iron-image preload style="width:600px; height: 100%;" src="{{imageLink}}" sizing="contain"></iron-image>
+            <app-route
+                route="{{route}}"
+                pattern="/:user_id/:image_id"
+                data="{{routeData}}"></app-route>
+            <iron-media-query query="(min-width: 600px)" query-matches="{{mobilePhone}}"></iron-media-query>
+            <div id="id001"style="flex-direction:column; background-color:black; width:100%; display: flex; justify-content: center; align-items: center;" class="animated fadeIn">
+                <img preload style="width:600px;" src="{{imageLink}}" sizing="contain">
+                <paper-button raised id="facebookShare" on-tap="facebookShare"><iron-icon  src="../images/png/ic_facebook.png" style="margin-right:8px;"></iron-icon>{{shareText}}</paper-button>
+                <a id="a001" href="/">Create your own trump tweet</a>
             </div>
+            
     </template>
     <script>
         var globalThis;
@@ -27,14 +55,24 @@
                     type: String,
                     notify: true,
                     reflectToAttribute: true,
+                },
+                shareText: {
+                    type: String,
+                    notify: true,
+                    value: "Share"
+                },
+                mobilePhone: {
+                    type: Boolean,
+                    notify: true,
+                    observer: '_mobilePhoneChange'
                 }
             },
+            
             observers: [
                 '_testRoute(routeData.*)',
             ],
             ready:function(){
                 globalThis = this;
-                console.log(this.$.id001);
                 this.$.id001.style.height=(window.innerHeight - 48)+"px";
                 window.addEventListener("resize",this.windowResize);
                 //console.log(window.innerHeight);
@@ -45,7 +83,65 @@
             _testRoute:function(data){
                 // TODO error handeling if the the user_id and image_id are not passed in
                 this.imageLink = "https://storage.googleapis.com/rumptweets-2c7cc.appspot.com/upload_folder/" + data.value.user_id + "/" + data.value.image_id+ ".png";
-            }
+            },
+            facebookShare: function () {
+                ga('send', 'event', {
+                eventCategory: 'Share Image',
+                eventAction: 'click',
+                eventLabel: "Facebook",
+                transport: 'beacon'
+                });
+                var shareUrl = "https://rumptweets.com/tweetgallery/"+ this.routeData.user_id + "/" + this.routeData.image_id;
+                FB.ui(
+                {
+                    method: 'share',
+                    name: 'Facebook Dialogs',
+                    href: shareUrl,
+                    link: shareUrl,
+                    picture: this.imageLink,
+                    caption: ' Make tweets like the most “powerful” man in the world, our President, Donald J Trump',
+                    description: 'Generate your very own trump tweet',
+                    mobile_iframe: true
+                },
+                function (response) {
+                    if (response && response.post_id) {
+                        ga('set', 'userId', globalThis.user.uid);
+                        ga('send', 'event', {
+                            eventCategory: 'Share Image',
+                            eventAction: 'success',
+                            eventLabel: 'Facebook',
+                            transport: 'beacon'
+                        }, { nonInteraction: true });
+                    } else {
+                        ga('set', 'userId', globalThis.user.uid);
+                            ga('send', 'event', {
+                            eventCategory: 'Share Image',
+                            eventAction: 'fail',
+                            eventLabel: 'Facebook',
+                            transport: 'beacon'
+                            }, { nonInteraction: true });
+                    }
+                }
+            );},
+            _mobilePhoneChange: function (newValue, oldValue) {
+                var allIronImages = Polymer.dom(this.root).querySelectorAll("iron-icon");
+                if (newValue == false) {
+                    this.shareText = "";
+                //get all the iron-icons and remove the paddings
+                for (item in allIronImages) {
+                    var ironIconItem = allIronImages[item];
+                    ironIconItem.style.marginRight = "0px";
+                }
+                } else {
+                this.shareText = "Share";
+                //get all the iron-icons and add the paddings
+                for (item in allIronImages) {
+                    var ironIconItem = allIronImages[item];
+                    ironIconItem.style.marginRight = "4px";
+                }
+                }
+
+            },
         });
     </script>
 </dom-module>

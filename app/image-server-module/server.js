@@ -47,7 +47,7 @@ router.use(function(req, res, next) {
 
 // Serve the tweet
 app.get('/', function(req, res) {
-    //res.send($.html());
+    res.send($.html());
     //res.send(facebookHtml.html());
 });
 
