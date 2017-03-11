@@ -32,7 +32,6 @@ resources:
   cpu: .2
   memory_gb: 0.60
   disk_size_gb: 10
-#only run one instances of this service
 #auto scaling config
 automatic_scaling:
   min_num_instances: 1
