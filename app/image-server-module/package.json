@@ -1,11 +1,14 @@
 {
-  "name": "rump_image_server",
+  "name": "image-server-module",
   "version": "0.0.1",
   "description": "Server to generate trump tweets ",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=5.9.1"
   },
   "repository": {
     "type": "git",
@@ -23,7 +26,7 @@
     "express": "^4.14.1",
     "firebase": "^3.6.9",
     "firebase-admin": "^4.1.0",
-    "google-cloud": "^0.46.2",
+    "google-cloud": "0.47.0",
     "webshot": "^0.18.0"
   }
 }
