@@ -126,12 +126,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     //Google analytics config
     ga('create', 'UA-83846906-2', 'auto');
-    if (location.hostname == 'localhost') {
+    if (location.hostname == 'localhost'  || window.location.hostname.indexOf("appspot")!=-1) {
       ga('set', 'sendHitTask', null);
     }
 
     var tempAppId;
-    if (location.hostname == 'localhost') {
+    if (location.hostname == 'localhost' || window.location.hostname.indexOf("appspot")!=-1) {
       tempAppId = 228591024275517;
     }else{
       tempAppId = 221420734992546;
