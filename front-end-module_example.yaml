@@ -13,21 +13,22 @@
 # limitations under the License.
 
 # [START app_yaml]
-service: front-end-module
+service: front-end-module-develop
 runtime: nodejs
 env: flex
-#Not threadsafe until you can know when a connection is already established then you don't connect
-threadsafe: false
 #resources of the computer that we want to utilize 
 resources:
-  cpu: .5
-  memory_gb: 1.3
+  cpu: .2
+  memory_gb: 0.60
   disk_size_gb: 10
-#disable health_check until we can figure out what it does and how it force restarts https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
-health_check:
-    enable_health_check: false
 #only run one instances of this service
 manual_scaling:
     instances: 1
-
+#auto scaling config
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  cool_down_period_sec: 120 # default value
+  cpu_utilization:
+    target_utilization: 0.75
 # [END app_yaml]
