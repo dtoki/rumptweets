@@ -36,7 +36,7 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: master
+    version: master-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -46,7 +46,7 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
-    version: test
+    version: test-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -56,7 +56,7 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: test
+    version: test-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -66,7 +66,7 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
-    version: develop
+    version: develop-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
@@ -76,7 +76,7 @@ deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
     config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: develop
+    version: develop-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
