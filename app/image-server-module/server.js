@@ -100,6 +100,7 @@ function uploadToFirebaseStorage(userPost,myCallback){
     $('label.userInput').text(userPost.message.toString());
      var options = {
         siteType:'html',
+        quality: 100,
         captureSelector:'#tweet_picture_container',
         defaultWhiteBackground:false,
         streamType:'png',

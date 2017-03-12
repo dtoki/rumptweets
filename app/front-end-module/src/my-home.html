@@ -659,13 +659,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           eventLabel: "Facebook",
           transport: 'beacon'
         });
-        var shareUrl = "https://rumptweets.com/tweetgallery/"+ this.postData.userId + "/" + this.postData.imagePostId;
+        var shareUrl = "https://" + window.location.hostname + "/tweetgallery/"+ this.postData.userId + "/" + this.postData.imagePostId;
         FB.ui(
           {
               method: 'share',
               name: 'Facebook Dialogs',
               href: shareUrl,
-              link: shareUrl,
               picture: this.publicImageLink,
               caption: ' Make tweets like the most “powerful” man in the world, our President, Donald J Trump',
               description: 'Generate your very own trump tweet',
