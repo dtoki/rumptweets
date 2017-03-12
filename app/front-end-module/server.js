@@ -15,6 +15,16 @@ app.get("/",function(req,res){
         res.status(403).json({message:"you dont have access to this page"});
     }
 });
+app.get("/capture",function(req,res){
+    //Serve page if user gets the password
+    if(req.query.pwd =="bluejay101"){
+        app.use(express.static(__dirname+'/build/bundled/'));
+        res.sendFile(__dirname+"/build/bundled/test-image.html");
+    }else{
+        res.status(403).json({message:"you dont have access to this page"});
+    }
+});
+
 
 
 // Start the server
