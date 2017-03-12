@@ -90,8 +90,9 @@
                 eventAction: 'click',
                 eventLabel: "Facebook",
                 transport: 'beacon'
-                });
-                var shareUrl = "https://rumptweets.com/tweetgallery/"+ this.routeData.user_id + "/" + this.routeData.image_id;
+                }); 
+            
+                var shareUrl = "https://" + window.location.hostname + "/tweetgallery/"+ this.routeData.user_id + "/" + this.routeData.image_id;
                 FB.ui(
                 {
                     method: 'share',
