@@ -25,23 +25,22 @@ app.get("/", function(req,res){
 
 // Endpoint for user_id / image_id  
 app.get("/tweetgallery/:user_id/:image_id", function(req,res){
- 
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         console.log("facebook-hit");
         var protocol=req.protocol
         var hostname=req.hostname
-        var ogUrl = protocol + "://" + hostname + + "/tweetgallery" + "/" + req.params.user_id + "/" + req.params.image_id;
-        var imgUrl = protocol + "://" + "storage.googleapis.com/rumptweets-2c7cc.appspot.com/upload_folder" + "/" + req.params.user_id + "/" + req.params.image_id + ".png";
+        var ogUrl = "https" + "://" + hostname + + "/tweetgallery" + "/" + req.params.user_id + "/" + req.params.image_id;
+        var imgUrl = "https" + "://" + "storage.googleapis.com/rumptweets-2c7cc.appspot.com/upload_folder" + "/" + req.params.user_id + "/" + req.params.image_id + ".png";
         facebookHtml("#ogUrl").attr('content',ogUrl);
         facebookHtml("#imgUrl").attr('content',imgUrl);
         facebookHtml("#imageUrl2").attr('src',imgUrl);
         // Change the app id based on the hostname
         if(hostname.indexOf("appspot")!=-1){
             //Found
-            facebookHtml("#fbAppId").attr('id',"228591024275517");
+            facebookHtml("#fbAppId").attr('content',"228591024275517");
         }else{
             //NotFound
-            facebookHtml("#fbAppId").attr('id',"221420734992546");
+            facebookHtml("#fbAppId").attr('content',"221420734992546");
         }
         
         // return the file to te user
