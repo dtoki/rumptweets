@@ -122,7 +122,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     var tempAppId;
-    if (location.hostname == 'localhost' || window.location.hostname.indexOf("appspot")!=-1) {
+    if(window.location.hostname.indexOf("develop")!=-1){
+      tempAppId= 235219446946008;
+    }
+    else if (window.location.hostname == 'localhost' || window.location.hostname.indexOf("test")!=-1) {
       tempAppId = 228591024275517;
     }else{
       tempAppId = 221420734992546;

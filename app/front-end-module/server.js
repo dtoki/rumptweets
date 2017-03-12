@@ -35,7 +35,10 @@ app.get("/tweetgallery/:user_id/:image_id", function(req,res){
         facebookHtml("#imgUrl").attr('content',imgUrl);
         facebookHtml("#imageUrl2").attr('src',imgUrl);
         // Change the app id based on the hostname
-        if(hostname.indexOf("appspot")!=-1){
+        if(hostname.indexOf("develop")!=-1){
+            facebookHtml("#fbAppId").attr('content',"235219446946008");
+        }
+        else if(hostname.indexOf("test")!=-1){
             //Found
             facebookHtml("#fbAppId").attr('content',"228591024275517");
         }else{
