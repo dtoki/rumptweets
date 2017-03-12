@@ -10,7 +10,7 @@ app.use("/images",express.static(__dirname+'/build/bundled/images'));
 var facebookHtml = cheerio.load(fs.readFileSync('src/facebook-image.html','utf8'));
 
 // / endpoint
-app.get("/",function(req,res){
+app.get("/", function(req,res){
     
     app.use(express.static(__dirname+'/build/bundled/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
