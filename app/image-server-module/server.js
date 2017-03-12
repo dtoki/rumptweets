@@ -47,7 +47,7 @@ router.use(function(req, res, next) {
 
 // Serve the tweet
 app.get('/', function(req, res) {
-    res.send($.html());
+    //res.send($.html());
     //res.send(facebookHtml.html());
 });
 
@@ -86,6 +86,7 @@ function createUploadFolder(myCallback){
         };
     });
 }
+
 //Upload to firebase
 function uploadToFirebaseStorage(userPost,myCallback){
     // Folder needs to created to stream
@@ -94,6 +95,7 @@ function uploadToFirebaseStorage(userPost,myCallback){
     } catch (error) {
         console.log("Error creating file " +error);
     }
+
     // Change words on tweet
     $('label.userInput').text(userPost.message.toString());
      var options = {
@@ -108,7 +110,7 @@ function uploadToFirebaseStorage(userPost,myCallback){
     //Take the picture with the options above
     var renderStream = webshot($.html(),options);
     
-    //Writhe the data into the file
+    //Write the data into the file
     renderStream.on('data', function(data) {
         //Write data to file
         try {
@@ -123,6 +125,7 @@ function uploadToFirebaseStorage(userPost,myCallback){
         }
         
     });
+
     //When the data write ends ends then upload file
     renderStream.on('end', function(data){
         //Close the file write stream if not when you try to open again gigi
@@ -140,6 +143,7 @@ function uploadToFirebaseStorage(userPost,myCallback){
                 'og:description':'Tweet like the most powerful man in the world'
             }
         };
+
         //Upload file to bucket
         bucket.upload(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString()+ '.png', options, function(err, file, apiResponse) {
             if(!err){
