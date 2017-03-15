@@ -23,14 +23,24 @@ after_success:
   - cd $TRAVIS_BUILD_DIR
   - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh front-end-module $TRAVIS_BRANCH
   - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh image-server-module $TRAVIS_BRANCH
-  - ls $TRAVIS_BUILD_DIR/app/font-end-module 
+  - ls $TRAVIS_BUILD_DIR/app/front-end-module 
   - ls $TRAVIS_BUILD_DIR/app/image-server-module
 deploy:
   # deploy master banch front end to production server
-  - provider: script
-    script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+  # - provider: script
+  #   script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
+  #   skip_cleanup: true
+  #   on:
+  #     branch: master
+  # deploy master branch front end to production server
+  - provider: gae
+    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
+    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
+    version: master-${TRAVIS_BUILD_NUMBER}
+    project: "rumptweets-2c7cc"
     skip_cleanup: true
-    on:
+    default: true
+    on: 
       branch: master
   # deploy master image server module to production server
   - provider: gae
@@ -41,7 +51,7 @@ deploy:
     skip_cleanup: true
     default: true
     on: 
-      branch: test
+      branch: master
   # deploy test branch front end to test server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
