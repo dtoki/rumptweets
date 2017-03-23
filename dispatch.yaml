@@ -1,1 +1,3 @@
 dispatch:
+- url: "rumptweets.com/*"
+  module: front-end-module-master
