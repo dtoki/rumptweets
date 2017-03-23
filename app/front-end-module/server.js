@@ -3,10 +3,27 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var cheerio = require('cheerio');
+var https = require("https");
+
+//Load the certificates
+var certificate = fs.readFileSync("sslcert/signed.pem","utf8");
+var privateKey = fs.readFileSync("sslcert/domain.pem","utf8");
+// Put credentials in object
+var credentials = { key: privateKey, cert: certificate}
+// Start the server
+var httpsServer = https.createServer(credentials, app);
+const PORT = process.env.PORT || 8080;
+httpsServer.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
+});
+
+
 // Use the built-in express middleware for serving static files from './public'
 app.use("/bower_components",express.static(__dirname+'/build/bundled/bower_components'));
 app.use("/src",express.static(__dirname+'/build/bundled/src'));
 app.use("/images",express.static(__dirname+'/build/bundled/images'));
+app.use(express.static(__dirname+'/.well-known/acme-challenge'));
 var facebookHtml = cheerio.load(fs.readFileSync('src/facebook-image.html','utf8'));
 
 // / endpoint
@@ -22,6 +39,11 @@ app.get("/", function(req,res){
     }
     
 });
+
+// Validate using acme challenge
+// app.get("/.well-known/acme-challenge/",function(req,res){
+//     res.sendfile(__dirname+"/.well-known/acme-challenge/Wycl1z7k3AkoPqJykFzbd4Sg4N5r8NGsEXqVX0SvhJc")
+// });
 
 // Endpoint for user_id / image_id  
 app.get("/tweetgallery/:user_id/:image_id", function(req,res){
@@ -64,12 +86,3 @@ function auth(req,res,next){
      }
     
 }
-
-
-
-// Start the server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
