@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # [START app_yaml]
-service: image-server-module
+service: image-server-module-test
 runtime: nodejs
 env: flex
 #Not threadsafe until you can know when a connection is already established then you don't connect
