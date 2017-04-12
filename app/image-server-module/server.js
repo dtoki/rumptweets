@@ -90,8 +90,9 @@ function createUploadFolder(myCallback){
 //Upload to firebase
 function uploadToFirebaseStorage(userPost,myCallback){
     // Folder needs to created to stream
+     var file;
     try {
-        var file = fs.createWriteStream(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString() + '.png', {encoding: 'binary'});
+        file = fs.createWriteStream(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString() + '.png', {encoding: 'binary'});
     } catch (error) {
         console.log("Error creating file " +error);
     }
