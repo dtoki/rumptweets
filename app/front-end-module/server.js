@@ -23,12 +23,9 @@ var log = logging.log('syslog');
 
 
 //Load the certificates
+
 var certificate = fs.readFileSync("sslcert/cert.pem","utf8");
 var privateKey = fs.readFileSync("sslcert/private.pem","utf8");
-// Put credentials in object
-var credentials = { key: privateKey, cert: certificate}
-
-
 
 // Use the built-in express middleware for serving static files from './public'
 app.use("/bower_components",express.static(__dirname+'/build/default/bower_components'));
@@ -39,7 +36,7 @@ var facebookHtml = cheerio.load(fs.readFileSync('src/facebook-image.html','utf8'
 
 // / endpoint
 var entry;
-app.get("/", httpRedirect,function(req,res){
+app.get("/*", httpsredirect , function(req,res){
     app.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
@@ -63,7 +60,7 @@ app.get("/", httpRedirect,function(req,res){
     //Log response to stack driver
     log.info(entry, function(err, apiResponse) {
         if (!err) {
-        console.log("Entry Successful");
+        console.log("log entry: sucess");
         }else{
             console.log(err);
         }
@@ -73,12 +70,12 @@ app.get("/", httpRedirect,function(req,res){
 
 
 // Validate using acme challenge
-// app.get("/.well-known/acme-challenge/",function(req,res){
-//     res.sendfile(__dirname+"/.well-known/acme-challenge/Wycl1z7k3AkoPqJykFzbd4Sg4N5r8NGsEXqVX0SvhJc")
-// });
+app.get("/.well-known/acme-challenge/*",function(req,res){
+    res.sendFile(__dirname+"/.well-known/acme-challenge/of1eUXz7kmh9DJuemNr_syW5emE5dpL-ydhkYu6Hv3M")
+});
 
 // Endpoint for user_id / image_id  
-app.get("/tweetgallery/:user_id/:image_id", function(req,res){
+app.get("/tweetgallery/:user_id/:image_id",httpsredirect ,function(req,res){
     const  hostname=req.hostname
     //Path to images
     const ogUrl = "https" + "://" + hostname + + "/tweetgallery" + "/" + req.params.user_id + "/" + req.params.image_id;
@@ -114,7 +111,7 @@ app.get("/tweetgallery/:user_id/:image_id", function(req,res){
         //Log response to stack driver
         log.info(entry, function(err, apiResponse) {
             if (!err) {
-            console.log("Entry Successful");
+            console.log("log entry: sucess");
             }else{
                 console.log(err);
             }
@@ -134,7 +131,7 @@ app.get("/tweetgallery/:user_id/:image_id", function(req,res){
         //Log response to stack driver
         log.info(entry, function(err, apiResponse) {
             if (!err) {
-            console.log("Entry Successful");
+            console.log("log entry: sucess");
             }else{
                 console.log(err);
             }
@@ -156,6 +153,38 @@ function httpRedirect(req,res,next){
     if(req.subdomains[0]=="www" || req.get('X-Forwarded-Proto') == 'http'){
         console.log("redirectin");
         res.redirect("https://rumptweets.com");
+    }
+    next();
+}
+//not serving just redirectig
+function httpsredirect(req,res,next){
+    console.log(req.subdomains);
+    if(req.protocol=="http"){
+        if(req.path=="/service-worker.js"){
+            //logging stuff
+            entry = log.entry({get_request_origin: 'user',page_requested: "index.html",reditect_to: "https", path:`${req.path}`,user_ip: `${req.ip}`});
+            log.alert(entry, function(err, apiResponse) {
+                if (!err) {
+                    console.log("log entry: sucess");
+                }else{
+                    console.log(err);
+                }
+            });
+           
+        }else{
+            //todo hard coded remove
+            res.redirect('https://rumptweets.com'+`${req.path}`);
+             //logging stuff
+            entry = log.entry({get_request_origin: 'user',page_requested: "index.html",reditect_to: "https", path:`${req.path}`,user_ip: `${req.ip}`});
+            log.info(entry, function(err, apiResponse) {
+                if (!err) {
+                    console.log("log entry: sucess");
+                }else{
+                    console.log(err);
+                }
+            });
+        }
+        
     }
     next();
 }
