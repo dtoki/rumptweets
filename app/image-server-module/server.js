@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cheerio = require('cheerio');
 var fs = require('fs');
 var app = express();
+// var firebase = require('firebase-admin');
 
 
 // Configure app
@@ -18,10 +19,19 @@ app.use('/images',  express.static(__dirname + '/images'));
 var arg2= process.argv[2];
 var gcs;
 //If on dev machine auth using the passed in credentials
-(arg2=="-dev") ? gcs = storage({
+(arg2=="-d") ? gcs = storage({
     projectId: 'rumptweets-2c7cc',
     keyFilename: 'key/firebase_key.json'
 }) : gcs = storage();
+
+// Fetch the service account key JSON file contents
+// var serviceAccount = require("key/firebase_key.json");
+
+// // Initialize the app with a service account, granting admin privileges
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://rumptweets-2c7cc.firebaseio.com/"
+// });
 
 //Connect to this bucket
 var bucket = gcs.bucket('rumptweets-2c7cc.appspot.com');
@@ -62,6 +72,8 @@ router.route('/gentweet')
             (folderCreated)? console.log("File system created folder"):console.log("File system could not create folder");
             //Start upload process if the folder was created
             (folderCreated)?uploadToFirebaseStorage(userPost, function(data,publicUrl,fileName){
+                //TODO: delete this
+                console.log(JSON.stringify({downloadUrl: data.mediaLink, publicUrl: publicUrl}));
                 res.json({downloadUrl: data.mediaLink, publicUrl: publicUrl});
                 //Delete file
                 fs.unlink(__dirname+fileName,(err)=>{
@@ -90,7 +102,13 @@ function createUploadFolder(myCallback){
 //Upload to firebase
 function uploadToFirebaseStorage(userPost,myCallback){
     // Folder needs to created to stream
-     var file;
+    var file;
+    //TODO: enhance this to generate a user id based on firebase
+    if(userPost.userId === undefined){
+        userPost.userId = "fromFacebookBrowser";
+        //TODO: remove this
+        console.log("replaced userid with facebook folder identifier");
+    }
     try {
         file = fs.createWriteStream(__dirname+'/image_upload_repo/'+userPost.userId.toString()+'_and_'+userPost.imagePostId.toString() + '.png', {encoding: 'binary'});
     } catch (error) {

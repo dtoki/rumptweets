@@ -496,8 +496,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           page: '/home_page',
           title: 'Home Page'
         });
+        //TODO: need to find a fix to this omg so ugly !!!
+        if(globalUid === undefined){
+          globalUid = "fromFacebookBrowser"
+          globalThis.user.uid = "fromFacebookBrowser"
+        }
         ga('set', 'userId', globalUid);
         ga('send', 'pageview');
+      
         
         var donaldTrunpHandUp = Polymer.dom(rootThis.root).querySelector("#donaldHandUp_Image");
         var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
@@ -607,16 +613,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         paperDialog.open();
       },
       makeImageDoneListener: function (event,data) {
-        ga('set', 'userId', globalThis.user.uid);
+       globalThis.postDataToFireBase(data);
+       globalThis.responseText = JSON.parse(event.target.responseText);
+       globalThis.shortenUrl(JSON.parse(event.target.responseText).downloadUrl);
+       ga('set', 'userId', globalThis.user.uid);
         ga('send', 'event', {
           eventCategory: 'Generate Image',
           eventAction: 'success',
           eventLabel: 'Server respose',
           transport: 'beacon'
         }, { nonInteraction: true });
-       globalThis.postDataToFireBase(data);
-       globalThis.responseText = JSON.parse(event.target.responseText);
-       globalThis.shortenUrl(JSON.parse(event.target.responseText).downloadUrl);
       },
       makeImageErrorListener: function (event) {
         globalThis.$.toast.open();
