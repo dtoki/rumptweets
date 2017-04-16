@@ -17,7 +17,6 @@ service: image-server-module-master
 runtime: nodejs
 env: flex
 #Not threadsafe until you can know when a connection is already established then you don't connect
-threadsafe: false
 #resources of the computer that we want to utilize 
 resources:
   cpu: .2
@@ -30,5 +29,4 @@ automatic_scaling:
   cool_down_period_sec: 120 # default value
   cpu_utilization:
     target_utilization: 0.75
-
 # [END app_yaml]
