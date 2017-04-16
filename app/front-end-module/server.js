@@ -26,6 +26,7 @@ var log = logging.log('syslog');
 
 var certificate = fs.readFileSync("sslcert/cert.pem","utf8");
 var privateKey = fs.readFileSync("sslcert/private.pem","utf8");
+ var credentials = { key: privateKey, cert: certificate}
 
 // Use the built-in express middleware for serving static files from './public'
 app.use("/bower_components",express.static(__dirname+'/build/default/bower_components'));
