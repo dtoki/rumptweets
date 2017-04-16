@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "engines": {
+    "node": ">=5.9.1"
+  },
   "dependencies": {
     "@google-cloud/debug-agent": "^1.0.0",
     "@google-cloud/logging": "^0.8.1",

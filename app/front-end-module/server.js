@@ -4,6 +4,7 @@ var app = express();
 var fs = require('fs');
 var cheerio = require('cheerio');
 var https = require("https");
+var http = require("http");
 //Enable stack driver
 require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
 var logging;
@@ -22,24 +23,24 @@ var log = logging.log('syslog');
 
 
 //Load the certificates
-var certificate = fs.readFileSync("sslcert/signed.pem","utf8");
-var privateKey = fs.readFileSync("sslcert/domain.pem","utf8");
+var certificate = fs.readFileSync("sslcert/cert.pem","utf8");
+var privateKey = fs.readFileSync("sslcert/private.pem","utf8");
 // Put credentials in object
 var credentials = { key: privateKey, cert: certificate}
 
 
 
 // Use the built-in express middleware for serving static files from './public'
-app.use("/bower_components",express.static(__dirname+'/build/bundled/bower_components'));
-app.use("/src",express.static(__dirname+'/build/bundled/src'));
-app.use("/images",express.static(__dirname+'/build/bundled/images'));
+app.use("/bower_components",express.static(__dirname+'/build/default/bower_components'));
+app.use("/src",express.static(__dirname+'/build/default/src'));
+app.use("/images",express.static(__dirname+'/build/default/images'));
 app.use(express.static(__dirname+'/.well-known/acme-challenge'));
 var facebookHtml = cheerio.load(fs.readFileSync('src/facebook-image.html','utf8'));
 
 // / endpoint
 var entry;
-app.get("/", function(req,res){
-    app.use(express.static(__dirname+'/build/bundled/'));
+app.get("/", httpRedirect,function(req,res){
+    app.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
         console.log("facebook_hit");
@@ -49,7 +50,7 @@ app.get("/", function(req,res){
             user_ip: `${req.ip}`
 
         });
-        res.sendFile(__dirname+"/build/bundled/src/test-image.html");
+        res.sendFile(__dirname+"/build/default/src/test-image.html");
     }else{
         console.log("user_hit");
         entry = log.entry( {
@@ -57,7 +58,7 @@ app.get("/", function(req,res){
             page_requested: "index.html",
             user_ip: `${req.ip}`
         });
-        res.sendFile(__dirname+"/build/bundled/index.html");
+        res.sendFile(__dirname+"/build/default/index.html");
     }
     //Log response to stack driver
     log.info(entry, function(err, apiResponse) {
@@ -121,7 +122,7 @@ app.get("/tweetgallery/:user_id/:image_id", function(req,res){
         
     }else{
         console.log("user-hit");
-        res.sendFile(__dirname+"/build/bundled/index.html");
+        res.sendFile(__dirname+"/build/default/index.html");
         entry = log.entry( {
             get_request_origin: 'users browser',
             page_requested: "tweet galaxy page",
@@ -148,15 +149,30 @@ function auth(req,res,next){
      }else{
         res.status(403).json({message:"you dont have access to this page"});
      }
-    
+}
+
+function httpRedirect(req,res,next){
+    //If not secure or www is present
+    if(req.subdomains[0]=="www" || req.get('X-Forwarded-Proto') == 'http'){
+        console.log("redirectin");
+        res.redirect("https://rumptweets.com");
+    }
+    next();
 }
 
 // Start the server
-//var httpsServer = https.createServer(credentials, app);
 const PORT = process.env.PORT || 8080;
+https.createServer(credentials, app).listen(443,()=>{
+    console.log(`App listening on port ${PORT}`)
+});
 
 //TODO: Need to ensure that http redirects to https if not have to use app
-app.listen(PORT, () => {
+http.createServer(app).listen(8080,()=>{
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
 });
+
+
+// app.listen(PORT, () => {
+ 
+// });
