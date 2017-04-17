@@ -5,12 +5,12 @@ var fs = require('fs');
 var cheerio = require('cheerio');
 var https = require("https");
 var http = require("http");
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 //Enable stack driver
 require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
 
 //use the body parser
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 var logging;
 //Logic to instantiate differently based on were being served
 if(process.argv[2]=="-d"){
