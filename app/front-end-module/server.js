@@ -48,7 +48,7 @@ app.get("/*", httpRedirect , function(req,res){
             user_ip: `${req.ip}`
 
         });
-        res.sendFile(__dirname+"/build/default/src/test-image.html");
+        res.sendFile(__dirname+"/build/default/index.html");
     }else{
         console.log("user_hit");
         entry = log.entry( {
