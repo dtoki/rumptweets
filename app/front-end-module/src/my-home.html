@@ -641,7 +641,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
       postDataToFireBase: function(data){
-        if(globalThis.user.uid!=undefined){
+        globalThis.$.toast.text = JSON.stringify(globalThis.user.uid);
+        globalThis.$.toast.open();
+        if(globalThis.user.uid!=undefined||globalThis.user.uid!=null){
           firebase.database().ref().child('Posts/' + globalThis.user.uid + '/' + data.imagePostId ).set(data);
         }else{
           firebase.database().ref().child('Posts/' + "unidentifiedUser" + '/' + data.imagePostId ).push().key.set(data);
