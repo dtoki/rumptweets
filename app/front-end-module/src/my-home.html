@@ -497,10 +497,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           title: 'Home Page'
         });
         //TODO: need to find a fix to this omg so ugly !!!
-        if(globalUid === undefined){
-          globalUid = "fromFacebookBrowser"
-          globalThis.user.uid = "fromFacebookBrowser"
-        }
         ga('set', 'userId', globalUid);
         ga('send', 'pageview');
       
