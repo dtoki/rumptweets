@@ -153,14 +153,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
   
-  <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=221420734992546";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAPSrWdW13qN6-YAIrgZO_0F4CHdE2E4d0",
+    authDomain: "rumptweets-2c7cc.firebaseapp.com",
+    databaseURL: "https://rumptweets-2c7cc.firebaseio.com",
+    projectId: "rumptweets-2c7cc",
+    storageBucket: "rumptweets-2c7cc.appspot.com",
+    messagingSenderId: "570027697414"
+  };
+  firebase.initializeApp(config);
+</script>
   <script>
     var globalUid="";
     Polymer({

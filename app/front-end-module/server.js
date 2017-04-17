@@ -5,8 +5,12 @@ var fs = require('fs');
 var cheerio = require('cheerio');
 var https = require("https");
 var http = require("http");
+var bodyParser = require('body-parser');
 //Enable stack driver
 require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
+
+//use the body parser
+app.use(bodyParser.json());
 var logging;
 //Logic to instantiate differently based on were being served
 if(process.argv[2]=="-d"){
@@ -71,9 +75,9 @@ app.get("/", httpRedirect , function(req,res){
 
 
 // Validate using acme challenge
-app.get("/.well-known/acme-challenge/*",function(req,res){
-    res.sendFile(__dirname+"/.well-known/acme-challenge/of1eUXz7kmh9DJuemNr_syW5emE5dpL-ydhkYu6Hv3M")
-});
+// app.get("/.well-known/acme-challenge/*",function(req,res){
+//     res.sendFile(__dirname+"/.well-known/acme-challenge/of1eUXz7kmh9DJuemNr_syW5emE5dpL-ydhkYu6Hv3M")
+// });
 
 // Endpoint for user_id / image_id  
 app.get("/tweetgallery/:user_id/:image_id",httpRedirect ,function(req,res){
@@ -139,6 +143,26 @@ app.get("/tweetgallery/:user_id/:image_id",httpRedirect ,function(req,res){
         });
     }
    
+});
+
+app.post("/consolelog",function(req,res){
+    // var userpost = req.body;
+    // var entry;
+    // if(userpost.consolelog==undefined || userpost.consolelog==null){
+    //     console.log("web client console log incomplete");
+    //     res.send(200,"You need to include the log");
+    // }else{
+    //     entry = log.entry( {
+    //         user_ip: `${req.ip}`
+    //     },userpost.consolelog);
+    //     log.alert(entry).then(function(data){
+    //         console.log(data[0]);
+    //         console.log("web client message logged");
+    //         res.send(200,"entry sucessful");
+    //     }).catch(function(data){
+    //         console.log(data[0]);
+    //     });
+    // }
 });
 
 function auth(req,res,next){
