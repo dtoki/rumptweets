@@ -37,7 +37,7 @@ var facebookHtml = cheerio.load(fs.readFileSync('src/facebook-image.html','utf8'
 
 // / endpoint
 var entry;
-app.get("/*", httpRedirect , function(req,res){
+app.get("/", httpRedirect , function(req,res){
     app.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
