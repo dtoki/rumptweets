@@ -23,11 +23,11 @@ after_success:
   - rm -r $TRAVIS_BUILD_DIR/app/front-end-module/bower_components
   - echo "Generating deploy script";
   - cd $TRAVIS_BUILD_DIR
-  - sh $TRAVIS_BUILD_DIR/scripts/bash/deploy.sh rumptweet_app_module $TRAVIS_BRANCH
+  - sh $TRAVIS_BUILD_DIR/scripts/bash/deploy.sh rumptweet-app-module $TRAVIS_BRANCH
 deploy:
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/rumptweet_app_module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/rumptweet-app-module.yaml
     version: master-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
@@ -37,7 +37,7 @@ deploy:
   # How to deploy on the test branch
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/rumptweet_app_module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/rumptweet-app-module.yaml
     version: test-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
@@ -47,7 +47,7 @@ deploy:
   # How to deploy on the develop branch
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/rumptweet_app_module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/rumptweet-app-module.yaml
     version: develop-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
