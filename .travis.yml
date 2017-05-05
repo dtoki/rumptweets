@@ -55,7 +55,7 @@ deploy:
     on: 
       branch: develop
 after_deploy:
-  -cd $TRAVIS_BUILD_DIR
-  -sh gcloud app deploy dispatch.yaml
+  - cd $TRAVIS_BUILD_DIR
+  - sh gcloud app deploy dispatch.yaml
 
  
