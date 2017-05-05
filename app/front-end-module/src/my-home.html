@@ -573,17 +573,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         oReq.addEventListener("error", this.makeImageErrorListener);
         //oReq.withCredentials = false;
         var url = window.location.href;
-        var postUrl;
-        if(url.indexOf("test")!=-1){
-          //develop is part of the url were being hosted
-          postUrl = "http://localhost:8080/api/gentweet";
-        }
-        else if(url.indexOf("develop")!=-1){
-          //develop is part of the url were being hoested
-          postUrl = "http://localhost:8080/api/gentweet";
+        //if the current url has localhost
+        if(url.indexOf("localhost")!=-1){
+          postUrl =`https://localhost:8443/api/gentweet`;
         }else{
-          //it is the local host or it's been deployed; use the main link
-          postUrl = "http://localhost:8080/api/gentweet";
+          //no localhost use https
+          postUrl = `https://${window.location.hostname}/api/gentweet`;
         }
         // https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet
         oReq.open("POST", postUrl);

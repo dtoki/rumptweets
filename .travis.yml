@@ -14,83 +14,44 @@ before_script:
   - npm install -g bower polymer-cli@next
   - cd $TRAVIS_BUILD_DIR/app/front-end-module/
   - bower install
-  - chmod +x $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh
+  - chmod +x $TRAVIS_BUILD_DIR/scripts/bash/deploy.sh
 script:
   # - xvfb-run npm test
   - polymer build
 after_success:
   - echo "Removing bower compontnts before deploy";
   - rm -r $TRAVIS_BUILD_DIR/app/front-end-module/bower_components
-  - echo "Generating script";
+  - echo "Generating deploy script";
   - cd $TRAVIS_BUILD_DIR
-  - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh front-end-module $TRAVIS_BRANCH
-  - sh $TRAVIS_BUILD_DIR/scripts/bash/config_module_deploy.sh image-server-module $TRAVIS_BRANCH
-  - ls $TRAVIS_BUILD_DIR/app/front-end-module 
-  - ls $TRAVIS_BUILD_DIR/app/image-server-module
+  - sh $TRAVIS_BUILD_DIR/scripts/bash/deploy.sh front_end-and-back_end_module $TRAVIS_BRANCH
 deploy:
-  # deploy master banch front end to production server
-  # - provider: script
-  #   script: firebase deploy --token ${FIREBASE_API_TOKEN} --only hosting
-  #   skip_cleanup: true
-  #   on:
-  #     branch: master
-  # deploy master branch front end to production server
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/front_end-and-back_end_module.yaml
     version: master-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
     on: 
       branch: master
-  # deploy master image server module to production server
+  # How to deploy on the test branch
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: master-${TRAVIS_BUILD_NUMBER}
-    project: "rumptweets-2c7cc"
-    skip_cleanup: true
-    default: true
-    on: 
-      branch: master
-  # deploy test branch front end to test server
-  - provider: gae
-    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/front_end-and-back_end_module.yaml
     version: test-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
     on: 
       branch: test
-  # deploy test branch image server module to test server
+  # How to deploy on the develop branch
   - provider: gae
     keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: test-${TRAVIS_BUILD_NUMBER}
-    project: "rumptweets-2c7cc"
-    skip_cleanup: true
-    default: true
-    on: 
-      branch: test
-  # deploy develop branch front end module to develop server
-  - provider: gae
-    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/front-end-module/front-end-module.yaml
+    config:  $TRAVIS_BUILD_DIR/app/front_end-and-back_end_module.yaml
     version: develop-${TRAVIS_BUILD_NUMBER}
     project: "rumptweets-2c7cc"
     skip_cleanup: true
     default: true
     on: 
       branch: develop
-  # deploy develop branch image server module to developp server
-  - provider: gae
-    keyfile: $TRAVIS_BUILD_DIR/keys/app_engine_key.json
-    config:  $TRAVIS_BUILD_DIR/app/image-server-module/image-server-module.yaml
-    version: develop-${TRAVIS_BUILD_NUMBER}
-    project: "rumptweets-2c7cc"
-    skip_cleanup: true
-    default: true
-    on: 
-      branch: develop
+ 
