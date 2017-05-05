@@ -1,6 +1,6 @@
 dispatch:
 - url: "rumptweets.com/*"
-  module: rumptweet-app-module-develop
+  module: rumptweet-app-module-master
   
 - url: "www.rumptweets.com/*"
-  module: rumptweet-app-module-develop
+  module: rumptweet-app-module-master
