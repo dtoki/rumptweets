@@ -1,6 +1,6 @@
-# dispatch:
-# - url: "rumptweets.com/*"
-#   module: front-end-module-master
+dispatch:
+- url: "rumptweets.com/*"
+  module: rumptweet-app-module-develop
   
-# - url: "www.rumptweets.com/*"
-#   module: front-end-module-master
+- url: "www.rumptweets.com/*"
+  module: rumptweet-app-module-develop
