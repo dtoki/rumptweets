@@ -1,48 +1,17 @@
-'use strict';
-var express = require('express');
-var app = express();
-var fs = require('fs');
-var cheerio = require('cheerio');
-var https = require("https");
-var http = require("http");
-// var bodyParser = require('body-parser');
-//Enable stack driver
-require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
-
-//use the body parser
-// app.use(bodyParser.json());
-var logging;
-//Logic to instantiate differently based on were being served
-if(process.argv[2]=="-d"){
-    //Gcloud logging
-    logging = require('@google-cloud/logging')({
-        projectId: 'rumptweets-2c7cc',
-        keyFilename: __dirname + '/keys/app_engine_key.json'
-    });
-}else{
-    //Gcloud logging
-    logging = require('@google-cloud/logging')();
-}
-var log = logging.log('syslog');
+const router = require('express').Router(),
+cheerio = require("cheerio"),
+fs = require("fs");
 
 
-//Load the certificates
+//load facebook html
+const facebookHtml = cheerio.load(fs.readFileSync(__dirname+'/../src/facebook-image.html','utf8'));
+var log;
 
-var certificate = fs.readFileSync(__dirname+"/sslcert/cert.pem","utf8");
-var privateKey = fs.readFileSync(__dirname+"/sslcert/private.pem","utf8");
-var credentials = { key: privateKey, cert: certificate}
+//init google services
+initGoogleServices();
 
-// Use the built-in express middleware for serving static files from './public'
-app.use("/bower_components",express.static(__dirname+'/build/default/bower_components'));
-app.use("/src",express.static(__dirname+'/build/default/src'));
-app.use("/images",express.static(__dirname+'/build/default/images'));
-app.use(express.static(__dirname+'/.well-known/acme-challenge'));
-var facebookHtml = cheerio.load(fs.readFileSync(__dirname+'/src/facebook-image.html','utf8'));
-
-// / endpoint
-var entry;
-app.get("/", httpRedirect , function(req,res){
-    app.use(express.static(__dirname+'/build/default/'));
+router.get('/', ( req, httpRedirect, res) => {
+    // app.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
         console.log("facebook_hit");
@@ -52,7 +21,7 @@ app.get("/", httpRedirect , function(req,res){
             user_ip: `${req.ip}`
 
         });
-        res.sendFile(__dirname+"/build/default/index.html");
+        res.sendFile(__dirname+"../build/default/index.html");
     }else{
         console.log("user_hit");
         entry = log.entry( {
@@ -60,7 +29,7 @@ app.get("/", httpRedirect , function(req,res){
             page_requested: "index.html",
             user_ip: `${req.ip}`
         });
-        res.sendFile(__dirname+"/build/default/index.html");
+        res.sendFile(__dirname+"../build/default/index.html");
     }
     //Log response to stack driver
     log.info(entry, function(err, apiResponse) {
@@ -70,17 +39,10 @@ app.get("/", httpRedirect , function(req,res){
             console.log(err);
         }
     });
-    
 });
 
-
-// Validate using acme challenge
-// app.get("/.well-known/acme-challenge/*",function(req,res){
-//     res.sendFile(__dirname+"/.well-known/acme-challenge/of1eUXz7kmh9DJuemNr_syW5emE5dpL-ydhkYu6Hv3M")
-// });
-
-// Endpoint for user_id / image_id  
-app.get("/tweetgallery/:user_id/:image_id",httpRedirect ,function(req,res){
+//tweetgalary route
+router.get("/tweetgallery/:user_id/:image_id", httpRedirect, function(req,res){
     const  hostname=req.hostname
     //Path to images
     const ogUrl = "https" + "://" + hostname + + "/tweetgallery" + "/" + req.params.user_id + "/" + req.params.image_id;
@@ -145,24 +107,32 @@ app.get("/tweetgallery/:user_id/:image_id",httpRedirect ,function(req,res){
    
 });
 
-
 function httpRedirect(req,res,next){
     //If not secure or www is present
     if(req.subdomains[0]=="www" || req.get('X-Forwarded-Proto') == 'http'){
-        console.log("redirectin");
+        console.log("redirecting to secure site");
         res.redirect("https://rumptweets.com");
     }
     next();
 }
 
-// Start the server
-const PORT = process.env.PORT || 8080;
-https.createServer(credentials, app).listen(443,()=>{
-    console.log(`App listening on port ${PORT}`)
-});
+function initGoogleServices(){
+    var logging;
+    if(process.argv[2]=="-d"){
+        //Gcloud logging
+        logging = require('@google-cloud/logging')({
+            projectId: 'rumptweets-2c7cc',
+            keyFilename: __dirname + '/keys/app_engine_key.json'
+        });
+    }else{
+        //Gcloud logging
+        logging = require('@google-cloud/logging')();
+    }
+    log = logging.log('syslog');
+}
 
-//TODO: Need to ensure that http redirects to https if not have to use app
-http.createServer(app).listen(8080,()=>{
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
+
+// const api = require('./api');
+// router.use('/api', api);
+
+module.exports = router;

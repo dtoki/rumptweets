@@ -1,7 +1,7 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "Rump tweets app",
   "authors": [
-    "The Polymer Authors"
+    "Dolapo Toki"
   ],
   "license": "https://polymer.github.io/LICENSE.txt",
   "dependencies": {

@@ -1,4 +1,3 @@
-
 # Copyright 2015-2016, Google, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +12,9 @@
 # limitations under the License.
 
 # [START app_yaml]
-service: image-server-module-master
+service: service-merge-module-develop
 runtime: nodejs
 env: flex
-#Not threadsafe until you can know when a connection is already established then you don't connect
 #resources of the computer that we want to utilize 
 resources:
   cpu: .2
