@@ -10,7 +10,7 @@ var log;
 //init google services
 initGoogleServices();
 
-router.get('/', ( req, httpRedirect, res) => {
+router.get('/', httpRedirect , ( req, res) => {
     // app.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
@@ -108,7 +108,7 @@ router.get("/tweetgallery/:user_id/:image_id", httpRedirect, function(req,res){
 });
 
 function httpRedirect(req,res,next){
-    //If not secure or www is present
+    //if not secure or www is present
     if(req.subdomains[0]=="www" || req.get('X-Forwarded-Proto') == 'http'){
         console.log("redirecting to secure site");
         res.redirect("https://rumptweets.com");
