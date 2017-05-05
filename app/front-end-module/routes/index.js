@@ -131,8 +131,4 @@ function initGoogleServices(){
     log = logging.log('syslog');
 }
 
-
-// const api = require('./api');
-// router.use('/api', api);
-
 module.exports = router;

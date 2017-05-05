@@ -576,14 +576,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var postUrl;
         if(url.indexOf("test")!=-1){
           //develop is part of the url were being hosted
-          postUrl = "https://image-server-module-test-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+          postUrl = "http://localhost:8080/api/gentweet";
         }
         else if(url.indexOf("develop")!=-1){
           //develop is part of the url were being hoested
-          postUrl = "https://image-server-module-develop-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+          postUrl = "http://localhost:8080/api/gentweet";
         }else{
           //it is the local host or it's been deployed; use the main link
-          postUrl = "https://image-server-module-master-dot-rumptweets-2c7cc.appspot.com/api/gentweet";
+          postUrl = "http://localhost:8080/api/gentweet";
         }
         // https://tump-tweet-generator-dot-rumptweets-2c7cc.appspot-preview.com/api/gentweet
         oReq.open("POST", postUrl);
