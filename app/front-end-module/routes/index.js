@@ -1,4 +1,6 @@
-const router = require('express').Router(),
+const router = require('express').Router()
+express = require('express'),
+path = require('path'),
 cheerio = require("cheerio"),
 fs = require("fs");
 
@@ -10,8 +12,8 @@ var log;
 //init google services
 initGoogleServices();
 
-router.get('/', httpRedirect , ( req, res) => {
-    // app.use(express.static(__dirname+'/build/default/'));
+router.get("/?(home|aboutus|privacy)", httpRedirect , ( req, res) => {
+     //router.use(express.static(__dirname+'/build/default/'));
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
         console.log("facebook_hit");
@@ -21,7 +23,7 @@ router.get('/', httpRedirect , ( req, res) => {
             user_ip: `${req.ip}`
 
         });
-        res.sendFile(__dirname+"../build/default/index.html");
+        res.sendFile(path.resolve(__dirname+"/../build/default/index.html"));
     }else{
         console.log("user_hit");
         entry = log.entry( {
@@ -29,7 +31,7 @@ router.get('/', httpRedirect , ( req, res) => {
             page_requested: "index.html",
             user_ip: `${req.ip}`
         });
-        res.sendFile(__dirname+"../build/default/index.html");
+        res.sendFile(path.resolve(__dirname+"/../build/default/index.html"));
     }
     //Log response to stack driver
     log.info(entry, function(err, apiResponse) {
@@ -86,7 +88,8 @@ router.get("/tweetgallery/:user_id/:image_id", httpRedirect, function(req,res){
         
     }else{
         console.log("user-hit");
-        res.sendFile(__dirname+"/build/default/index.html");
+        //res.sendFile(__dirname+"/../build/default/index.html");
+        res.sendFile(path.resolve(__dirname+"/../build/default/index.html"));
         entry = log.entry( {
             get_request_origin: 'users browser',
             page_requested: "tweet galaxy page",
@@ -122,7 +125,7 @@ function initGoogleServices(){
         //Gcloud logging
         logging = require('@google-cloud/logging')({
             projectId: 'rumptweets-2c7cc',
-            keyFilename: __dirname + '/keys/app_engine_key.json'
+            keyFilename: __dirname + '/../keys/app_engine_key.json'
         });
     }else{
         //Gcloud logging

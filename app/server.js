@@ -19,13 +19,17 @@ const certificate = fs.readFileSync("certs/cert.pem","utf8");
 const privateKey = fs.readFileSync("certs/private.pem","utf8");
 var credentials = { key: privateKey, cert: certificate}
 //define the static folders
-app.use(express.static(__dirname+'/front-end-module/build/default/'));
+
 
 app.use(bodyParser.json());
 const webaproute = require('./front-end-module/routes');
 app.use('/', webaproute);
 const apiroute = require('./image-server-module/api')
 app.use('/api', apiroute);
+
+//placing this after so the routs are called first
+app.use(express.static(__dirname+'/front-end-module/build/default/'));
+
 
 
 https.createServer(credentials, app).listen(8443,()=>{

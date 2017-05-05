@@ -31,7 +31,7 @@ router.route('/gentweet')
 //upload file to cloud
 function uploadFile(userPost,callback){
     //Create a file using the passed in details
-    var file = bucket.file(`${userPost.userId}/${userPost.imagePostId}.png`);
+    var file = bucket.file(`upload_folder/${userPost.userId}/${userPost.imagePostId}.png`);
     //Send back file url while it uploads
     $('label.userInput').text(userPost.message.toString());
      var options = {
