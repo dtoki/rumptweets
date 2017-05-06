@@ -12,8 +12,42 @@ var log;
 //init google services
 initGoogleServices();
 
+router.get("/", httpRedirect , ( req, res) => {
+     //router.use(express.static(__dirname+'/build/default/'));
+     //TODO: refactor this
+    if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
+        //Log 
+        console.log("facebook_hit");
+        entry = log.entry( {
+            get_request_origin: 'facebook bot',
+            page_requested: "test-image.html",
+            user_ip: `${req.ip}`
+
+        });
+        res.sendFile(path.resolve(__dirname+"/../build/default/index.html"));
+    }else{
+        console.log("user_hit");
+        entry = log.entry( {
+            get_request_origin: 'users browser',
+            page_requested: "index.html",
+            user_ip: `${req.ip}`
+        });
+        res.sendFile(path.resolve(__dirname+"/../build/default/index.html"));
+    }
+    //Log response to stack driver
+    log.info(entry, function(err, apiResponse) {
+        if (!err) {
+        console.log("log entry: sucess");
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+
 router.get("/?(home|aboutus|privacy)", httpRedirect , ( req, res) => {
      //router.use(express.static(__dirname+'/build/default/'));
+     //TODO: refactor this
     if(req.get('User-Agent').indexOf("facebookexternalhit")!=-1){
         //Log 
         console.log("facebook_hit");
