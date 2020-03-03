@@ -7,7 +7,7 @@ var https = require("https");
 var http = require("http");
 // var bodyParser = require('body-parser');
 //Enable stack driver
-require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
+// require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
 
 //use the body parser
 // app.use(bodyParser.json());

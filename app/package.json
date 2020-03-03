@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Capdt/rumptweets.git"
+    "url": "git+https://github.com/dtoki/rumptweets.git"
   },
   "keywords": [
     "tweet",

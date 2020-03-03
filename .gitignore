@@ -1,8 +1,12 @@
+##Ignore all log files
+*.log
+
 ##Ignore this folders in this branch
 node_modules/
 bower_components/
 image_upload_repo/
 build/
-
-##Ignore all log files
-*.log
+sslcert/
+certs/
+key/
+keys/

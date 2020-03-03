@@ -21,7 +21,7 @@
     "neon-animation": "^1.2.4",
     "animate.css": "^3.5.2",
     "paper-spinner": "^1.2.1",
-    "iron-grid": "*",
+    "iron-grid": "7cc741496f5ae0d6c2334c2ebb1a6671ac28af7d",
     "paper-button": "^1.0.14",
     "iron-fit-behavior": "^1.2.5",
     "paper-input": "^1.1.23",

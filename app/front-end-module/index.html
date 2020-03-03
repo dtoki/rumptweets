@@ -108,49 +108,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </script>
 
   <script>
-
+    // TODO: fix google analytics and facbook app!!
     //Google analytics
-    (function (i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    // (function (i, s, o, g, r, a, m) {
+    //   i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+    //     (i[r].q = i[r].q || []).push(arguments)
+    //   }, i[r].l = 1 * new Date(); a = s.createElement(o),
+    //     m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    // })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    //Google analytics config
-    ga('create', 'UA-83846906-2', 'auto');
-    if (location.hostname == 'localhost'  || window.location.hostname.indexOf("appspot")!=-1) {
-      ga('set', 'sendHitTask', null);
-    }
+    // //Google analytics config
+    // ga('create', 'UA-83846906-2', 'auto');
+    // if (location.hostname == 'localhost'  || window.location.hostname.indexOf("appspot")!=-1) {
+    //   ga('set', 'sendHitTask', null);
+    // }
 
-    var tempAppId;
-    if(window.location.hostname.indexOf("develop")!=-1){
-      tempAppId= 235219446946008;
-    }
-    else if (window.location.hostname == 'localhost' || window.location.hostname.indexOf("test")!=-1) {
-      tempAppId = 228591024275517;
-    }else{
-      tempAppId = 221420734992546;
-    }
+    // var tempAppId;
+    // if(window.location.hostname.indexOf("develop")!=-1){
+    //   tempAppId= 235219446946008;
+    // }
+    // else if (window.location.hostname == 'localhost' || window.location.hostname.indexOf("test")!=-1) {
+    //   tempAppId = 228591024275517;
+    // }else{
+    //   tempAppId = 221420734992546;
+    // }
 
     //Facebook Libiary initilization
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: tempAppId,
-        xfbml: true,
-        version: 'v2.8',
-        cookie: true
-      });
-      FB.AppEvents.logPageView();
-    };
+    // window.fbAsyncInit = function () {
+    //   FB.init({
+    //     appId: tempAppId,
+    //     xfbml: true,
+    //     version: 'v2.8',
+    //     cookie: true
+    //   });
+    //   FB.AppEvents.logPageView();
+    // };
 
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    } (document, 'script', 'facebook-jssdk'));
+    // (function (d, s, id) {
+    //   var js, fjs = d.getElementsByTagName(s)[0];
+    //   if (d.getElementById(id)) { return; }
+    //   js = d.createElement(s); js.id = id;
+    //   js.src = "//connect.facebook.net/en_US/sdk.js";
+    //   fjs.parentNode.insertBefore(js, fjs);
+    // } (document, 'script', 'facebook-jssdk'));
 
   </script>
 

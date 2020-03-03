@@ -1,9 +1,5 @@
-# Rump tweets Staging
-
-Production server build status
-
-
-Test server build status  
+# Rump tweets
+ 
 ### Build status
 [![Production](https://travis-ci.com/Capdt/rumptweets.svg?token=AxChYBy4KoAyjsd75Ua6&branch=master)](https://travis-ci.com/Capdt/rumptweets)
 
@@ -25,9 +21,11 @@ The PRPL pattern, in a nutshell:
 ##### Prerequisites
 
 First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
-[npm](https://www.npmjs.com) (I assume you have pre-installed [node.js](https://nodejs.org)).
-
-    npm install -g polymer-cli
+[npm](https://www.npmjs.com).
+    
+    nvm install v6.10.10 #use nvm to install node 6.
+    npm install -g polymer-cli@0.18.1
+    npm install -g bower@1.8.0
 
 ##### Clone this repository
 

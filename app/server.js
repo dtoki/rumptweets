@@ -13,7 +13,7 @@ var gcs;
 var bucket;
 
 //enable stack driver
-require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
+// require('@google-cloud/debug-agent').start({ allowExpressions: true,capture: { maxFrames: 20, maxProperties: 100 } });
 
 const certificate = fs.readFileSync("certs/cert.pem","utf8");
 const privateKey = fs.readFileSync("certs/private.pem","utf8");

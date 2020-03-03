@@ -203,7 +203,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready:function(){
         var globalThis = this;
         //Resive widow 3 to be the width of the inner window
-        this.$.privacy.style.minHeight = (window.innerHeight-70).toString()+"px";
+        // this.$.privacy.style.minHeight = (window.innerHeight-70).toString()+"px";
         window.addEventListener('resize',function(){
           globalThis.$.privacy.style.minHeight = (window.innerHeight-70).toString()+"px";
         });
