@@ -1,5 +1,6 @@
 ##Ignore all log files
 *.log
+.DS_Store
 
 ##Ignore this folders in this branch
 node_modules/
